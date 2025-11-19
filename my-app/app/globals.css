@@ -1,21 +1,37 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F2E8CF;
+  /* Light Mushroom Brown/Beige */
+  --foreground: #4A4036;
+  /* Dark Earthy Brown */
+  --primary: #BC6C25;
+  /* Earthy Orange */
+  --primary-hover: #A65D20;
+  --muted: #E6DCC3;
+  --muted-foreground: #786C60;
+  --border: #D4C5A8;
+  --card: #FCF7E6;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-card: var(--card);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #F2E8CF;
+    /* Enforce light mushroom theme even in dark mode */
+    --foreground: #4A4036;
   }
 }
 
