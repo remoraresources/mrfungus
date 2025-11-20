@@ -9,38 +9,31 @@ export function Footer() {
                     <div>
                         <h3 className="text-lg font-bold mb-4">Umami Mushrooms</h3>
                         <p className="text-[var(--muted)] text-sm mb-4">
-                            Your source for premium mushroom grow kits, fresh fungi, and expert advice. Start your mushroom journey today.
+                            Specializing in premium Lion's Mane grow kits. We make it easy to grow gourmet mushrooms at home.
                         </p>
-                        <Link href="/about-umami" className="text-[var(--primary)] hover:text-[var(--primary-hover)] text-sm">
-                            Find out more
-                        </Link>
                     </div>
 
-                    {/* Product Categories */}
+                    {/* Quick Links */}
                     <div>
-                        <h3 className="text-lg font-bold mb-4">Shop Categories</h3>
-                        <div className="flex flex-wrap gap-2">
-                            {["Grow Kits", "Fresh Mushrooms", "Supplements", "Spores", "Substrates"].map((tag) => (
-                                <Link
-                                    key={tag}
-                                    href={`/shop/${tag.toLowerCase().replace(" ", "-")}`}
-                                    className="text-xs text-[var(--muted)] hover:text-white border border-[var(--border)] px-2 py-1 rounded"
-                                >
-                                    {tag}
-                                </Link>
-                            ))}
+                        <h3 className="text-lg font-bold mb-4">Quick Links</h3>
+                        <div className="flex flex-col gap-2 text-sm text-[var(--muted)]">
+                            <Link href="/#features" className="hover:text-white">Benefits</Link>
+                            <Link href="/#kit-contents" className="hover:text-white">The Kit</Link>
+                            <Link href="/#testimonials" className="hover:text-white">Reviews</Link>
+                            <Link href="/#faq" className="hover:text-white">FAQ</Link>
                         </div>
                     </div>
 
                     {/* Contact */}
                     <div>
-                        <h3 className="text-lg font-bold mb-4">Tell us what you think</h3>
+                        <h3 className="text-lg font-bold mb-4">Contact</h3>
                         <ul className="space-y-2 text-sm text-[var(--muted)]">
                             <li>
-                                <Link href="/contact" className="hover:text-white">
-                                    Contact
+                                <Link href="/#inquiries" className="hover:text-white">
+                                    Inquiry Form
                                 </Link>
                             </li>
+                            <li>hello@umamimushrooms.com</li>
                         </ul>
                     </div>
                 </div>

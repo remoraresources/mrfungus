@@ -91,3 +91,50 @@ export const products: Product[] = [
         category: "Supplements"
     }
 ]
+
+export const testimonials = [
+    {
+        id: "1",
+        name: "Sarah Jenkins",
+        role: "First-time Grower",
+        content: "I was intimidated at first, but this kit made it so easy. Seeing the mushrooms double in size every day was magical!",
+        avatar: "/images/user1.png"
+    },
+    {
+        id: "2",
+        name: "Mike Chen",
+        role: "Home Chef",
+        content: "The taste of fresh Lion's Mane is incomparable to store-bought. It's like having a gourmet ingredient on tap.",
+        avatar: "/images/user2.png"
+    },
+    {
+        id: "3",
+        name: "Emily Ross",
+        role: "Wellness Enthusiast",
+        content: "I love knowing exactly where my food comes from. Plus, it's a fun sustainable hobby that takes up very little space.",
+        avatar: "/images/user3.png"
+    }
+]
+
+export const faqs = [
+    {
+        id: "1",
+        question: "How long does it take to grow?",
+        answer: "You'll typically see baby mushrooms (pins) within 7-10 days of starting, and they'll be ready to harvest in about 2 weeks."
+    },
+    {
+        id: "2",
+        question: "Is it difficult for beginners?",
+        answer: "Not at all! Our kits are designed specifically for beginners. If you can mist a plant with water, you can grow these mushrooms."
+    },
+    {
+        id: "3",
+        question: "What conditions do they need?",
+        answer: "Lion's Mane prefers indirect light (like a kitchen counter out of direct sun) and room temperature (65-75°F). Humidity is key, which is why we provide a humidity tent."
+    },
+    {
+        id: "4",
+        question: "How many harvests will I get?",
+        answer: "You can usually get 2-3 flushes (harvests) from a single kit. The first is the largest, but with care, the block will keep producing."
+    }
+]

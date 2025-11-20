@@ -31,17 +31,20 @@ export function Header() {
                         <Link href="/#home" className="text-sm font-medium text-[var(--foreground)] hover:text-[var(--primary)]">
                             Home
                         </Link>
-                        <Link href="/#vision" className="text-sm font-medium text-[var(--foreground)] hover:text-[var(--primary)]">
-                            Vision
+                        <Link href="/#features" className="text-sm font-medium text-[var(--foreground)] hover:text-[var(--primary)]">
+                            Benefits
+                        </Link>
+                        <Link href="/#kit-contents" className="text-sm font-medium text-[var(--foreground)] hover:text-[var(--primary)]">
+                            The Kit
+                        </Link>
+                        <Link href="/#testimonials" className="text-sm font-medium text-[var(--foreground)] hover:text-[var(--primary)]">
+                            Reviews
                         </Link>
                         <Link href="/#articles" className="text-sm font-medium text-[var(--foreground)] hover:text-[var(--primary)]">
-                            Articles
-                        </Link>
-                        <Link href="/#shop" className="text-sm font-medium text-[var(--foreground)] hover:text-[var(--primary)]">
-                            Shop
+                            Guides
                         </Link>
                         <Link href="/#inquiries" className="text-sm font-medium text-[var(--foreground)] hover:text-[var(--primary)]">
-                            Inquiries
+                            Contact
                         </Link>
                     </nav>
 
@@ -94,32 +97,39 @@ export function Header() {
                                     Home
                                 </Link>
                                 <Link
-                                    href="/#vision"
+                                    href="/#features"
                                     className="text-lg font-medium text-[var(--foreground)] hover:text-[var(--primary)]"
                                     onClick={() => setIsSidebarOpen(false)}
                                 >
-                                    Vision
+                                    Benefits
+                                </Link>
+                                <Link
+                                    href="/#kit-contents"
+                                    className="text-lg font-medium text-[var(--foreground)] hover:text-[var(--primary)]"
+                                    onClick={() => setIsSidebarOpen(false)}
+                                >
+                                    The Kit
+                                </Link>
+                                <Link
+                                    href="/#testimonials"
+                                    className="text-lg font-medium text-[var(--foreground)] hover:text-[var(--primary)]"
+                                    onClick={() => setIsSidebarOpen(false)}
+                                >
+                                    Reviews
                                 </Link>
                                 <Link
                                     href="/#articles"
                                     className="text-lg font-medium text-[var(--foreground)] hover:text-[var(--primary)]"
                                     onClick={() => setIsSidebarOpen(false)}
                                 >
-                                    Articles
-                                </Link>
-                                <Link
-                                    href="/#shop"
-                                    className="text-lg font-medium text-[var(--foreground)] hover:text-[var(--primary)]"
-                                    onClick={() => setIsSidebarOpen(false)}
-                                >
-                                    Shop
+                                    Guides
                                 </Link>
                                 <Link
                                     href="/#inquiries"
                                     className="text-lg font-medium text-[var(--foreground)] hover:text-[var(--primary)]"
                                     onClick={() => setIsSidebarOpen(false)}
                                 >
-                                    Inquiries
+                                    Contact
                                 </Link>
                             </nav>
 
