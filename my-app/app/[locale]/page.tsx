@@ -1,15 +1,21 @@
+'use client';
+
 import Image from "next/image"
 import { ScrollAnimation } from "@/components/ScrollAnimation"
 
 import { useTranslations } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 
 export default function Home({ params: { locale } }: { params: { locale: string } }) {
-  // Enable static rendering
-  setRequestLocale(locale);
-
   const t = useTranslations();
+
+  const handleDiscoverClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const productSection = document.getElementById('product');
+    if (productSection) {
+      productSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
     <div className="pb-12">
@@ -36,6 +42,7 @@ export default function Home({ params: { locale } }: { params: { locale: string 
           <ScrollAnimation delay={0.4}>
             <Link
               href="/#product"
+              onClick={handleDiscoverClick}
               className="inline-block bg-[var(--primary)] text-white px-8 py-3 rounded-lg font-bold hover:bg-[var(--primary-hover)] transition-colors"
             >
               {t('Hero.cta')}
@@ -154,10 +161,15 @@ export default function Home({ params: { locale } }: { params: { locale: string 
               <ScrollAnimation delay={0.2}>
                 <div className="space-y-8">
                   <div>
+                    <h3 className="text-xl font-bold mb-4 text-white">{t('Contact.company_name')}</h3>
+                    <p className="text-sm text-white/70 mb-6">{t('Contact.registration')}</p>
+                  </div>
+                  <div>
                     <h3 className="text-xl font-bold mb-2 text-white">{t('Contact.get_in_touch')}</h3>
                     <p className="text-white/80">
-                      Email: hello@umamimushrooms.com<br />
-                      Phone: (555) 123-4567
+                      Email: {t('Contact.email')}<br />
+                      Phone: {t('Contact.phone')}<br />
+                      {t('Contact.whatsapp')}
                     </p>
                   </div>
                   <div>
@@ -232,6 +244,12 @@ export default function Home({ params: { locale } }: { params: { locale: string 
           <ScrollAnimation delay={0.2}>
             <div className="bg-[var(--card)] p-6 rounded-xl">
               <h3 className="text-xl font-bold mb-4">{t('Location.address_title')}</h3>
+              <p className="text-[var(--muted-foreground)] mb-2">
+                {t('Location.company_name')}
+              </p>
+              <p className="text-sm text-[var(--muted-foreground)] mb-4">
+                {t('Location.registration')}
+              </p>
               <p className="text-[var(--muted-foreground)] mb-6">
                 {t('Location.address')}
               </p>

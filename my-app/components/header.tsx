@@ -26,8 +26,8 @@ export function Header() {
 
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-[var(--primary)]">
-                        <span className="sr-only">Umami Mushrooms</span>
-                        Umami Mushrooms
+                        <span className="sr-only">Mr Fungus</span>
+                        Mr Fungus
                     </Link>
 
                     {/* Desktop Navigation */}

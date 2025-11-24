@@ -11,7 +11,7 @@ const serif = Merriweather({
 });
 
 export const metadata: Metadata = {
-  title: "Umami Mushrooms",
+  title: "Mr Fungus",
   description: "Your source for premium mushroom grow kits and fresh fungi.",
 };
 

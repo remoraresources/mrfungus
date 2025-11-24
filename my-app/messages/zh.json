@@ -1,58 +1,65 @@
 {
     "Hero": {
-        "title": "种植您自己的猴头菇",
-        "subtitle": "体验在家种植新鲜美味蘑菇的乐趣。简单、可持续且美味。",
+        "title": "居家培养猴头菇",
+        "subtitle": "体验在家种植新鲜美味蘑菇的乐趣，简单、环保又健康。",
         "cta": "了解更多"
     },
     "AboutUs": {
         "title": "关于我们",
-        "description": "在 Umami Mushrooms，我们相信真菌具有改变健康和地球的力量。我们由一群充满激情的真菌学家创立，致力于为您提供最高品质的蘑菇种植套件和新鲜农产品。我们的使命是让每个人，从好奇的初学者到经验丰富的种植者，都能进行可持续的蘑菇种植。"
+        "description": "Mr Fungus 深信菌菇具有改善健康与环境的力量。我们由一群热衷于真菌学的专家创立，致力于将最优质的蘑菇种植套件和新鲜产品带到您家门口。我们的使命是让可持续蘑菇种植变得简单易行，无论您是初学者还是资深种植爱好者，都能轻松上手。"
     },
     "ProductIntro": {
         "title": "产品介绍",
-        "subtitle": "您种植所需的一切",
-        "item1": "完全定植的猴头菇基质块",
-        "item2": "用于完美生长条件的保湿帐篷",
-        "item3": "用于喷雾的喷雾瓶",
-        "item4": "详细的分步说明指南",
-        "interested": "有兴趣种植吗？",
-        "interested_desc": "我们目前通过咨询接受订单。联系我们获取您的套件！",
+        "subtitle": "种植所需，一应俱全",
+        "item1": "已完全培养的猴头菇菌包",
+        "item2": "保湿帐篷，营造完美生长环境",
+        "item3": "喷雾瓶，用于日常喷水",
+        "item4": "详细图解说明书",
+        "interested": "想要亲手种植吗？",
+        "interested_desc": "我们目前接受咨询订购，欢迎联系我们获取您的种植套件！",
         "cta": "联系我们订购"
     },
     "Insights": {
-        "title": "见解：种植过程",
+        "title": "种植过程揭秘",
         "step1_title": "接种",
-        "step1_desc": "我们首先将优质蘑菇孢子引入经过消毒的基质中。",
+        "step1_desc": "将优质蘑菇菌种接种到经过严格消毒的培养基中。",
         "step2_title": "培养",
-        "step2_desc": "菌丝体在受控的温暖环境中定植于基质。",
+        "step2_desc": "菌丝在恒温环境下逐渐扩散，充分占据培养基。",
         "step3_title": "出菇",
-        "step3_desc": "一旦完全定植，将菌块暴露在新鲜空气和湿度中以触发蘑菇生长。",
-        "step4_title": "收获",
-        "step4_desc": "蘑菇在成熟高峰期收获，以获得最佳风味和效力。"
+        "step3_desc": "当菌丝完全成熟后，将菌包置于通风湿润的环境，诱导蘑菇生长。",
+        "step4_title": "采收",
+        "step4_desc": "在蘑菇达到最佳成熟度时采收，确保风味和营养价值最优。"
     },
     "Contact": {
         "title": "联系我们",
-        "get_in_touch": "取得联系",
+        "company_name": "REMORA RESOURCES PLT",
+        "registration": "注册号码：201904000690",
+        "get_in_touch": "联系方式",
         "business_hours": "营业时间",
+        "email": "remoraresources@gmail.com",
+        "phone": "0167019620 / 0162175009",
+        "whatsapp": "WhatsApp：0167019620 / 0162175009",
         "form": {
-            "name": "姓名",
-            "email": "电子邮件",
+            "name": "您的姓名",
+            "email": "电子邮箱",
             "phone": "联系电话",
-            "inquiry": "咨询",
-            "submit": "发送咨询"
+            "inquiry": "您的咨询",
+            "submit": "提交咨询"
         }
     },
     "Location": {
-        "title": "位置",
-        "address_title": "拜访我们",
-        "address": "123 Fungi Lane, Mushroom City, MC 98765, United States"
+        "title": "地址",
+        "company_name": "REMORA RESOURCES PLT",
+        "address_title": "欢迎光临",
+        "address": "Lot 05-AC, Menara MPAJ Blok A, Persiaran MPAJ, Jalan Pandan Utama, Pandan Indah 55100, Kuala Lumpur",
+        "registration": "注册号码：201904000690"
     },
     "Navigation": {
         "home": "首页",
         "about": "关于我们",
         "product": "产品介绍",
-        "insights": "见解",
+        "insights": "种植揭秘",
         "contact": "联系我们",
-        "location": "位置"
+        "location": "地址"
     }
 }

@@ -6,7 +6,7 @@
     },
     "AboutUs": {
         "title": "About Us",
-        "description": "At Umami Mushrooms, we believe in the power of fungi to transform health and the planet. Founded by a team of passionate mycologists, we are dedicated to bringing the highest quality mushroom grow kits and fresh produce to your doorstep. Our mission is to make sustainable mushroom farming accessible to everyone, from curious beginners to seasoned growers."
+        "description": "At Mr Fungus, we believe in the power of fungi to transform health and the planet. Founded by a team of passionate mycologists, we are dedicated to bringing the highest quality mushroom grow kits and fresh produce to your doorstep. Our mission is to make sustainable mushroom farming accessible to everyone, from curious beginners to seasoned growers."
     },
     "ProductIntro": {
         "title": "Product Introduction",
@@ -32,8 +32,13 @@
     },
     "Contact": {
         "title": "Contact Us",
+        "company_name": "REMORA RESOURCES PLT",
+        "registration": "Registration No: 201904000690",
         "get_in_touch": "Get in Touch",
         "business_hours": "Business Hours",
+        "email": "remoraresources@gmail.com",
+        "phone": "0167019620 / 0162175009",
+        "whatsapp": "WhatsApp: 0167019620 / 0162175009",
         "form": {
             "name": "Name",
             "email": "Email",
@@ -44,8 +49,10 @@
     },
     "Location": {
         "title": "Location",
+        "company_name": "REMORA RESOURCES PLT",
         "address_title": "Visit Us",
-        "address": "123 Fungi Lane, Mushroom City, MC 98765, United States"
+        "address": "Lot 05-AC, Menara MPAJ Blok A, Persiaran MPAJ, Jalan Pandan Utama, Pandan Indah 55100, Kuala Lumpur",
+        "registration": "Registration Number: 201904000690"
     },
     "Navigation": {
         "home": "Home",
