@@ -27,6 +27,33 @@
   --font-mono: var(--font-geist-mono);
 }
 
+@media (min-width: 768px) {
+  html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+
+  .snap-section {
+    scroll-snap-align: start;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+}
+
+/* Fallback for mobile: standard scrolling, but keep section spacing if needed */
+@media (max-width: 767px) {
+  .snap-section {
+    min-height: auto;
+    /* Allow natural height on mobile */
+    padding-top: 4rem;
+    /* Add some spacing for the fixed header */
+    padding-bottom: 4rem;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #F2E8CF;

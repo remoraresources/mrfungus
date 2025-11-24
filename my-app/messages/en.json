@@ -1,0 +1,58 @@
+{
+    "Hero": {
+        "title": "Cultivate Your Own Lion's Mane",
+        "subtitle": "Experience the joy of growing fresh, gourmet mushrooms at home. Simple, sustainable, and delicious.",
+        "cta": "Discover More"
+    },
+    "AboutUs": {
+        "title": "About Us",
+        "description": "At Umami Mushrooms, we believe in the power of fungi to transform health and the planet. Founded by a team of passionate mycologists, we are dedicated to bringing the highest quality mushroom grow kits and fresh produce to your doorstep. Our mission is to make sustainable mushroom farming accessible to everyone, from curious beginners to seasoned growers."
+    },
+    "ProductIntro": {
+        "title": "Product Introduction",
+        "subtitle": "Everything You Need to Grow",
+        "item1": "Fully colonized Lion's Mane substrate block",
+        "item2": "Humidity tent for perfect growing conditions",
+        "item3": "Spray bottle for misting",
+        "item4": "Detailed step-by-step instruction guide",
+        "interested": "Interested in growing?",
+        "interested_desc": "We are currently accepting orders via inquiry. Contact us to get your kit!",
+        "cta": "Contact Us to Order"
+    },
+    "Insights": {
+        "title": "Insights: The Farming Process",
+        "step1_title": "Inoculation",
+        "step1_desc": "We start by introducing premium mushroom spores to a sterilized substrate.",
+        "step2_title": "Incubation",
+        "step2_desc": "The mycelium colonizes the substrate in a controlled, warm environment.",
+        "step3_title": "Fruiting",
+        "step3_desc": "Once fully colonized, the blocks are exposed to fresh air and humidity to trigger mushroom growth.",
+        "step4_title": "Harvest",
+        "step4_desc": "Mushrooms are harvested at peak maturity for the best flavor and potency."
+    },
+    "Contact": {
+        "title": "Contact Us",
+        "get_in_touch": "Get in Touch",
+        "business_hours": "Business Hours",
+        "form": {
+            "name": "Name",
+            "email": "Email",
+            "phone": "Contact Number",
+            "inquiry": "Inquiry",
+            "submit": "Send Inquiry"
+        }
+    },
+    "Location": {
+        "title": "Location",
+        "address_title": "Visit Us",
+        "address": "123 Fungi Lane, Mushroom City, MC 98765, United States"
+    },
+    "Navigation": {
+        "home": "Home",
+        "about": "About Us",
+        "product": "Product Introduction",
+        "insights": "Insights",
+        "contact": "Contact Us",
+        "location": "Location"
+    }
+}

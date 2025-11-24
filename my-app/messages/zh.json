@@ -1,0 +1,58 @@
+{
+    "Hero": {
+        "title": "种植您自己的猴头菇",
+        "subtitle": "体验在家种植新鲜美味蘑菇的乐趣。简单、可持续且美味。",
+        "cta": "了解更多"
+    },
+    "AboutUs": {
+        "title": "关于我们",
+        "description": "在 Umami Mushrooms，我们相信真菌具有改变健康和地球的力量。我们由一群充满激情的真菌学家创立，致力于为您提供最高品质的蘑菇种植套件和新鲜农产品。我们的使命是让每个人，从好奇的初学者到经验丰富的种植者，都能进行可持续的蘑菇种植。"
+    },
+    "ProductIntro": {
+        "title": "产品介绍",
+        "subtitle": "您种植所需的一切",
+        "item1": "完全定植的猴头菇基质块",
+        "item2": "用于完美生长条件的保湿帐篷",
+        "item3": "用于喷雾的喷雾瓶",
+        "item4": "详细的分步说明指南",
+        "interested": "有兴趣种植吗？",
+        "interested_desc": "我们目前通过咨询接受订单。联系我们获取您的套件！",
+        "cta": "联系我们订购"
+    },
+    "Insights": {
+        "title": "见解：种植过程",
+        "step1_title": "接种",
+        "step1_desc": "我们首先将优质蘑菇孢子引入经过消毒的基质中。",
+        "step2_title": "培养",
+        "step2_desc": "菌丝体在受控的温暖环境中定植于基质。",
+        "step3_title": "出菇",
+        "step3_desc": "一旦完全定植，将菌块暴露在新鲜空气和湿度中以触发蘑菇生长。",
+        "step4_title": "收获",
+        "step4_desc": "蘑菇在成熟高峰期收获，以获得最佳风味和效力。"
+    },
+    "Contact": {
+        "title": "联系我们",
+        "get_in_touch": "取得联系",
+        "business_hours": "营业时间",
+        "form": {
+            "name": "姓名",
+            "email": "电子邮件",
+            "phone": "联系电话",
+            "inquiry": "咨询",
+            "submit": "发送咨询"
+        }
+    },
+    "Location": {
+        "title": "位置",
+        "address_title": "拜访我们",
+        "address": "123 Fungi Lane, Mushroom City, MC 98765, United States"
+    },
+    "Navigation": {
+        "home": "首页",
+        "about": "关于我们",
+        "product": "产品介绍",
+        "insights": "见解",
+        "contact": "联系我们",
+        "location": "位置"
+    }
+}
