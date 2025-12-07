@@ -1,16 +1,18 @@
 {
     "Hero": {
-        "title": "Cultivate Your Own Lion's Mane",
-        "subtitle": "Experience the joy of growing fresh, gourmet mushrooms at home. Simple, sustainable, and delicious.",
+        "title": "Wholesome by nature, powerful by science",
+        "subtitle": "From farm to dining table, delivering lasting freshness in every bite.",
         "cta": "Discover More"
     },
     "AboutUs": {
-        "title": "About Us",
-        "description": "At Mr Fungus, we believe in the power of fungi to transform health and the planet. Founded by a team of passionate mycologists, we are dedicated to bringing the highest quality mushroom grow kits and fresh produce to your doorstep. Our mission is to make sustainable mushroom farming accessible to everyone, from curious beginners to seasoned growers."
+        "title": "Welcome to MR FUNGUS",
+        "intro": "Malaysia's leading specialist in Lion's Mane Mushroom.",
+        "description": "We are dedicated to bringing exotic goodness to local markets — our mushrooms are grown indoors with Japanese cultivation technology, under precisely controlled conditions and nurtured with utmost care. Our mushrooms are appreciated not only by seasoned chefs, but also impress home cooks with their exceptional quality and taste. Today, their power goes beyond the kitchen — now they can be found in certified health supplements for natural wellness support!"
     },
     "ProductIntro": {
         "title": "Product Introduction",
         "subtitle": "Everything You Need to Grow",
+        "description": "Our Lion's Mane Grow Kit makes it easy to cultivate fresh, gourmet mushrooms right at home. Whether you're a beginner or an experienced grower, our kit provides everything you need for a successful harvest. Experience the joy of growing your own food!",
         "item1": "Fully colonized Lion's Mane substrate block",
         "item2": "Humidity tent for perfect growing conditions",
         "item3": "Spray bottle for misting",
@@ -20,15 +22,13 @@
         "cta": "Contact Us to Order"
     },
     "Insights": {
-        "title": "Insights: The Farming Process",
-        "step1_title": "Inoculation",
-        "step1_desc": "We start by introducing premium mushroom spores to a sterilized substrate.",
-        "step2_title": "Incubation",
-        "step2_desc": "The mycelium colonizes the substrate in a controlled, warm environment.",
-        "step3_title": "Fruiting",
-        "step3_desc": "Once fully colonized, the blocks are exposed to fresh air and humidity to trigger mushroom growth.",
-        "step4_title": "Harvest",
-        "step4_desc": "Mushrooms are harvested at peak maturity for the best flavor and potency."
+        "title": "How we differ from other farms",
+        "step1_title": "From scratch to hatch",
+        "step1_desc": "Unlike most farms that rely on ready-made mushroom bags from large foreign factories, we craft everything in-house. From strain selection and raw wood substrate preparation, down to inoculation and harvest, every step is meticulously executed under our strict SOP to ensure nothing ever go wrong.",
+        "step2_title": "Unparalleled Quality",
+        "step2_desc": "After years of research and hands-on refinement, we’ve developed a superior in-house cultivation method using the carefully selected winning strain. The result? A mushroom that surpasses most commercial varieties in both texture and flavor. Chefs who’ve tasted ours never turn back — because taste buds don’t lie.",
+        "step3_title": "Sustainable Modern Farming",
+        "step3_desc": "At MR FUNGUS, quality and safety go hand in hand. We’re proudly 100% chemical-free, from start to finish. Even after harvest, our used mushroom substrates get a second life — transformed into nutrient-rich compost by our partners to feed the earth and other crops. Nothing wasted, everything nurtured!"
     },
     "Contact": {
         "title": "Contact Us",
@@ -39,27 +39,42 @@
         "email": "remoraresources@gmail.com",
         "phone": "0167019620 / 0162175009",
         "whatsapp": "WhatsApp: 0167019620 / 0162175009",
-        "form": {
-            "name": "Name",
-            "email": "Email",
-            "phone": "Contact Number",
-            "inquiry": "Inquiry",
-            "submit": "Send Inquiry"
-        }
+        "email_button": "Send us an Email",
+        "whatsapp_button": "Chat on WhatsApp"
     },
     "Location": {
         "title": "Location",
         "company_name": "REMORA RESOURCES PLT",
         "address_title": "Visit Us",
-        "address": "Lot 05-AC, Menara MPAJ Blok A, Persiaran MPAJ, Jalan Pandan Utama, Pandan Indah 55100, Kuala Lumpur",
-        "registration": "Registration Number: 201904000690"
+        "address": "Lot 05-AC, Menara MPAJ Blok A, Persiaran MPAJ, Jalan Pandan Utama, Pandan Indah 55100, Kuala Lumpur"
     },
     "Navigation": {
         "home": "Home",
         "about": "About Us",
+        "story": "Our Story",
         "product": "Product Introduction",
         "insights": "Insights",
         "contact": "Contact Us",
         "location": "Location"
+    },
+    "OurStory": {
+        "title": "OUR STORY",
+        "background_title": "Background",
+        "background_intro": "It all Begins with a Sentimental Personal Journey:",
+        "milestone1_date": "The Inspiration",
+        "milestone2_date": "The Journey",
+        "milestone3_date": "The Realization",
+        "milestone4_date": "2019",
+        "milestone5_date": "The Method",
+        "background_p1": "Eight years ago, one of our founders learned that his beloved grandmother had been diagnosed with Alzheimer’s disease. Driven by love and concern, he began searching for ways to improve brain health. By chance, he discovered that lion’s mane mushroom possesses neuroprotective — and even regenerative — properties. That sparked a desire to grow it himself.",
+        "background_p2": "Like many journeys toward success, the path wasn’t smooth. Tragically, his grandmother passed away before the first successful harvest. Though she never got to witness the results of his efforts, her memory and his regret strengthened his resolve to bring fresh lion’s mane mushrooms to the public.",
+        "background_p3": "At the time, he realized that most lion’s mane mushrooms available in the market were dried imports from China. It’s worth noting that lion’s mane’s two key active compounds — hericenones and erinacines — are extremely fragile. Common processing methods like drying or deep frying can destroy these valuable nutrients and their health benefits.",
+        "lab_title": "From Laboratory to Reality",
+        "lab_p1": "In 2019, MR FUNGUS (Remora Resources PLT) was officially established to focus on the research and development of cultivation techniques for premium-quality lion's mane mushrooms. After five years of continuous experimentation and refinement, we finally developed a stable and efficient growing method — turning local, large-scale production of premium lion’s mane mushrooms into reality.",
+        "lab_p2": "Starting from growing mycelium in petri dishes and transferring it onto 99.99% sterilized wood substrates, our cultivation method closely mimics the mushroom’s natural wild environment. By choosing European oak as the primary substrate, combined with advanced Japanese indoor-farming technology, we have achieved a truly organic, pesticide-free, and contamination-free cultivation process."
+    },
+    "Mission": {
+        "title": "Our Mission",
+        "content": "Each production cycle takes about 50 days. We take no shortcuts, ensuring every lion’s mane mushroom is fully developed, healthy, and nutritionally rich before each harvest."
     }
 }
