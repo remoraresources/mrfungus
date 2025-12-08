@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 
 export default function Home({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = use(params);
+  // const { locale } = use(params);
   const t = useTranslations();
 
   const handleDiscoverClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -19,8 +19,35 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
     }
   };
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'MR FUNGUS',
+    alternateName: 'Remora Resources PLT',
+    url: 'https://www.mrfungus.com.my',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+60-16-701-9620',
+      contactType: 'customer service',
+      areaServed: 'MY',
+      availableLanguage: ['en', 'zh']
+    },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Lot 05-AC, Menara MPAJ Blok A, Persiaran MPAJ, Jalan Pandan Utama, Pandan Indah',
+      addressLocality: 'Kuala Lumpur',
+      postalCode: '55100',
+      addressCountry: 'MY'
+    }
+  };
+
+
   return (
     <div className="pb-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Section 1: Introduction (Hero) */}
       <section id="home" className="snap-section relative bg-gray-900 text-white h-dvh flex items-center justify-center">
         <div className="absolute inset-0 overflow-hidden">

@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
 import { Merriweather } from "next/font/google";
 import "../globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+
+import { getTranslations } from 'next-intl/server';
 
 const serif = Merriweather({
   weight: ["300", "400", "700", "900"],
@@ -10,10 +11,27 @@ const serif = Merriweather({
   variable: "--font-serif",
 });
 
-export const metadata: Metadata = {
-  title: "Mr Fungus",
-  description: "Your source for premium mushroom grow kits and fresh fungi.",
-};
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Metadata' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    alternates: {
+      canonical: '/',
+      languages: {
+        'en': '/en',
+        'zh': '/zh',
+      },
+    },
+  };
+}
 
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
