@@ -83,7 +83,7 @@ export function Header() {
     return (
         <header className={`fixed top-0 w-full z-50 border-b transition-all duration-500 ease-in-out ${headerBgClass}`}>
             <div className="container mx-auto px-4">
-                <div className="flex h-16 items-center justify-between">
+                <div className="relative flex h-16 items-center justify-between">
                     {/* Mobile Menu Button */}
                     <button
                         className={`md:hidden p-2 -ml-2 transition-colors duration-500 ${mutedColorClass} ${hoverColorClass}`}
@@ -94,7 +94,7 @@ export function Header() {
                     </button>
 
                     {/* Logo */}
-                    <Link href="/" className={`flex items-center gap-2 text-2xl font-bold transition-colors duration-500 ${logoClass}`}>
+                    <Link href="/" className={`absolute left-1/2 -translate-x-1/2 md:static md:left-auto md:translate-x-0 flex items-center gap-2 text-2xl font-bold transition-colors duration-500 ${logoClass}`}>
                         <span className="sr-only">Mr Fungus</span>
                         Mr Fungus
                     </Link>
