@@ -305,29 +305,19 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
             </div>
 
 
-            {/* Section connection line (Desktop only) */}
-            <div className="absolute left-1/2 bottom-[-6rem] w-0.5 bg-[var(--primary)]/30 -translate-x-1/2 hidden md:block h-24"></div>
-
-
-          </div>
-        </div>
-      </section>
-
-      {/* Mission Section */}
-      <section id="our-mission" className="bg-stone-100 text-gray-800 py-24 relative overflow-hidden">
-        {/* Connecting line from previous section (Desktop only) */}
-        <div className="absolute left-1/2 top-0 w-0.5 bg-[var(--primary)]/30 -translate-x-1/2 hidden md:block h-32 z-0"></div>
-
-        <div className="container mx-auto px-4 max-w-4xl text-center relative z-10">
-          <div className="bg-white/60 backdrop-blur-sm p-8 md:p-12 rounded-2xl shadow-sm">
-            <ScrollAnimation>
-              <div className="mb-6 mx-auto inline-block px-6 py-2 border-2 border-[var(--primary)] rounded-full text-[var(--primary)] text-base md:text-lg font-bold uppercase tracking-wider bg-stone-100 relative z-10">
-                {t('Mission.title')}
+            {/* Mission Content - Merged into Story */}
+            <div id="our-mission" className="mt-24 relative z-10 text-center">
+              <div className="bg-white/60 backdrop-blur-sm p-8 md:p-12 rounded-2xl shadow-sm">
+                <ScrollAnimation>
+                  <div className="mb-6 mx-auto inline-block px-6 py-2 border-2 border-[var(--primary)] rounded-full text-[var(--primary)] text-base md:text-lg font-bold uppercase tracking-wider">
+                    {t('Mission.title')}
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-medium leading-relaxed">
+                    {t('Mission.content')}
+                  </h2>
+                </ScrollAnimation>
               </div>
-              <h2 className="text-2xl md:text-3xl font-medium leading-relaxed">
-                {t('Mission.content')}
-              </h2>
-            </ScrollAnimation>
+            </div>
           </div>
         </div>
       </section>
