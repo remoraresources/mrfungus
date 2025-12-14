@@ -82,7 +82,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 
       <div className="container mx-auto px-4 space-y-24">
         {/* Section 2: About Us */}
-        <section id="about" className="snap-section pt-24 pb-12 -mx-4 px-4">
+        <section id="about" className="pt-24 pb-12 -mx-4 px-4">
           <div className="container mx-auto px-4 max-w-6xl">
             <ScrollAnimation>
               <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-[var(--primary)]">{t('AboutUs.title')}</h2>
@@ -143,7 +143,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
       </div>
 
       {/* Section: Our Story & Mission */}
-      <section id="our-story" className="snap-section bg-stone-100 text-gray-800 py-24">
+      <section id="our-story" className="bg-stone-100 text-gray-800 py-24">
         <div className="container mx-auto px-4 max-w-5xl">
           <ScrollAnimation>
             <h2 className="text-4xl font-bold mb-4 text-center text-[var(--primary)] tracking-tight">{t('OurStory.title')}</h2>
@@ -304,16 +304,24 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
               </div>
             </div>
 
+
+            {/* Section connection line (Desktop only) */}
+            <div className="absolute left-1/2 bottom-[-6rem] w-0.5 bg-[var(--primary)]/30 -translate-x-1/2 hidden md:block h-24"></div>
+
+
           </div>
         </div>
       </section>
 
       {/* Mission Section */}
-      <section id="our-mission" className="snap-section bg-[#f2e8cf] text-gray-800 py-24 relative overflow-hidden">
+      <section id="our-mission" className="bg-stone-100 text-gray-800 py-24 relative overflow-hidden">
+        {/* Connecting line from previous section (Desktop only) */}
+        <div className="absolute left-1/2 top-0 w-0.5 bg-[var(--primary)]/30 -translate-x-1/2 hidden md:block h-32 z-0"></div>
+
         <div className="container mx-auto px-4 max-w-4xl text-center relative z-10">
           <div className="bg-white/60 backdrop-blur-sm p-8 md:p-12 rounded-2xl shadow-sm">
             <ScrollAnimation>
-              <div className="mb-6 mx-auto inline-block px-6 py-2 border-2 border-[var(--primary)] rounded-full text-[var(--primary)] text-base md:text-lg font-bold uppercase tracking-wider">
+              <div className="mb-6 mx-auto inline-block px-6 py-2 border-2 border-[var(--primary)] rounded-full text-[var(--primary)] text-base md:text-lg font-bold uppercase tracking-wider bg-stone-100 relative z-10">
                 {t('Mission.title')}
               </div>
               <h2 className="text-2xl md:text-3xl font-medium leading-relaxed">
