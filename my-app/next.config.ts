@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
         hostname: 'demo.next-drupal.org',
       },
     ],
+    localPatterns: [
+      {
+        pathname: '/images/**',
+      },
+    ],
   },
 };
 

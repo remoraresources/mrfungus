@@ -5,21 +5,17 @@ import { useTranslations } from "next-intl"
 import { Search, Menu, X } from "lucide-react"
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import Image from "next/image"
 
 export function Header() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const t = useTranslations('Navigation');
     const pathname = usePathname();
-    const router = useRouter(); // To handle navigation if needed, though Link is used.
+    const router = useRouter();
 
-    // Check if we are on the homepage (root path or locale root)
-    // pathname can be "/" or "/en" or "/zh"
+
     const isHomepage = pathname === '/' || pathname === '/en' || pathname === '/zh';
 
-    // Initialize transparent state based on whether we are on the homepage.
-    // This assumes the user lands at the top of the homepage.
-    // If they land partially scrolled down, the useEffect will correct it.
-    // This optimization prevents the "solid -> transparent" flash on initial load.
     const [isTransparent, setIsTransparent] = useState(isHomepage)
 
     useEffect(() => {
@@ -29,19 +25,6 @@ export function Header() {
         }
 
         const handleScroll = () => {
-            // Hero section is usually 100vh (h-dvh).
-            // We switch style when user scrolls past a certain point, e.g., 80px or near the end of hero.
-            // The plan said "scrolls past the Hero Section".
-            // Let's make it consistent with the user request "transparent ... only on hero section".
-            // So if we are IN the hero section (scrollY < window.innerHeight), it should be transparent?
-            // Usually headers turn solid immediately upon scrolling OR after passing the hero.
-            // "make the header background transparent while it's only on hero section" implies
-            // if we are on the hero section, it is transparent.
-            // But we need to be readable.
-            // Let's assume the hero is dark (which it is, bg-gray-900).
-            // So transparent background + white text is good.
-            // When we scroll DOWN, past the hero, we want it solid.
-            // Let's stick to: if scrollY < (window.innerHeight - 100), keep transparent.
             const threshold = window.innerHeight - 80; // Buffer for header height
             setIsTransparent(window.scrollY < threshold);
         };
@@ -58,11 +41,7 @@ export function Header() {
         ? "bg-transparent border-transparent"
         : "bg-[var(--background)]/80 backdrop-blur-md border-[var(--border)]";
 
-    // Text colors: On transparent (dark hero), force white. Otherwise use default colors.
-    // Primary color might need adjustment or kept as is if it has enough contrast.
-    // The prompt says "transparent while it's only on hero section".
-    // And "nice and subtle fade effect".
-    // Added drop-shadow-md for readability on complex backgrounds
+
     const textColorClass = isTransparent
         ? "text-white drop-shadow-md"
         : "text-[var(--foreground)]";
@@ -72,12 +51,16 @@ export function Header() {
         : "text-[var(--muted-foreground)]";
 
     const hoverColorClass = isTransparent
-        ? "hover:text-[var(--primary)]" // Keep primary on hover, or maybe white? Let's stick to primary for "brand".
+        ? "hover:text-[var(--primary)]"
         : "hover:text-[var(--primary)]";
 
     const logoClass = isTransparent
         ? "text-white drop-shadow-md"
         : "text-[var(--primary)]";
+
+    const logoImageClass = isTransparent
+        ? "brightness-0 invert drop-shadow-md"
+        : "";
 
 
     return (
@@ -94,9 +77,16 @@ export function Header() {
                     </button>
 
                     {/* Logo */}
-                    <Link href="/" className={`absolute left-1/2 -translate-x-1/2 md:static md:left-auto md:translate-x-0 flex items-center gap-2 text-2xl font-bold transition-colors duration-500 ${logoClass}`}>
-                        <span className="sr-only">Mr Fungus</span>
-                        Mr Fungus
+                    {/* Logo */}
+                    <Link href="/" className="absolute left-1/2 -translate-x-1/2 md:static md:left-auto md:translate-x-0 flex items-center gap-2 transition-all duration-500">
+                        <Image
+                            src="/images/logo.png"
+                            alt="Mr Fungus"
+                            width={140}
+                            height={45}
+                            className={`h-10 w-auto object-contain transition-all duration-500 ${logoImageClass}`}
+                            priority
+                        />
                     </Link>
 
                     {/* Desktop Navigation */}

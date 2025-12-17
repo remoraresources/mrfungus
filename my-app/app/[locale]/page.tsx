@@ -95,7 +95,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                 <ScrollAnimation>
                   <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
                     <Image
-                      src="/images/about_us_facility_v3.png"
+                      src="/images/about_us_new.jpg"
                       alt="MR FUNGUS Cultivation Facility"
                       fill
                       className="object-cover"
