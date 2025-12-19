@@ -77,7 +77,7 @@ export function Header() {
                     </button>
 
                     {/* Logo */}
-                    {/* Logo */}
+
                     <Link href="/" className="absolute left-1/2 -translate-x-1/2 md:static md:left-auto md:translate-x-0 flex items-center gap-2 transition-all duration-500">
                         <Image
                             src="/images/logo.webp"
@@ -89,7 +89,7 @@ export function Header() {
                         />
                     </Link>
 
-                    {/* Desktop Navigation */}
+
                     <nav className="hidden md:flex items-center gap-8">
                         <Link href="/#home" className={`text-sm font-medium transition-colors duration-500 ${textColorClass} ${hoverColorClass}`}>
                             {t('home')}
@@ -121,7 +121,7 @@ export function Header() {
                 </div>
             </div>
 
-            {/* Mobile Menu Overlay - Apple Style Roll Down */}
+
             <AnimatePresence>
                 {isSidebarOpen && (
                     <motion.div

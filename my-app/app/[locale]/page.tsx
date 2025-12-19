@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 
 export default function Home({ params }: { params: Promise<{ locale: string }> }) {
-  // const { locale } = use(params);
+
   const t = useTranslations();
 
   const handleDiscoverClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -48,7 +48,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {/* Section 1: Introduction (Hero) */}
+
       <section id="home" className="snap-section relative bg-gray-900 text-white h-dvh flex items-center justify-center">
         <div className="absolute inset-0 overflow-hidden">
           <Image
@@ -81,7 +81,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
       </section>
 
       <div className="container mx-auto px-4 space-y-24">
-        {/* Section 2: About Us */}
+
         <section id="about" className="pt-24 pb-12 -mx-4 px-4">
           <div className="container mx-auto px-4 max-w-6xl">
             <ScrollAnimation>
@@ -90,7 +90,6 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 
             {/* Image + Content Layout */}
             <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center mb-16">
-              {/* Image - Top on mobile, Left on desktop */}
               <div className="w-full md:w-1/2">
                 <ScrollAnimation>
                   <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
@@ -104,7 +103,6 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                 </ScrollAnimation>
               </div>
 
-              {/* Content - Bottom on mobile, Right on desktop */}
               <div className="w-full md:w-1/2 space-y-6">
                 <ScrollAnimation delay={0.1}>
                   <p className="text-xl font-semibold text-[var(--primary)]">{t('AboutUs.intro')}</p>
@@ -142,7 +140,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
         </section>
       </div>
 
-      {/* Section: Our Story & Mission */}
+
       <section id="our-story" className="bg-stone-100 text-gray-800 py-24">
         <div className="container mx-auto px-4 max-w-5xl">
           <ScrollAnimation>
@@ -156,7 +154,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
             <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-[var(--primary)]/30 -translate-x-1/2 hidden md:block"></div>
             <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-[var(--primary)]/30 -translate-x-1/2 md:hidden"></div>
 
-            {/* Item 1: The Inspiration */}
+
             <div className="relative flex flex-col md:flex-row items-center mb-24 last:mb-0 group">
               {/* Timeline Dot */}
               <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-[var(--primary)] rounded-full -translate-x-1/2 border-4 border-stone-100 z-10 shadow-sm"></div>
@@ -187,7 +185,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
               </div>
             </div>
 
-            {/* Item 2: The Realization (Moved from 3rd position) */}
+
             <div className="relative flex flex-col md:flex-row-reverse items-center mb-24 last:mb-0 group">
               <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-[var(--primary)] rounded-full -translate-x-1/2 border-4 border-stone-100 z-10 shadow-sm"></div>
 
@@ -216,7 +214,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
               </div>
             </div>
 
-            {/* Item 3: The Journey (Moved from 2nd position) */}
+
             <div className="relative flex flex-col md:flex-row items-center mb-24 last:mb-0 group">
               <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-[var(--primary)] rounded-full -translate-x-1/2 border-4 border-stone-100 z-10 shadow-sm"></div>
 
@@ -245,7 +243,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
               </div>
             </div>
 
-            {/* Item 4: 2019 Establishment */}
+
             <div className="relative flex flex-col md:flex-row-reverse items-center mb-24 last:mb-0 group">
               <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-[#BC6C25] rounded-full -translate-x-1/2 border-4 border-stone-100 z-10 shadow-sm ring-4 ring-[#BC6C25]/20"></div>
 
@@ -275,7 +273,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
               </div>
             </div>
 
-            {/* Item 5: The Method */}
+
             <div className="relative flex flex-col md:flex-row items-center group">
               <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-[var(--primary)] rounded-full -translate-x-1/2 border-4 border-stone-100 z-10 shadow-sm"></div>
 
@@ -305,7 +303,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
             </div>
 
 
-            {/* Mission Content - Merged into Story */}
+
             <div id="our-mission" className="mt-24 relative z-10 text-center">
               <div className="bg-white/60 backdrop-blur-sm p-8 md:p-12 rounded-2xl shadow-sm">
                 <ScrollAnimation>
@@ -324,7 +322,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 
       <div className="container mx-auto px-4 space-y-24">
 
-        {/* Section 3: Product Introduction */}
+
       </div>
       <section id="product" className="snap-section bg-[#f2e8cf] py-24">
         <div className="container max-w-6xl mx-auto px-4">
@@ -392,7 +390,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
       </section>
       <div className="container mx-auto px-4 space-y-24">
 
-        {/* Section 5: Contact Us */}
+
       </div>
       <section id="contact" className="snap-section bg-[#BC6C25] py-24 text-white">
         <div className="container mx-auto px-4">
@@ -458,7 +456,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
       </section>
       <div className="container mx-auto px-4 space-y-24">
 
-        {/* Section 6: Location */}
+
         <section id="location" className="snap-section bg-[#f2e8cf] py-24">
           <div className="max-w-4xl mx-auto px-4">
             <div className="bg-white/60 backdrop-blur-sm p-8 rounded-2xl hover:shadow-2xl transition-all duration-500">
