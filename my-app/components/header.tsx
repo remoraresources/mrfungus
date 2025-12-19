@@ -80,7 +80,7 @@ export function Header() {
                     {/* Logo */}
                     <Link href="/" className="absolute left-1/2 -translate-x-1/2 md:static md:left-auto md:translate-x-0 flex items-center gap-2 transition-all duration-500">
                         <Image
-                            src="/images/logo.png"
+                            src="/images/logo.webp"
                             alt="Mr Fungus"
                             width={140}
                             height={45}

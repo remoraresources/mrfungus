@@ -52,7 +52,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
       <section id="home" className="snap-section relative bg-gray-900 text-white h-dvh flex items-center justify-center">
         <div className="absolute inset-0 overflow-hidden">
           <Image
-            src="/images/lions_mane_hero_minimal.png"
+            src="/images/lions_mane_hero_minimal.webp"
             alt="Mushroom Farm"
             fill
             className="object-cover opacity-60"
@@ -166,7 +166,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                   <div className="inline-block bg-[var(--primary)]/10 text-[var(--primary)] px-4 py-1 rounded-full text-sm font-bold mb-4">
                     {t('OurStory.milestone1_date')}
                   </div>
-                  <h3 className="text-2xl font-bold mb-4">{t('OurStory.background_title')}</h3>
+
                   <p className="text-lg leading-relaxed text-gray-600">
                     {t('OurStory.background_p1')}
                   </p>
@@ -177,7 +177,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                 <ScrollAnimation delay={0.2}>
                   <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg transform rotate-2 hover:rotate-0 transition-transform duration-500 border-4 border-white">
                     <Image
-                      src="/images/story_memory_v2.png"
+                      src="/images/story_memory_v2.webp"
                       alt="Grandmother Memory"
                       fill
                       className="object-cover"
@@ -187,40 +187,11 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
               </div>
             </div>
 
-            {/* Item 2: The Journey */}
+            {/* Item 2: The Realization (Moved from 3rd position) */}
             <div className="relative flex flex-col md:flex-row-reverse items-center mb-24 last:mb-0 group">
               <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-[var(--primary)] rounded-full -translate-x-1/2 border-4 border-stone-100 z-10 shadow-sm"></div>
 
               <div className="md:w-1/2 md:pl-12 w-full pl-12 md:pl-0 mb-8 md:mb-0">
-                <ScrollAnimation>
-                  <div className="inline-block bg-[var(--primary)]/10 text-[var(--primary)] px-4 py-1 rounded-full text-sm font-bold mb-4">
-                    {t('OurStory.milestone2_date')}
-                  </div>
-                  <p className="text-lg leading-relaxed text-gray-600">
-                    {t('OurStory.background_p2')}
-                  </p>
-                </ScrollAnimation>
-              </div>
-
-              <div className="md:w-1/2 md:pr-12 w-full pl-12 md:pl-0 md:text-right">
-                <ScrollAnimation delay={0.2}>
-                  <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg transform -rotate-2 hover:rotate-0 transition-transform duration-500 border-4 border-white inline-block w-full">
-                    <Image
-                      src="/images/story_journey_v2.png"
-                      alt="The Journey"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                </ScrollAnimation>
-              </div>
-            </div>
-
-            {/* Item 3: The Realization */}
-            <div className="relative flex flex-col md:flex-row items-center mb-24 last:mb-0 group">
-              <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-[var(--primary)] rounded-full -translate-x-1/2 border-4 border-stone-100 z-10 shadow-sm"></div>
-
-              <div className="md:w-1/2 md:pr-12 w-full pl-12 md:pl-0 mb-8 md:mb-0">
                 <ScrollAnimation>
                   <div className="inline-block bg-[var(--primary)]/10 text-[var(--primary)] px-4 py-1 rounded-full text-sm font-bold mb-4">
                     {t('OurStory.milestone3_date')}
@@ -231,12 +202,41 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                 </ScrollAnimation>
               </div>
 
+              <div className="md:w-1/2 md:pr-12 w-full pl-12 md:pl-0 md:text-right">
+                <ScrollAnimation delay={0.2}>
+                  <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg transform -rotate-2 hover:rotate-0 transition-transform duration-500 border-4 border-white inline-block w-full">
+                    <Image
+                      src="/images/story_nutrients_v2.webp"
+                      alt="Fragile Nutrients"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </ScrollAnimation>
+              </div>
+            </div>
+
+            {/* Item 3: The Journey (Moved from 2nd position) */}
+            <div className="relative flex flex-col md:flex-row items-center mb-24 last:mb-0 group">
+              <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-[var(--primary)] rounded-full -translate-x-1/2 border-4 border-stone-100 z-10 shadow-sm"></div>
+
+              <div className="md:w-1/2 md:pr-12 w-full pl-12 md:pl-0 mb-8 md:mb-0">
+                <ScrollAnimation>
+                  <div className="inline-block bg-[var(--primary)]/10 text-[var(--primary)] px-4 py-1 rounded-full text-sm font-bold mb-4">
+                    {t('OurStory.milestone2_date')}
+                  </div>
+                  <p className="text-lg leading-relaxed text-gray-600">
+                    {t('OurStory.background_p2')}
+                  </p>
+                </ScrollAnimation>
+              </div>
+
               <div className="md:w-1/2 md:pl-12 w-full pl-12 md:pl-0">
                 <ScrollAnimation delay={0.2}>
                   <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg transform rotate-2 hover:rotate-0 transition-transform duration-500 border-4 border-white">
                     <Image
-                      src="/images/story_nutrients_v2.png"
-                      alt="Fragile Nutrients"
+                      src="/images/story_journey_v2.webp"
+                      alt="The Journey"
                       fill
                       className="object-cover"
                     />
@@ -265,7 +265,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                 <ScrollAnimation delay={0.2}>
                   <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg transform -rotate-2 hover:rotate-0 transition-transform duration-500 border-4 border-white inline-block w-full">
                     <Image
-                      src="/images/story_lab_malaysian_v2.png"
+                      src="/images/story_lab_malaysian_v2.webp"
                       alt="Lab Research"
                       fill
                       className="object-cover"
@@ -294,7 +294,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                 <ScrollAnimation delay={0.2}>
                   <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg transform rotate-2 hover:rotate-0 transition-transform duration-500 border-4 border-white">
                     <Image
-                      src="/images/story_cultivation_v2.png"
+                      src="/images/story_cultivation_v2.webp"
                       alt="Nature Cultivation"
                       fill
                       className="object-cover"
@@ -336,7 +336,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
               <ScrollAnimation>
                 <div className="relative aspect-square rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                    src="/images/lions-mane.png"
+                    src="/images/lions-mane.webp"
                     alt="Lion's Mane Grow Kit"
                     fill
                     className="object-cover"
