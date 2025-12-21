@@ -64,7 +64,37 @@
     },
     "Gallery": {
         "title": "Gallery",
-        "intro": "A glimpse into our cultivation journey."
+        "intro": "A glimpse into our cultivation journey.",
+        "stages": {
+            "preservation": {
+                "title": "Preservation",
+                "description": "Preservation of mushroom strains in different forms."
+            },
+            "preparation": {
+                "title": "Preparation",
+                "description": "Semi-automated mushroom bags making from scratch."
+            },
+            "inoculation": {
+                "title": "Inoculation",
+                "description": "Wood bags inoculation process."
+            },
+            "incubation": {
+                "title": "Incubation",
+                "description": "Incubation periods take around 10-12 days."
+            },
+            "fruiting": {
+                "title": "Fruiting",
+                "description": "Fruiting period takes up to 10 days."
+            },
+            "harvest": {
+                "title": "Harvest",
+                "description": "Freshly harvested Lion's Mane mushrooms."
+            },
+            "culinary": {
+                "title": "Culinary Creations",
+                "description": "Amazing vegetarian dishes from our customers with our fresh Lion's Mane mushrooms."
+            }
+        }
     },
     "OurStory": {
         "title": "OUR STORY",

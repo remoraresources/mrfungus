@@ -64,7 +64,37 @@
     },
     "Gallery": {
         "title": "图片展示",
-        "intro": "探索我们的种植之旅"
+        "intro": "探索我们的种植之旅",
+        "stages": {
+            "preservation": {
+                "title": "菌种保存",
+                "description": "以多种形式精心保存蘑菇菌种。"
+            },
+            "preparation": {
+                "title": "基质准备",
+                "description": "半自动化生产，从零开始制作蘑菇菌包。"
+            },
+            "inoculation": {
+                "title": "接种过程",
+                "description": "木质菌包的接种过程。"
+            },
+            "incubation": {
+                "title": "培育阶段",
+                "description": "培育期约为 10-12 天。"
+            },
+            "fruiting": {
+                "title": "出菇阶段",
+                "description": "出菇期长达 10 天。"
+            },
+            "harvest": {
+                "title": "新鲜采收",
+                "description": "新鲜采摘的优质猴头菇。"
+            },
+            "culinary": {
+                "title": "美味佳肴",
+                "description": "由我们的客户制作的精美素食菜肴。"
+            }
+        }
     },
     "OurStory": {
         "title": "品牌故事",

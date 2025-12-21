@@ -1,15 +1,151 @@
 'use client';
 
-import { use } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Image from "next/image"
 import { ScrollAnimation } from "@/components/ScrollAnimation"
 
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 
+interface Stage {
+  id: string;
+  count: number;
+  ext?: string;
+  label?: string;
+  images?: {
+    src: string;
+    caption?: string;
+  }[];
+}
+
+const stages: Stage[] = [
+  { id: 'preservation', count: 2, ext: 'jpg' },
+  {
+    id: 'preparation',
+    count: 3,
+    images: [
+      { src: '/images/process/preparation_1.jpg', caption: 'Our imported European wood pellets' },
+      { src: '/images/process/preparation_2.png' },
+      { src: '/images/process/preparation_3.png' }
+    ]
+  },
+  { id: 'inoculation', count: 2 },
+  {
+    id: 'incubation',
+    count: 2,
+    images: [
+      { src: '/images/process/incubation_1.jpg' },
+      { src: '/images/process/incubation_2.jpg' }
+    ]
+  },
+  {
+    id: 'fruiting',
+    count: 2,
+    images: [
+      { src: '/images/process/fruiting_1.jpg' },
+      { src: '/images/process/fruiting_2.jpg', caption: 'The mushrooms are now ready for harvest' }
+    ]
+  },
+  {
+    id: 'harvest',
+    count: 2,
+    images: [
+      { src: '/images/process/harvest_1.jpg' },
+      { src: '/images/process/harvest_2.png' }
+    ]
+  },
+  {
+    id: 'culinary',
+    count: 8,
+    label: 'Bon Appétit',
+    images: [
+      { src: '/images/process/culinary_1.png' },
+      { src: '/images/process/culinary_2.jpg' },
+      { src: '/images/process/culinary_3.jpg' },
+      { src: '/images/process/culinary_4.png' },
+      { src: '/images/process/culinary_5.jpg' },
+      { src: '/images/process/culinary_6.jpg' },
+      { src: '/images/process/culinary_7.jpg' },
+      { src: '/images/process/culinary_8.jpg' }
+    ]
+  }
+];
+
 export default function Home({ params }: { params: Promise<{ locale: string }> }) {
 
   const t = useTranslations();
+  const [activeStage, setActiveStage] = useState(0);
+  const [isGalleryVisible, setIsGalleryVisible] = useState(false);
+  const [isResetting, setIsResetting] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // create a clone of the first stage for infinite loop effect
+  const extendedStages = [...stages, { ...stages[0], id: stages[0].id + '-clone' }];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsGalleryVisible(entry.isIntersecting);
+      },
+      { threshold: 0.5 }
+    );
+
+    if (scrollContainerRef.current) {
+      observer.observe(scrollContainerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Handle infinite scroll reset
+  useEffect(() => {
+    if (activeStage === stages.length) {
+      setIsResetting(true);
+      const timeout = setTimeout(() => {
+        if (scrollContainerRef.current) {
+          scrollContainerRef.current.scrollTo({ left: 0, behavior: 'auto' });
+          setActiveStage(0);
+          setIsResetting(false);
+        }
+      }, 500); // Wait for smooth scroll to finish before resetting
+
+      return () => clearTimeout(timeout);
+    }
+  }, [activeStage]);
+
+  useEffect(() => {
+    if (!isGalleryVisible) return;
+
+    const interval = setInterval(() => {
+      // Just increment to next stage, logic above handles the reset
+      const nextStage = activeStage + 1;
+      scrollToStage(nextStage);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isGalleryVisible, activeStage]);
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    if (isResetting) return; // Ignore scroll events during reset
+
+    const container = e.currentTarget;
+    const scrollLeft = container.scrollLeft;
+    const width = container.clientWidth;
+    const index = Math.round(scrollLeft / width);
+
+    if (index !== activeStage) {
+      setActiveStage(index);
+    }
+  };
+
+  const scrollToStage = (index: number) => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({
+        left: index * scrollContainerRef.current.clientWidth,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   const handleDiscoverClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -325,68 +461,144 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 
 
       </div>
-      <section id="gallery" className="snap-section bg-[#f2e8cf] py-24">
-        <div className="container max-w-6xl mx-auto px-4">
+      <section id="gallery" className="snap-section bg-[#f2e8cf] py-24 md:h-screen md:py-0 md:flex md:flex-col md:justify-center overflow-hidden">
+        <div className="container max-w-6xl mx-auto px-4 flex-shrink-0 relative z-10 pt-24 md:pt-20 pb-4">
           <ScrollAnimation>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center text-gray-800">{t('Gallery.title')}</h2>
-            <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">{t('Gallery.intro')}</p>
+            <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto md:mb-0">{t('Gallery.intro')}</p>
           </ScrollAnimation>
         </div>
 
-        {/* Mobile Grid View */}
-        <div className="md:hidden px-2">
-          <div className="grid grid-cols-2 gap-2">
-            {[
-              '/images/gallery_1.svg',
-              '/images/gallery_2.svg',
-              '/images/gallery_3.svg',
-              '/images/gallery_4.svg',
-              '/images/gallery_5.svg',
-              '/images/gallery_6.svg'
-            ].map((src, index) => (
-              <ScrollAnimation key={index} delay={index * 0.1}>
-                <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg">
-                  <Image
-                    src={src}
-                    alt={`Gallery Image ${index + 1}`}
-                    fill
-                    className="object-cover"
-                  />
+        {/* Mobile Vertical Stack Gallery */}
+        <div className="md:hidden space-y-16 px-4 mt-12">
+          {stages.map((stage, index) => (
+            <div key={stage.id} className="space-y-6">
+              {/* Header */}
+              <div>
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="bg-[var(--primary)] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
+                    {index + 1}
+                  </span>
+                  <h3 className="text-2xl font-bold text-[var(--foreground)]">{t(`Gallery.stages.${stage.id}.title`)}</h3>
                 </div>
-              </ScrollAnimation>
-            ))}
-          </div>
+                <p className="text-[var(--muted-foreground)] ml-11">{t(`Gallery.stages.${stage.id}.description`)}</p>
+              </div>
+
+              {/* Horizontal Image Scroll */}
+              <div className="flex overflow-x-auto gap-4 pb-4 -mx-4 px-4 scrollbar-hide snap-x">
+                {Array.from({ length: stage.count }).map((_, idx) => (
+                  <div key={idx} className="flex-shrink-0 w-[85vw] snap-center">
+                    <div className="relative aspect-square rounded-xl overflow-hidden shadow-md">
+                      <Image
+                        src={stage.images?.[idx]?.src || `/images/process/${stage.id}_${idx + 1}.${stage.ext || 'svg'}`}
+                        alt={`${stage.id} ${idx + 1}`}
+                        fill
+                        className="object-cover"
+                      />
+                      {stage.images?.[idx]?.caption && (
+                        <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-xs p-2 text-center backdrop-blur-sm z-10">
+                          {stage.images[idx].caption}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
 
-        {/* Desktop Auto-Scroll View */}
-        <div className="hidden md:block w-full overflow-hidden pb-8">
-          <div className="flex gap-6 w-max animate-scroll">
-            {[
-              '/images/gallery_1.svg',
-              '/images/gallery_2.svg',
-              '/images/gallery_3.svg',
-              '/images/gallery_4.svg',
-              '/images/gallery_5.svg',
-              '/images/gallery_6.svg',
-              // Duplicate for infinite loop
-              '/images/gallery_1.svg',
-              '/images/gallery_2.svg',
-              '/images/gallery_3.svg',
-              '/images/gallery_4.svg',
-              '/images/gallery_5.svg',
-              '/images/gallery_6.svg'
-            ].map((src, index) => (
-              <div key={index} className="w-[600px] flex-shrink-0">
-                <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group">
-                  <Image
-                    src={src}
-                    alt={`Gallery Image ${index + 1}`}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+        {/* Desktop Full-Screen Process Carousel */}
+        <div className="hidden md:block relative group flex-1 min-h-0 w-full">
+          <div
+            id="gallery-scroll-container"
+            ref={scrollContainerRef}
+            className="flex overflow-x-auto w-full snap-x snap-mandatory scrollbar-hide pb-12 md:pb-0 h-full md:items-center"
+            onScroll={handleScroll}
+          >
+            {extendedStages.map((stage, index) => {
+              // Handle clone ID for translations by stripping the suffix
+              const originalId = stage.id.replace('-clone', '');
+
+              return (
+                <div key={`${stage.id}-${index}`} className="min-w-full flex-shrink-0 snap-center px-2 md:px-0 flex items-center justify-center h-full md:py-8 md:px-12">
+                  <div className={`max-w-[95rem] w-full mx-auto bg-white/60 backdrop-blur-md rounded-3xl p-4 md:p-8 shadow-sm border border-[var(--border)] h-[85vh] md:h-full flex flex-col ${originalId === 'culinary' ? '' : 'md:flex-row'} gap-6`}>
+                    {/* Text Content */}
+                    {originalId !== 'culinary' && (
+                      <div className="md:w-[25%] flex flex-col justify-center space-y-6">
+                        <div className="inline-block bg-[var(--primary)] text-white px-4 py-1 rounded-full text-sm font-bold w-fit">
+                          {stage.label || `Stage ${(index % stages.length) + 1}`}
+                        </div>
+                        <ScrollAnimation>
+                          <h3 className="text-3xl md:text-5xl font-bold text-[var(--foreground)]">{t(`Gallery.stages.${originalId}.title`)}</h3>
+                        </ScrollAnimation>
+                        <ScrollAnimation delay={0.1}>
+                          <p className="text-lg md:text-xl text-[var(--muted-foreground)] leading-relaxed">
+                            {t(`Gallery.stages.${originalId}.description`)}
+                          </p>
+                        </ScrollAnimation>
+                      </div>
+                    )}
+
+                    {/* Image Grid */}
+                    <div className={`${originalId === 'culinary' ? 'w-full flex-1' : 'md:w-[75%] h-full'} overflow-hidden`}>
+                      <div className={`grid gap-3 h-full ${stage.count <= 2 ? 'grid-cols-1 md:grid-cols-2 md:grid-rows-1' :
+                        stage.count === 3 ? 'grid-cols-1 md:grid-cols-2 md:grid-rows-2' :
+                          stage.count <= 4 ? 'grid-cols-2 md:grid-cols-2 md:grid-rows-2' :
+                            'grid-cols-2 md:grid-cols-4 md:grid-rows-2'
+                        }`}>
+                        {Array.from({ length: stage.count }).map((_, idx) => (
+                          <div
+                            key={idx}
+                            className={`relative rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow h-full w-full ${stage.count === 3
+                              ? idx === 0 ? 'md:col-start-1 md:row-start-1'
+                                : idx === 1 ? 'md:col-start-1 md:row-start-2'
+                                  : 'md:col-start-2 md:row-start-1 md:row-span-2'
+                              : ''
+                              }`}
+                          >
+                            <Image
+                              src={stage.images?.[idx]?.src || `/images/process/${originalId}_${idx + 1}.${stage.ext || 'svg'}`}
+                              alt={`${originalId} ${idx + 1}`}
+                              fill
+                              className="object-cover hover:scale-105 transition-transform duration-500"
+                            />
+                            {stage.images?.[idx]?.caption && (
+                              <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">
+                                {stage.images[idx].caption}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Bottom Text for Culinary Stage */}
+                    {originalId === 'culinary' && (
+                      <div className="w-full text-center py-2 flex-shrink-0">
+                        <p className="text-lg md:text-xl text-[var(--muted-foreground)] font-medium">
+                          {t(`Gallery.stages.${originalId}.description`)}
+                        </p>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
+              );
+            })}
+          </div>
+
+          {/* Indicators */}
+          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
+            {stages.map((_, i) => (
+              <button
+                key={i}
+                className={`stage-indicator h-2 rounded-full transition-all duration-300 ${activeStage % stages.length === i ? 'bg-[var(--primary)] w-8' : 'bg-gray-300 w-2'}`}
+                onClick={() => {
+                  setActiveStage(i);
+                  scrollToStage(i);
+                }}
+                aria-label={`Go to stage ${i + 1}`}
+              />
             ))}
           </div>
         </div>
