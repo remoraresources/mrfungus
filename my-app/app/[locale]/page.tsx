@@ -331,17 +331,26 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center text-gray-800">{t('Gallery.title')}</h2>
             <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">{t('Gallery.intro')}</p>
           </ScrollAnimation>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="w-full overflow-hidden pb-8">
+          <div className="flex gap-6 w-max animate-scroll">
             {[
-              '/images/lions-mane.webp',
-              '/images/story_cultivation_v2.webp',
-              '/images/story_lab_malaysian_v2.webp',
-              '/images/story_journey_v2.webp',
-              '/images/about_us_facility_v3.webp',
-              '/images/story_memory_v2.webp'
+              '/images/gallery_1.svg',
+              '/images/gallery_2.svg',
+              '/images/gallery_3.svg',
+              '/images/gallery_4.svg',
+              '/images/gallery_5.svg',
+              '/images/gallery_6.svg',
+              // Duplicate for infinite loop
+              '/images/gallery_1.svg',
+              '/images/gallery_2.svg',
+              '/images/gallery_3.svg',
+              '/images/gallery_4.svg',
+              '/images/gallery_5.svg',
+              '/images/gallery_6.svg'
             ].map((src, index) => (
-              <ScrollAnimation key={index} delay={index * 0.1}>
+              <div key={index} className="w-[85vw] md:w-[400px] flex-shrink-0">
                 <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group">
                   <Image
                     src={src}
@@ -351,7 +360,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
                 </div>
-              </ScrollAnimation>
+              </div>
             ))}
           </div>
         </div>
