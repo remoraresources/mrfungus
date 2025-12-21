@@ -333,7 +333,33 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
           </ScrollAnimation>
         </div>
 
-        <div className="w-full overflow-hidden pb-8">
+        {/* Mobile Grid View */}
+        <div className="md:hidden px-2">
+          <div className="grid grid-cols-2 gap-2">
+            {[
+              '/images/gallery_1.svg',
+              '/images/gallery_2.svg',
+              '/images/gallery_3.svg',
+              '/images/gallery_4.svg',
+              '/images/gallery_5.svg',
+              '/images/gallery_6.svg'
+            ].map((src, index) => (
+              <ScrollAnimation key={index} delay={index * 0.1}>
+                <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg">
+                  <Image
+                    src={src}
+                    alt={`Gallery Image ${index + 1}`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </ScrollAnimation>
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop Auto-Scroll View */}
+        <div className="hidden md:block w-full overflow-hidden pb-8">
           <div className="flex gap-6 w-max animate-scroll">
             {[
               '/images/gallery_1.svg',
@@ -350,7 +376,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
               '/images/gallery_5.svg',
               '/images/gallery_6.svg'
             ].map((src, index) => (
-              <div key={index} className="w-[85vw] md:w-[400px] flex-shrink-0">
+              <div key={index} className="w-[600px] flex-shrink-0">
                 <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group">
                   <Image
                     src={src}
