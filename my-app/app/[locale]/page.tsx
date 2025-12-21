@@ -607,6 +607,43 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 
 
       </div>
+      <section id="youtube-recipes" className="snap-section bg-[#f2e8cf] py-24 -mx-4 px-4">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="bg-white/60 backdrop-blur-sm p-8 md:p-12 rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-500 text-center">
+            <ScrollAnimation>
+              <h2 className="text-2xl md:text-3xl font-bold mb-8 text-[var(--primary)] max-w-4xl mx-auto leading-relaxed">
+                {t('Youtube.title')}
+              </h2>
+            </ScrollAnimation>
+
+            <ScrollAnimation delay={0.2}>
+              <a
+                href="https://www.youtube.com/playlist?list=PLUm9x-Uihu6bkbfs18Of3HSAzvW6WO6bv"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block text-lg md:text-xl text-[#BC6C25] hover:text-[#dda15e] font-bold underline mb-12 break-all"
+              >
+                https://www.youtube.com/playlist?list=PLUm9x-Uihu6bkbfs18Of3HSAzvW6WO6bv
+              </a>
+            </ScrollAnimation>
+
+            <ScrollAnimation delay={0.4}>
+              <div className="flex flex-col items-center gap-6">
+                <p className="text-xl font-medium text-gray-700">{t('Youtube.or_scan')}:</p>
+                <div className="relative w-48 h-48 md:w-56 md:h-56 bg-white p-4 rounded-xl shadow-lg">
+                  <Image
+                    src="/images/youtube_qr.png"
+                    alt="YouTube Playlist QR Code"
+                    fill
+                    className="object-contain p-2"
+                  />
+                </div>
+              </div>
+            </ScrollAnimation>
+          </div>
+        </div>
+      </section>
+
       <section id="contact" className="snap-section bg-[#BC6C25] py-24 text-white">
         <div className="container mx-auto px-4">
           <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl w-full max-w-6xl mx-auto hover:shadow-2xl transition-all duration-500">
@@ -672,8 +709,9 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
       <div className="container mx-auto px-4 space-y-24">
 
 
+
         <section id="location" className="snap-section bg-[#f2e8cf] py-24">
-          <div className="max-w-4xl mx-auto px-4">
+          <div className="container mx-auto px-4 max-w-6xl">
             <div className="bg-white/60 backdrop-blur-sm p-8 rounded-2xl hover:shadow-2xl transition-all duration-500">
               <ScrollAnimation>
                 <h2 className="text-3xl font-bold mb-8 text-center">{t('Location.title')}</h2>
