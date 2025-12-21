@@ -57,10 +57,14 @@
         "home": "首页",
         "about": "关于我们",
         "story": "品牌故事",
-        "product": "产品介绍",
+        "gallery": "图片展示",
         "insights": "种植揭秘",
         "contact": "联系我们",
         "location": "地址"
+    },
+    "Gallery": {
+        "title": "图片展示",
+        "intro": "探索我们的种植之旅"
     },
     "OurStory": {
         "title": "品牌故事",

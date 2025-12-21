@@ -70,7 +70,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
           </ScrollAnimation>
           <ScrollAnimation delay={0.4}>
             <Link
-              href="/#product"
+              href="/#gallery"
               onClick={handleDiscoverClick}
               className="inline-block bg-[var(--primary)] text-white px-8 py-3 rounded-lg font-bold hover:bg-[var(--primary-hover)] transition-colors"
             >
@@ -290,12 +290,13 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 
               <div className="md:w-1/2 md:pl-12 w-full pl-12 md:pl-0">
                 <ScrollAnimation delay={0.2}>
-                  <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg transform rotate-2 hover:rotate-0 transition-transform duration-500 border-4 border-white">
+                  <div className="relative rounded-2xl overflow-hidden shadow-lg transform rotate-2 hover:rotate-0 transition-transform duration-500 border-4 border-white">
                     <Image
                       src="/images/story_cultivation_v2.webp"
                       alt="Nature Cultivation"
-                      fill
-                      className="object-cover"
+                      width={889}
+                      height={1024}
+                      className="w-full h-auto"
                     />
                   </div>
                 </ScrollAnimation>
@@ -324,67 +325,34 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 
 
       </div>
-      <section id="product" className="snap-section bg-[#f2e8cf] py-24">
+      <section id="gallery" className="snap-section bg-[#f2e8cf] py-24">
         <div className="container max-w-6xl mx-auto px-4">
-          <div className="bg-white/60 backdrop-blur-sm p-8 md:p-12 rounded-2xl hover:shadow-2xl transition-all duration-500">
-            <ScrollAnimation>
-              <h2 className="text-3xl font-bold mb-12 text-center text-gray-800">{t('ProductIntro.title')}</h2>
-            </ScrollAnimation>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <ScrollAnimation>
-                <div className="relative aspect-square rounded-2xl overflow-hidden shadow-lg">
+          <ScrollAnimation>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center text-gray-800">{t('Gallery.title')}</h2>
+            <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">{t('Gallery.intro')}</p>
+          </ScrollAnimation>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              '/images/lions-mane.webp',
+              '/images/story_cultivation_v2.webp',
+              '/images/story_lab_malaysian_v2.webp',
+              '/images/story_journey_v2.webp',
+              '/images/about_us_facility_v3.webp',
+              '/images/story_memory_v2.webp'
+            ].map((src, index) => (
+              <ScrollAnimation key={index} delay={index * 0.1}>
+                <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group">
                   <Image
-                    src="/images/lions-mane.webp"
-                    alt="Lion's Mane Grow Kit"
+                    src={src}
+                    alt={`Gallery Image ${index + 1}`}
                     fill
-                    className="object-cover"
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
                 </div>
               </ScrollAnimation>
-              <div className="space-y-8">
-                <ScrollAnimation delay={0.2}>
-                  <div className="space-y-4">
-                    <h3 className="text-2xl font-bold text-gray-800">{t('ProductIntro.subtitle')}</h3>
-                    <ul className="space-y-3">
-                      <li className="flex items-center gap-3">
-                        <div className="w-6 h-6 rounded-full bg-[var(--primary)]/10 flex items-center justify-center text-[var(--primary)] font-bold">✓</div>
-                        <span className="text-gray-700">{t('ProductIntro.item1')}</span>
-                      </li>
-                      <li className="flex items-center gap-3">
-                        <div className="w-6 h-6 rounded-full bg-[var(--primary)]/10 flex items-center justify-center text-[var(--primary)] font-bold">✓</div>
-                        <span className="text-gray-700">{t('ProductIntro.item2')}</span>
-                      </li>
-                      <li className="flex items-center gap-3">
-                        <div className="w-6 h-6 rounded-full bg-[var(--primary)]/10 flex items-center justify-center text-[var(--primary)] font-bold">✓</div>
-                        <span className="text-gray-700">{t('ProductIntro.item3')}</span>
-                      </li>
-                      <li className="flex items-center gap-3">
-                        <div className="w-6 h-6 rounded-full bg-[var(--primary)]/10 flex items-center justify-center text-[var(--primary)] font-bold">✓</div>
-                        <span className="text-gray-700">{t('ProductIntro.item4')}</span>
-                      </li>
-                    </ul>
-                    <p className="text-gray-600 leading-relaxed">
-                      {t('ProductIntro.description')}
-                    </p>
-                  </div>
-                </ScrollAnimation>
-                <ScrollAnimation delay={0.4}>
-                  <div className="bg-white/40 backdrop-blur-sm p-6 rounded-xl border border-white/50">
-                    <p className="font-bold mb-2 text-gray-800">{t('ProductIntro.interested')}</p>
-                    <p className="text-gray-600 mb-4">
-                      {t('ProductIntro.interested_desc')}
-                    </p>
-                    <Link
-                      href="/#contact"
-                      className="inline-block w-full text-center bg-[var(--primary)] text-white px-8 py-3 rounded-lg font-bold hover:bg-[var(--primary)]/90 transition-colors shadow-md"
-                      onClick={handleDiscoverClick}
-                    >
-                      {t('ProductIntro.cta')}
-                    </Link>
-                  </div>
-                </ScrollAnimation>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>

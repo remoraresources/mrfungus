@@ -98,8 +98,8 @@ export function Header() {
                         <Link href="/#our-story" className={`text-sm font-medium transition-colors duration-500 ${textColorClass} ${hoverColorClass}`}>
                             {t('story')}
                         </Link>
-                        <Link href="/#product" className={`text-sm font-medium transition-colors duration-500 ${textColorClass} ${hoverColorClass}`}>
-                            {t('product')}
+                        <Link href="/#gallery" className={`text-sm font-medium transition-colors duration-500 ${textColorClass} ${hoverColorClass}`}>
+                            {t('gallery')}
                         </Link>
 
                         <Link href="/#contact" className={`text-sm font-medium transition-colors duration-500 ${textColorClass} ${hoverColorClass}`}>
@@ -149,11 +149,11 @@ export function Header() {
                                     {t('story')}
                                 </Link>
                                 <Link
-                                    href="/#product"
+                                    href="/#gallery"
                                     className="text-2xl font-bold text-[var(--foreground)] hover:text-[var(--primary)]"
                                     onClick={() => setIsSidebarOpen(false)}
                                 >
-                                    {t('product')}
+                                    {t('gallery')}
                                 </Link>
 
                                 <Link

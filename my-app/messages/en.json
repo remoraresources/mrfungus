@@ -57,10 +57,14 @@
         "home": "Home",
         "about": "About Us",
         "story": "Our Story",
-        "product": "Product Introduction",
+        "gallery": "Gallery",
         "insights": "Insights",
         "contact": "Contact Us",
         "location": "Location"
+    },
+    "Gallery": {
+        "title": "Gallery",
+        "intro": "A glimpse into our cultivation journey."
     },
     "OurStory": {
         "title": "OUR STORY",
@@ -69,12 +73,12 @@
         "milestone3_date": "The Realization",
         "milestone4_date": "2019",
         "milestone5_date": "The Method",
-        "background_p1": "Many years ago, one of our founders learned that his beloved grandmother had been diagnosed with Alzheimer’s disease. Driven by love and concern, he began searching for ways to improve brain health. By chance, he discovered that lion’s mane mushroom possesses neuroprotective — and even regenerative — properties. That sparked a desire to grow it himself.",
-        "background_p2": "Like many journeys toward success, the path wasn’t smooth. Tragically, his grandmother passed away before the first successful harvest. Though she never got to witness the results of his efforts, her memory and his regret strengthened his resolve to bring fresh lion’s mane mushrooms to the public.",
-        "background_p3": "At the time, he realized that most lion’s mane mushrooms available in the market were dried imports from China. It’s worth noting that lion’s mane’s two key active compounds — hericenones and erinacines — are extremely fragile. Common processing methods like drying or deep frying can destroy these valuable nutrients and their health benefits.",
+        "background_p1": "Eight years ago, our founder’s grandmother was diagnosed with Alzheimer’s. In search of natural ways to support brain health, he discovered Lion’s Mane, a mushroom which gains recognition for its neuro-supportive properties. What began as a personal mission soon evolved into a passionate commitment to grow fresh Lion’s Mane with care and consistency.",
+        "background_p2": "However, cultivating Lion’s Mane was not easy. It took years of trials and refinement to achieve reliable consistency. After his grandmother’s passing, the mission grew stronger: to deliver fresher, higher-quality Lion’s Mane to the local market.",
+        "background_p3": "He discovered that most Lion’s Mane in the market came as dried imports. Yet their key bioactives, hericenones and erinacines, are extremely sensitive to drying and high heat. In other words, heavy processing would reduce the mushroom's potency.",
         "lab_title": "From Laboratory to Reality",
-        "lab_p1": "In 2019, MR FUNGUS (Remora Resources PLT) was officially established to focus on the research and development of cultivation techniques for premium-quality lion's mane mushrooms. After five years of continuous experimentation and refinement, we finally developed a stable and efficient growing method — turning local, large-scale production of premium lion’s mane mushrooms into reality.",
-        "lab_p2": "Starting from growing mycelium in petri dishes and transferring it onto 99.99% sterilized wood substrates, our cultivation method closely mimics the mushroom’s natural wild environment. By choosing European oak as the primary substrate, combined with advanced Japanese indoor-farming technology, we have achieved a truly organic, pesticide-free, and contamination-free cultivation process."
+        "lab_p1": "Founded in 2019, MR FUNGUS (Remora Resources PLT) began as a dedicated R&D initiative to cultivate truly premium Lion’s Mane. After five years of relentless testing and refinement, we developed a stable and efficient growing system, making large-scale local production of high-quality Lion’s Mane a reality.",
+        "lab_p2": "Starting from growing mycelium in petri dishes and transferring it onto 99% sterilized wood substrates, our method closely mimics the mushroom’s natural wild environment. By utilising European oak as the primary substrate, combined with advanced Japanese indoor-farming technology, we have achieved a truly organic, pesticide and contamination-free cultivation process."
     },
     "Mission": {
         "title": "Our Mission",

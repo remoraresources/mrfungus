@@ -20,7 +20,7 @@ export function Footer() {
                         <h3 className="text-lg font-bold mb-4">Quick Links</h3>
                         <div className="flex flex-col gap-2 text-sm text-[var(--muted)]">
                             <Link href="/#about" className="hover:text-white">{t('about')}</Link>
-                            <Link href="/#product" className="hover:text-white">{t('product')}</Link>
+                            <Link href="/#gallery" className="hover:text-white">{t('gallery')}</Link>
                             <Link href="/#insights" className="hover:text-white">{t('insights')}</Link>
                             <Link href="/#location" className="hover:text-white">{t('location')}</Link>
                         </div>
