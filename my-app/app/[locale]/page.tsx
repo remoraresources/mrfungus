@@ -518,6 +518,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                         alt={`${stage.id} ${idx + 1}`}
                         fill
                         className="object-cover"
+                        priority
                       />
                       {stage.images?.[idx]?.caption && (
                         <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-xs p-2 text-center backdrop-blur-sm z-10">
@@ -604,6 +605,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                               alt={`${originalId} ${idx + 1}`}
                               fill
                               className="object-cover hover:scale-105 transition-transform duration-500"
+                              priority
                             />
                             {stage.images?.[idx]?.caption && (
                               <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">
