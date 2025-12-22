@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from 'react';
 import Image from "next/image"
 import { ScrollAnimation } from "@/components/ScrollAnimation"
+import { VideoPlayer } from "@/components/video-player"
 
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
@@ -30,7 +31,14 @@ const stages: Stage[] = [
       { src: '/images/process/preparation_3.png' }
     ]
   },
-  { id: 'inoculation', count: 2 },
+  {
+    id: 'inoculation',
+    count: 2,
+    images: [
+      { src: '/images/process/inocluation_1.gif' },
+      { src: '/images/process/inoculation_2.jpeg' }
+    ]
+  },
   {
     id: 'incubation',
     count: 2,
@@ -497,16 +505,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
         <div className="md:hidden space-y-16 px-4 mt-12">
           {stages.map((stage, index) => (
             <div key={stage.id} className="space-y-6">
-              {/* Header */}
-              <div>
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="bg-[var(--primary)] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
-                    {index + 1}
-                  </span>
-                  <h3 className="text-2xl font-bold text-[var(--foreground)]">{t(`Gallery.stages.${stage.id}.title`)}</h3>
-                </div>
-                <p className="text-[var(--muted-foreground)] ml-11">{t(`Gallery.stages.${stage.id}.description`)}</p>
-              </div>
+
 
               {/* Horizontal Image Scroll */}
               <div className="flex overflow-x-auto gap-4 pb-4 -mx-4 px-4 scrollbar-hide snap-x">
@@ -529,6 +528,9 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                   </div>
                 ))}
               </div>
+
+              {/* Description at bottom for mobile */}
+              <p className="text-[var(--muted-foreground)] text-center">{t(`Gallery.stages.${stage.id}.description`)}</p>
             </div>
           ))}
         </div>
@@ -565,26 +567,10 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 
               return (
                 <div key={`${stage.id}-${index}`} className="min-w-full flex-shrink-0 snap-center px-2 md:px-0 flex items-center justify-center h-full md:py-8 md:px-12">
-                  <div className={`max-w-[95rem] w-full mx-auto bg-white/60 backdrop-blur-md rounded-3xl p-4 md:p-8 shadow-sm border border-[var(--border)] h-[85vh] md:h-full flex flex-col ${originalId === 'culinary' ? '' : 'md:flex-row'} gap-6`}>
-                    {/* Text Content */}
-                    {originalId !== 'culinary' && (
-                      <div className="md:w-[25%] flex flex-col justify-center space-y-6">
-                        <div className="inline-block bg-[var(--primary)] text-white px-4 py-1 rounded-full text-sm font-bold w-fit">
-                          {stage.label || `Stage ${(index % stages.length) + 1}`}
-                        </div>
-                        <ScrollAnimation>
-                          <h3 className="text-3xl md:text-5xl font-bold text-[var(--foreground)]">{t(`Gallery.stages.${originalId}.title`)}</h3>
-                        </ScrollAnimation>
-                        <ScrollAnimation delay={0.1}>
-                          <p className="text-lg md:text-xl text-[var(--muted-foreground)] leading-relaxed">
-                            {t(`Gallery.stages.${originalId}.description`)}
-                          </p>
-                        </ScrollAnimation>
-                      </div>
-                    )}
+                  <div className={`max-w-[95rem] w-full mx-auto bg-white/60 backdrop-blur-md rounded-3xl p-4 md:p-8 shadow-sm border border-[var(--border)] h-[85vh] md:h-full flex flex-col gap-6`}>
 
                     {/* Image Grid */}
-                    <div className={`${originalId === 'culinary' ? 'w-full flex-1' : 'md:w-[75%] h-full'} overflow-hidden`}>
+                    <div className={`w-full flex-1 overflow-hidden`}>
                       <div className={`grid gap-3 h-full ${stage.count <= 2 ? 'grid-cols-1 md:grid-cols-2 md:grid-rows-1' :
                         stage.count === 3 ? 'grid-cols-1 md:grid-cols-2 md:grid-rows-2' :
                           stage.count <= 4 ? 'grid-cols-2 md:grid-cols-2 md:grid-rows-2' :
@@ -617,14 +603,12 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                       </div>
                     </div>
 
-                    {/* Bottom Text for Culinary Stage */}
-                    {originalId === 'culinary' && (
-                      <div className="w-full text-center py-2 flex-shrink-0">
-                        <p className="text-lg md:text-xl text-[var(--muted-foreground)] font-medium">
-                          {t(`Gallery.stages.${originalId}.description`)}
-                        </p>
-                      </div>
-                    )}
+                    {/* Bottom Text for All Stages */}
+                    <div className="w-full text-center py-2 flex-shrink-0">
+                      <p className="text-lg md:text-xl text-[var(--muted-foreground)] font-medium max-w-[80vw] md:max-w-[60vw] mx-auto px-4 text-balance">
+                        {t(`Gallery.stages.${originalId}.description`)}
+                      </p>
+                    </div>
                   </div>
                 </div>
               );
@@ -661,27 +645,11 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
             </ScrollAnimation>
 
             <ScrollAnimation delay={0.2}>
-              <a
-                href="https://www.youtube.com/playlist?list=PLUm9x-Uihu6bkbfs18Of3HSAzvW6WO6bv"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block text-lg md:text-xl text-[#BC6C25] hover:text-[#dda15e] font-bold underline mb-12 break-all"
-              >
-                https://www.youtube.com/playlist?list=PLUm9x-Uihu6bkbfs18Of3HSAzvW6WO6bv
-              </a>
-            </ScrollAnimation>
-
-            <ScrollAnimation delay={0.4}>
-              <div className="flex flex-col items-center gap-6">
-                <p className="text-xl font-medium text-gray-700">{t('Youtube.or_scan')}:</p>
-                <div className="relative w-48 h-48 md:w-56 md:h-56 bg-white p-4 rounded-xl shadow-lg">
-                  <Image
-                    src="/images/youtube_qr.png"
-                    alt="YouTube Playlist QR Code"
-                    fill
-                    className="object-contain p-2"
-                  />
-                </div>
+              <div className="max-w-4xl mx-auto">
+                <VideoPlayer
+                  src="https://www.youtube.com/embed/videoseries?list=PLUm9x-Uihu6bkbfs18Of3HSAzvW6WO6bv"
+                  title={t('Youtube.title')}
+                />
               </div>
             </ScrollAnimation>
           </div>
@@ -699,7 +667,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
               <ScrollAnimation delay={0.2}>
                 <div className="space-y-8">
                   <div>
-                    <h3 className="text-xl font-bold mb-4 text-white">{t('Contact.company_name')}</h3>
+                    <h3 className="text-xl font-bold mb-1 text-white">{t('Contact.company_name')}</h3>
                     <p className="text-sm text-white/70 mb-6">{t('Contact.registration')}</p>
                   </div>
                   <div>
@@ -724,7 +692,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
               {/* Inquiry Buttons */}
               <ScrollAnimation delay={0.4} className="flex flex-col gap-4 justify-center">
                 <a
-                  href="mailto:remoraresources@gmail.com"
+                  href="mailto:enquiries@mrfungus.com.my"
                   className="w-full bg-white text-[#BC6C25] px-6 py-4 rounded-lg font-bold hover:bg-white/90 transition-colors text-center text-lg flex items-center justify-center gap-2 shadow-md"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

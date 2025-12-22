@@ -31,14 +31,16 @@ export function Footer() {
                     <div>
                         <h3 className="text-lg font-bold mb-4">{tFooter('contactTitle')}</h3>
                         <ul className="space-y-2 text-sm text-[var(--muted)]">
-                            <li className="font-semibold text-white">{tFooter('companyName')}</li>
-                            <li className="text-xs">{tFooter('registration')}</li>
+                            <li>
+                                <div className="font-semibold text-white">{tFooter('companyName')}</div>
+                                <div className="text-xs">{tFooter('registration')}</div>
+                            </li>
                             <li>
                                 <Link href="/#contact" className="hover:text-white">
                                     {tFooter('inquiry')}
                                 </Link>
                             </li>
-                            <li>remoraresources@gmail.com</li>
+                            <li>enquiries@mrfungus.com.my</li>
                             <li>{tFooter('phoneWhatsapp')}</li>
                             <li>0162175009</li>
                         </ul>

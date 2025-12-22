@@ -41,7 +41,7 @@
         "registration": "Registration No: 201904000690",
         "get_in_touch": "Get in Touch",
         "business_hours": "Business Hours",
-        "email": "remoraresources@gmail.com",
+        "email": "enquiries@mrfungus.com.my",
         "phone": "0167019620 / 0162175009",
         "whatsapp": "WhatsApp: 0167019620 / 0162175009",
         "email_button": "Send us an Email",
@@ -64,15 +64,15 @@
     },
     "Gallery": {
         "title": "Gallery",
-        "intro": "A glimpse into our cultivation journey.",
+        "intro": "A glimpse into our farm-to-fruition journey.",
         "stages": {
             "preservation": {
                 "title": "Preservation",
-                "description": "Preservation of mushroom strains in different forms."
+                "description": "Our research team diligently preserves our top-performing mushroom strain in multiple forms, while actively pursuing new R&D initiatives."
             },
             "preparation": {
                 "title": "Preparation",
-                "description": "Semi-automated mushroom bags making from scratch."
+                "description": "Our semi-automated mushroom substrates making process allow us to have the greatest control on quality at high efficiency."
             },
             "inoculation": {
                 "title": "Inoculation",
@@ -80,19 +80,19 @@
             },
             "incubation": {
                 "title": "Incubation",
-                "description": "Incubation periods take around 10-12 days."
+                "description": "Incubation periods, takes around 10-12 days."
             },
             "fruiting": {
                 "title": "Fruiting",
-                "description": "Fruiting period takes up to 10 days."
+                "description": "Fruiting period, takes up to 10 days. "
             },
             "harvest": {
                 "title": "Harvest",
-                "description": "Freshly harvested Lion's Mane mushrooms."
+                "description": "Harvested mushrooms"
             },
             "culinary": {
                 "title": "Culinary Creations",
-                "description": "Amazing vegetarian dishes from our customers with our fresh Lion's Mane mushrooms."
+                "description": "Some amazing vegetarian dishes made from our fresh LM by our customers!"
             }
         }
     },
@@ -112,8 +112,7 @@
     },
     "Youtube": {
         "title": "FOR MORE AMAZING LION'S MANE MUSHROOM RECIPES, PLEASE VISIT OUR YOUTUBE PLAYLIST",
-        "description": "Discover delicious ways to cook with our fresh mushrooms.",
-        "or_scan": "Or scan QR code"
+        "description": "Discover delicious ways to cook with our fresh mushrooms."
     },
     "Mission": {
         "title": "Our Mission",
