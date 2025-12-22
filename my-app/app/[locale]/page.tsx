@@ -501,25 +501,22 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
         {/* Mobile Vertical Stack Gallery */}
         <div className="md:hidden space-y-16 px-4 mt-12">
           {stages.map((stage, index) => (
-            <div key={stage.id} className="space-y-6">
+            <div key={stage.id} className="space-y-3">
 
 
               {/* Horizontal Image Scroll */}
-              <div className="flex overflow-x-auto gap-4 pb-4 -mx-4 px-4 scrollbar-hide snap-x">
+              <div className="flex overflow-x-auto gap-4 pb-2 -mx-4 px-4 scrollbar-hide snap-x items-center">
                 {Array.from({ length: stage.count }).map((_, idx) => {
                   const imageSrc = stage.images?.[idx]?.src || `/images/process/${stage.id}_${idx + 1}.${stage.ext || 'svg'}`;
                   return (
-                    <div key={idx} className="flex-shrink-0 w-[85vw] snap-center">
-                      <div className="relative aspect-square rounded-xl overflow-hidden shadow-md cursor-pointer group-hover:brightness-90 transition-all"
+                    <div key={idx} className="flex-shrink-0 snap-center">
+                      <div className="relative rounded-xl overflow-hidden shadow-md cursor-pointer group-hover:brightness-90 transition-all border-4 border-white bg-white"
                         onClick={() => setSelectedImage(imageSrc)}
                       >
-                        <Image
+                        <img
                           src={imageSrc}
                           alt={`${stage.id} ${idx + 1}`}
-                          fill
-                          className="object-contain rounded-xl"
-                          priority
-                          unoptimized={imageSrc.toLowerCase().endsWith('.gif')}
+                          className="max-h-[50vh] max-w-[85vw] w-auto h-auto object-contain block rounded-lg"
                         />
                         {stage.images?.[idx]?.caption && (
                           <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-xs p-2 text-center backdrop-blur-sm z-10">
