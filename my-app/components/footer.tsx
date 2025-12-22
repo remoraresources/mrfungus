@@ -3,21 +3,22 @@ import { useTranslations } from "next-intl"
 
 export function Footer() {
     const t = useTranslations('Navigation');
+    const tFooter = useTranslations('Footer');
     return (
         <footer className="bg-[#38302A] text-white py-12 snap-start">
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {/* About */}
                     <div>
-                        <h3 className="text-lg font-bold mb-4">Mr Fungus</h3>
+                        <h3 className="text-lg font-bold mb-4">{tFooter('brandName')}</h3>
                         <p className="text-[var(--muted)] text-sm mb-4">
-                            Specializing in premium Lion's Mane grow kits. We make it easy to grow gourmet mushrooms at home.
+                            {tFooter('description')}
                         </p>
                     </div>
 
                     {/* Quick Links */}
                     <div>
-                        <h3 className="text-lg font-bold mb-4">Quick Links</h3>
+                        <h3 className="text-lg font-bold mb-4">{tFooter('quickLinksTitle')}</h3>
                         <div className="flex flex-col gap-2 text-sm text-[var(--muted)]">
                             <Link href="/#about" className="hover:text-white">{t('about')}</Link>
                             <Link href="/#gallery" className="hover:text-white">{t('gallery')}</Link>
@@ -28,17 +29,17 @@ export function Footer() {
 
                     {/* Contact */}
                     <div>
-                        <h3 className="text-lg font-bold mb-4">Contact</h3>
+                        <h3 className="text-lg font-bold mb-4">{tFooter('contactTitle')}</h3>
                         <ul className="space-y-2 text-sm text-[var(--muted)]">
-                            <li className="font-semibold text-white">REMORA RESOURCES PLT</li>
-                            <li className="text-xs">Registration No: 201904000690</li>
+                            <li className="font-semibold text-white">{tFooter('companyName')}</li>
+                            <li className="text-xs">{tFooter('registration')}</li>
                             <li>
                                 <Link href="/#contact" className="hover:text-white">
-                                    Inquiry Form
+                                    {tFooter('inquiry')}
                                 </Link>
                             </li>
                             <li>remoraresources@gmail.com</li>
-                            <li>Phone/WhatsApp: 0167019620</li>
+                            <li>{tFooter('phoneWhatsapp')}</li>
                             <li>0162175009</li>
                         </ul>
                     </div>

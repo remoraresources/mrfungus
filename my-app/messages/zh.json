@@ -117,5 +117,15 @@
     "Mission": {
         "title": "我们的使命",
         "content": "树立马来西亚猴头菇的行业标杆：通过严谨的自主培植，确保新鲜、经认证有机、农场直达且价格亲民的稳定供应。"
+    },
+    "Footer": {
+        "brandName": "MR FUNGUS 菌鲜生",
+        "description": "专营本地优质培植猴头菇。",
+        "quickLinksTitle": "快速链接",
+        "contactTitle": "联系我们",
+        "companyName": "REMORA RESOURCES PLT",
+        "registration": "注册号码：201904000690",
+        "inquiry": "咨询表格",
+        "phoneWhatsapp": "电话/WhatsApp: 0167019620"
     }
 }

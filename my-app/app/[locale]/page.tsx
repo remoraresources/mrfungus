@@ -173,9 +173,9 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 
   const handleDiscoverClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    const storySection = document.getElementById('our-story');
-    if (storySection) {
-      storySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -230,7 +230,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
           </ScrollAnimation>
           <ScrollAnimation delay={0.4}>
             <Link
-              href="/#gallery"
+              href="/#about"
               onClick={handleDiscoverClick}
               className="inline-block bg-[var(--primary)] text-white px-8 py-3 rounded-lg font-bold hover:bg-[var(--primary-hover)] transition-colors"
             >

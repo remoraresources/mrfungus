@@ -118,5 +118,15 @@
     "Mission": {
         "title": "Our Mission",
         "content": "To establish Malaysia’s benchmark for Lion’s Mane mushrooms: fresh, certified organic, farm-to-table, and consistently available at an affordable price through disciplined in-house cultivation."
+    },
+    "Footer": {
+        "brandName": "Mr Fungus",
+        "description": "Specializing in locally grown premium Lion's Mane mushrooms.",
+        "quickLinksTitle": "Quick Links",
+        "contactTitle": "Contact",
+        "companyName": "REMORA RESOURCES PLT",
+        "registration": "Registration No: 201904000690",
+        "inquiry": "Inquiry Form",
+        "phoneWhatsapp": "Phone/WhatsApp: 0167019620"
     }
 }
