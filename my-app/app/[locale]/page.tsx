@@ -4,10 +4,11 @@ import { useRef, useState, useEffect } from 'react';
 import Image from "next/image"
 import { ScrollAnimation } from "@/components/ScrollAnimation"
 import { VideoPlayer } from "@/components/video-player"
+import { motion, AnimatePresence } from "framer-motion"
 
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 interface Stage {
   id: string;
@@ -28,7 +29,7 @@ const stages: Stage[] = [
     images: [
       { src: '/images/process/preparation_1.jpg', caption: 'Our imported European wood pellets' },
       { src: '/images/process/preparation_2.png' },
-      { src: '/images/process/preparation_3.png' }
+      { src: '/images/process/preparation_3.gif' }
     ]
   },
   {
@@ -85,6 +86,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
   const t = useTranslations();
   const [activeStage, setActiveStage] = useState(0);
   const [isGalleryVisible, setIsGalleryVisible] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isResetting, setIsResetting] = useState(false);
   const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -159,7 +161,6 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 
   const handleNext = () => {
     setAutoScrollEnabled(false);
-    // Just increment, the effect hook handles the infinite loop reset
     const nextStage = activeStage + 1;
     scrollToStage(nextStage);
     setActiveStage(nextStage);
@@ -168,11 +169,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
   const handlePrev = () => {
     let prevStage = activeStage - 1;
     if (prevStage < 0) {
-      // If going back from 0, wrap to the end (before the clone)
       prevStage = stages.length - 1;
-      // We might want to snap to the clone first to make it smooth, but simplistic wrapping is okay for now
-      // Or better: disable smooth scroll, jump to clone, then smooth scroll to end?
-      // For simplicity, just smooth scroll to the last real item
     }
     scrollToStage(prevStage);
     setActiveStage(prevStage);
@@ -494,7 +491,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 
       </div>
       <section id="gallery" className="snap-section bg-[#f2e8cf] py-24 md:h-screen md:py-0 md:flex md:flex-col md:justify-center overflow-hidden">
-        <div className="container max-w-6xl mx-auto px-4 flex-shrink-0 relative z-10 pt-24 md:pt-20 pb-4">
+        <div className="container max-w-6xl mx-auto px-4 flex-shrink-0 relative z-10 pt-16 md:pt-24 pb-4">
           <ScrollAnimation>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center text-gray-800">{t('Gallery.title')}</h2>
             <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto md:mb-0">{t('Gallery.intro')}</p>
@@ -509,24 +506,30 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 
               {/* Horizontal Image Scroll */}
               <div className="flex overflow-x-auto gap-4 pb-4 -mx-4 px-4 scrollbar-hide snap-x">
-                {Array.from({ length: stage.count }).map((_, idx) => (
-                  <div key={idx} className="flex-shrink-0 w-[85vw] snap-center">
-                    <div className="relative aspect-square rounded-xl overflow-hidden shadow-md">
-                      <Image
-                        src={stage.images?.[idx]?.src || `/images/process/${stage.id}_${idx + 1}.${stage.ext || 'svg'}`}
-                        alt={`${stage.id} ${idx + 1}`}
-                        fill
-                        className="object-cover"
-                        priority
-                      />
-                      {stage.images?.[idx]?.caption && (
-                        <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-xs p-2 text-center backdrop-blur-sm z-10">
-                          {stage.images[idx].caption}
-                        </div>
-                      )}
+                {Array.from({ length: stage.count }).map((_, idx) => {
+                  const imageSrc = stage.images?.[idx]?.src || `/images/process/${stage.id}_${idx + 1}.${stage.ext || 'svg'}`;
+                  return (
+                    <div key={idx} className="flex-shrink-0 w-[85vw] snap-center">
+                      <div className="relative aspect-square rounded-xl overflow-hidden shadow-md cursor-pointer group-hover:brightness-90 transition-all"
+                        onClick={() => setSelectedImage(imageSrc)}
+                      >
+                        <Image
+                          src={imageSrc}
+                          alt={`${stage.id} ${idx + 1}`}
+                          fill
+                          className="object-contain rounded-xl"
+                          priority
+                          unoptimized={imageSrc.toLowerCase().endsWith('.gif')}
+                        />
+                        {stage.images?.[idx]?.caption && (
+                          <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-xs p-2 text-center backdrop-blur-sm z-10">
+                            {stage.images[idx].caption}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               {/* Description at bottom for mobile */}
@@ -536,7 +539,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
         </div>
 
         {/* Desktop Full-Screen Process Carousel */}
-        <div className="hidden md:block relative group flex-1 min-h-0 w-full">
+        <div className="hidden md:block relative group flex-1 min-h-0 w-full md:-mt-16">
           {/* Navigation Buttons */}
           <button
             onClick={handlePrev}
@@ -564,54 +567,139 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
             {extendedStages.map((stage, index) => {
               // Handle clone ID for translations by stripping the suffix
               const originalId = stage.id.replace('-clone', '');
+              const isCulinary = originalId === 'culinary';
 
               return (
-                <div key={`${stage.id}-${index}`} className="min-w-full flex-shrink-0 snap-center px-2 md:px-0 flex items-center justify-center h-full md:py-8 md:px-12">
-                  <div className={`max-w-[95rem] w-full mx-auto bg-white/60 backdrop-blur-md rounded-3xl p-4 md:p-8 shadow-sm border border-[var(--border)] h-[85vh] md:h-full flex flex-col gap-6`}>
+                <div key={`${stage.id}-${index}`} className="min-w-full flex-shrink-0 snap-center px-2 md:px-0 flex items-center justify-center h-full md:px-12">
+                  <div className={`mx-auto bg-white/60 backdrop-blur-md rounded-3xl shadow-sm border border-[var(--border)] flex flex-col ${isCulinary ? 'w-full max-w-[90vw] h-auto gap-2 pt-4 px-4 pb-2 md:pt-8 md:px-8 md:pb-1' : 'w-fit max-w-[88vw] h-auto gap-2 p-3 pb-1'}`}>
 
-                    {/* Image Grid */}
-                    <div className={`w-full flex-1 overflow-hidden`}>
-                      <div className={`grid gap-3 h-full ${stage.count <= 2 ? 'grid-cols-1 md:grid-cols-2 md:grid-rows-1' :
-                        stage.count === 3 ? 'grid-cols-1 md:grid-cols-2 md:grid-rows-2' :
-                          stage.count <= 4 ? 'grid-cols-2 md:grid-cols-2 md:grid-rows-2' :
-                            'grid-cols-2 md:grid-cols-4 md:grid-rows-2'
-                        }`}>
-                        {Array.from({ length: stage.count }).map((_, idx) => (
-                          <div
-                            key={idx}
-                            className={`relative rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow h-full w-full ${stage.count === 3
-                              ? idx === 0 ? 'md:col-start-1 md:row-start-1'
-                                : idx === 1 ? 'md:col-start-1 md:row-start-2'
-                                  : 'md:col-start-2 md:row-start-1 md:row-span-2'
-                              : ''
-                              }`}
-                          >
-                            <Image
-                              src={stage.images?.[idx]?.src || `/images/process/${originalId}_${idx + 1}.${stage.ext || 'svg'}`}
-                              alt={`${originalId} ${idx + 1}`}
-                              fill
-                              className="object-cover hover:scale-105 transition-transform duration-500"
-                              priority
-                            />
-                            {stage.images?.[idx]?.caption && (
-                              <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">
-                                {stage.images[idx].caption}
+                    {/* Image Area - Different Logic for Dynamic vs Fixed */}
+                    <div className={`overflow-hidden ${isCulinary ? 'w-full' : 'flex-1 flex items-center justify-center'}`}>
+
+                      {!isCulinary ? (
+                        // Dynamic Flex Layout for Non-Culinary
+                        <div className={`flex gap-2 w-fit mx-auto ${['preservation', 'preparation', 'inoculation'].includes(originalId) ? 'h-[55vh] md:h-[min(69vh,37vw)]' : 'h-[50vh] md:h-[min(65vh,35vw)]'}`}>
+                          {stage.count === 3 ? (
+                            // Special layout for 3 images (Preparation) - 2 Stacked Left, 1 Full Right
+                            <>
+                              {/* Column for First 2 Images (Stacked) */}
+                              <div className="flex flex-col gap-2 h-full items-stretch w-fit">
+                                {[0, 1].map(offset => {
+                                  const idx = offset;
+                                  const src = stage.images?.[idx]?.src || `/images/process/${originalId}_${idx + 1}.${stage.ext || 'svg'}`;
+                                  return (
+                                    <div
+                                      key={idx}
+                                      className="relative h-full w-full rounded-xl overflow-hidden shadow-sm cursor-pointer group hover:shadow-md transition-all"
+                                      style={{ height: idx === 0 ? '40%' : '60%' }}
+                                      onClick={() => setSelectedImage(src)}
+                                    >
+                                      <img
+                                        src={src}
+                                        alt={`${originalId} ${idx + 1}`}
+                                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 rounded-xl"
+                                      />
+                                      {stage.images?.[idx]?.caption && (
+                                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">
+                                          {stage.images[idx].caption}
+                                        </div>
+                                      )}
+                                    </div>
+                                  );
+                                })}
                               </div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
+
+                              {/* Third Image - Full Height (Right) */}
+                              <div
+                                className="relative h-full w-fit rounded-xl overflow-hidden shadow-sm cursor-pointer group hover:shadow-md transition-all"
+                                onClick={() => setSelectedImage(stage.images?.[2]?.src || `/images/process/${originalId}_3.${stage.ext || 'svg'}`)}
+                              >
+                                <img
+                                  src={stage.images?.[2]?.src || `/images/process/${originalId}_3.${stage.ext || 'svg'}`}
+                                  alt={`${originalId} 3`}
+                                  className="h-full w-auto object-contain hover:scale-105 transition-transform duration-500 rounded-xl"
+                                />
+                                {stage.images?.[2]?.caption && (
+                                  <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">
+                                    {stage.images[2].caption}
+                                  </div>
+                                )}
+                              </div>
+                            </>
+                          ) : (
+                            // Standard Row for 2 Images
+                            Array.from({ length: stage.count }).map((_, idx) => {
+                              const imageSrc = stage.images?.[idx]?.src || `/images/process/${originalId}_${idx + 1}.${stage.ext || 'svg'}`;
+                              return (
+                                <div
+                                  key={idx}
+                                  className="relative h-full w-fit rounded-xl overflow-hidden shadow-sm cursor-pointer group hover:shadow-md transition-all"
+                                  onClick={() => setSelectedImage(imageSrc)}
+                                >
+                                  <img
+                                    src={imageSrc}
+                                    alt={`${originalId} ${idx + 1}`}
+                                    className="h-full w-auto max-w-none object-contain hover:scale-105 transition-transform duration-500 rounded-xl"
+                                  />
+                                  {stage.images?.[idx]?.caption && (
+                                    <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">
+                                      {stage.images[idx].caption}
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            })
+                          )}
+                        </div>
+                      ) : (
+                        // Existing Grid Layout for Culinary (unchanged logic)
+                        <div className={`grid w-full h-[55vh] md:h-[65vh] gap-3 ${stage.count <= 2 ? 'grid-cols-1 md:grid-cols-2 md:grid-rows-1' :
+                          stage.count === 3 ? 'grid-cols-1 md:grid-cols-2 md:grid-rows-2' :
+                            stage.count <= 4 ? 'grid-cols-2 md:grid-cols-2 md:grid-rows-2' :
+                              'grid-cols-2 md:grid-cols-4 md:grid-rows-2'
+                          }`}>
+                          {Array.from({ length: stage.count }).map((_, idx) => {
+                            const imageSrc = stage.images?.[idx]?.src || `/images/process/${originalId}_${idx + 1}.${stage.ext || 'svg'}`;
+                            return (
+                              <div
+                                key={idx}
+                                className={`relative overflow-hidden transition-shadow h-full w-full cursor-pointer rounded-xl shadow-sm hover:shadow-md ${stage.count === 3
+                                  ? idx === 0 ? 'md:col-start-1 md:row-start-1'
+                                    : idx === 1 ? 'md:col-start-1 md:row-start-2'
+                                      : 'md:col-start-2 md:row-start-1 md:row-span-2'
+                                  : ''
+                                  }`}
+                                onClick={() => setSelectedImage(imageSrc)}
+                              >
+                                <Image
+                                  src={imageSrc}
+                                  alt={`${originalId} ${idx + 1}`}
+                                  fill
+                                  className={`object-cover hover:scale-105 transition-transform duration-500 rounded-xl`}
+                                  priority
+                                  unoptimized={imageSrc.toLowerCase().endsWith('.gif')}
+                                />
+                                {stage.images?.[idx]?.caption && (
+                                  <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">
+                                    {stage.images[idx].caption}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
 
                     {/* Bottom Text for All Stages */}
-                    <div className="w-full text-center py-2 flex-shrink-0">
-                      <p className="text-lg md:text-xl text-[var(--muted-foreground)] font-medium max-w-[80vw] md:max-w-[60vw] mx-auto px-4 text-balance">
+                    <div className={`text-center pt-0 pb-1 flex-shrink-0 ${isCulinary ? 'w-full' : 'w-0 min-w-full mx-auto px-4'}`}>
+                      <p className="text-lg md:text-xl text-[var(--muted-foreground)] font-medium px-4 text-balance">
                         {t(`Gallery.stages.${originalId}.description`)}
                       </p>
                     </div>
                   </div>
                 </div>
-              );
+              )
             })}
           </div>
 
@@ -629,8 +717,8 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
               />
             ))}
           </div>
-        </div>
-      </section>
+        </div >
+      </section >
       <div className="container mx-auto px-4 space-y-24">
 
 
@@ -755,6 +843,37 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
           </div>
         </section>
       </div>
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+            onClick={() => setSelectedImage(null)}
+          >
+            <button
+              className="absolute top-4 right-4 text-white p-2 hover:bg-white/20 rounded-full transition-colors z-50"
+              onClick={() => setSelectedImage(null)}
+            >
+              <X size={32} />
+            </button>
+            <div
+              className="relative w-full h-full max-w-7xl max-h-[90vh]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={selectedImage}
+                alt="Full size preview"
+                fill
+                className="object-contain"
+                priority
+                unoptimized={selectedImage.toLowerCase().endsWith('.gif')}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div >
   )
 }
