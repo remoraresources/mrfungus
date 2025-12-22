@@ -78,6 +78,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
   const [activeStage, setActiveStage] = useState(0);
   const [isGalleryVisible, setIsGalleryVisible] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
+  const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // create a clone of the first stage for infinite loop effect
@@ -115,7 +116,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
   }, [activeStage]);
 
   useEffect(() => {
-    if (!isGalleryVisible) return;
+    if (!isGalleryVisible || !autoScrollEnabled) return;
 
     const interval = setInterval(() => {
       // Just increment to next stage, logic above handles the reset
@@ -124,7 +125,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [isGalleryVisible, activeStage]);
+  }, [isGalleryVisible, activeStage, autoScrollEnabled]);
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     if (isResetting) return; // Ignore scroll events during reset
@@ -149,6 +150,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
   };
 
   const handleNext = () => {
+    setAutoScrollEnabled(false);
     // Just increment, the effect hook handles the infinite loop reset
     const nextStage = activeStage + 1;
     scrollToStage(nextStage);
@@ -166,6 +168,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
     }
     scrollToStage(prevStage);
     setActiveStage(prevStage);
+    setAutoScrollEnabled(false);
   };
 
   const handleDiscoverClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -552,6 +555,8 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
             ref={scrollContainerRef}
             className="flex overflow-x-auto w-full snap-x snap-mandatory scrollbar-hide pb-12 md:pb-0 h-full md:items-center"
             onScroll={handleScroll}
+            onWheel={() => setAutoScrollEnabled(false)}
+            onTouchStart={() => setAutoScrollEnabled(false)}
           >
             {extendedStages.map((stage, index) => {
               // Handle clone ID for translations by stripping the suffix
