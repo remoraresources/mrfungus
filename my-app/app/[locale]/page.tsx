@@ -6,6 +6,7 @@ import { ScrollAnimation } from "@/components/ScrollAnimation"
 
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Stage {
   id: string;
@@ -145,6 +146,26 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
         behavior: 'smooth'
       });
     }
+  };
+
+  const handleNext = () => {
+    // Just increment, the effect hook handles the infinite loop reset
+    const nextStage = activeStage + 1;
+    scrollToStage(nextStage);
+    setActiveStage(nextStage);
+  };
+
+  const handlePrev = () => {
+    let prevStage = activeStage - 1;
+    if (prevStage < 0) {
+      // If going back from 0, wrap to the end (before the clone)
+      prevStage = stages.length - 1;
+      // We might want to snap to the clone first to make it smooth, but simplistic wrapping is okay for now
+      // Or better: disable smooth scroll, jump to clone, then smooth scroll to end?
+      // For simplicity, just smooth scroll to the last real item
+    }
+    scrollToStage(prevStage);
+    setActiveStage(prevStage);
   };
 
   const handleDiscoverClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -510,6 +531,22 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 
         {/* Desktop Full-Screen Process Carousel */}
         <div className="hidden md:block relative group flex-1 min-h-0 w-full">
+          {/* Navigation Buttons */}
+          <button
+            onClick={handlePrev}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/70 backdrop-blur-sm shadow-lg text-[var(--primary)] hover:bg-white hover:scale-110 transition-all opacity-0 group-hover:opacity-100"
+            aria-label="Previous stage"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button
+            onClick={handleNext}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/70 backdrop-blur-sm shadow-lg text-[var(--primary)] hover:bg-white hover:scale-110 transition-all opacity-0 group-hover:opacity-100"
+            aria-label="Next stage"
+          >
+            <ChevronRight size={24} />
+          </button>
+
           <div
             id="gallery-scroll-container"
             ref={scrollContainerRef}
@@ -607,7 +644,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 
 
       </div>
-      <section id="youtube-recipes" className="snap-section bg-[#f2e8cf] py-24 -mx-4 px-4">
+      <section id="youtube-recipes" className="snap-section bg-[#f2e8cf] py-24 px-4">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="bg-white/60 backdrop-blur-sm p-8 md:p-12 rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-500 text-center">
             <ScrollAnimation>
