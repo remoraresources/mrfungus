@@ -72,7 +72,10 @@
             },
             "preparation": {
                 "title": "基质准备",
-                "description": "半自动化生产，从零开始制作蘑菇菌包。"
+                "description": "半自动化生产，从零开始制作蘑菇菌包。",
+                "captions": {
+                    "pellets": "我们进口的欧洲木屑颗粒"
+                }
             },
             "inoculation": {
                 "title": "接种过程",
@@ -84,7 +87,10 @@
             },
             "fruiting": {
                 "title": "出菇阶段",
-                "description": "出菇期长达 10 天。"
+                "description": "出菇期长达 10 天。",
+                "captions": {
+                    "ready_harvest": "已成熟的猴头菇，准备采收"
+                }
             },
             "harvest": {
                 "title": "新鲜采收",

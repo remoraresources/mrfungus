@@ -72,7 +72,10 @@
             },
             "preparation": {
                 "title": "Preparation",
-                "description": "Our semi-automated mushroom substrates making process allow us to have the greatest control on quality at high efficiency."
+                "description": "Our semi-automated mushroom substrates making process allow us to have the greatest control on quality at high efficiency.",
+                "captions": {
+                    "pellets": "Our imported European wood pellets"
+                }
             },
             "inoculation": {
                 "title": "Inoculation",
@@ -84,7 +87,10 @@
             },
             "fruiting": {
                 "title": "Fruiting",
-                "description": "Fruiting period, takes up to 10 days. "
+                "description": "Fruiting period, takes up to 10 days. ",
+                "captions": {
+                    "ready_harvest": "The mushrooms are now ready for harvest"
+                }
             },
             "harvest": {
                 "title": "Harvest",

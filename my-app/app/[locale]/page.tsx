@@ -17,7 +17,7 @@ interface Stage {
   label?: string;
   images?: {
     src: string;
-    caption?: string;
+    captionKey?: string;
   }[];
 }
 
@@ -27,7 +27,7 @@ const stages: Stage[] = [
     id: 'preparation',
     count: 3,
     images: [
-      { src: '/images/process/preparation_1.jpg', caption: 'Our imported European wood pellets' },
+      { src: '/images/process/preparation_1.jpg', captionKey: 'pellets' },
       { src: '/images/process/preparation_2.png' },
       { src: '/images/process/preparation_3.gif' }
     ]
@@ -53,7 +53,7 @@ const stages: Stage[] = [
     count: 2,
     images: [
       { src: '/images/process/fruiting_1.jpg' },
-      { src: '/images/process/fruiting_2.jpg', caption: 'The mushrooms are now ready for harvest' }
+      { src: '/images/process/fruiting_2.jpg', captionKey: 'ready_harvest' }
     ]
   },
   {
@@ -518,9 +518,9 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                           alt={`${stage.id} ${idx + 1}`}
                           className="max-h-[50vh] max-w-[85vw] w-auto h-auto object-contain block rounded-lg"
                         />
-                        {stage.images?.[idx]?.caption && (
+                        {stage.images?.[idx]?.captionKey && (
                           <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-xs p-2 text-center backdrop-blur-sm z-10">
-                            {stage.images[idx].caption}
+                            {t(`Gallery.stages.${stage.id}.captions.${stage.images[idx].captionKey}`)}
                           </div>
                         )}
                       </div>
@@ -596,9 +596,9 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                                         alt={`${originalId} ${idx + 1}`}
                                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 rounded-xl"
                                       />
-                                      {stage.images?.[idx]?.caption && (
+                                      {stage.images?.[idx]?.captionKey && (
                                         <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">
-                                          {stage.images[idx].caption}
+                                          {t(`Gallery.stages.${originalId}.captions.${stage.images[idx].captionKey}`)}
                                         </div>
                                       )}
                                     </div>
@@ -616,9 +616,9 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                                   alt={`${originalId} 3`}
                                   className="h-full w-auto object-contain hover:scale-105 transition-transform duration-500 rounded-xl"
                                 />
-                                {stage.images?.[2]?.caption && (
+                                {stage.images?.[2]?.captionKey && (
                                   <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">
-                                    {stage.images[2].caption}
+                                    {t(`Gallery.stages.${originalId}.captions.${stage.images[2].captionKey}`)}
                                   </div>
                                 )}
                               </div>
@@ -638,9 +638,9 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                                     alt={`${originalId} ${idx + 1}`}
                                     className="h-full w-auto max-w-none object-contain hover:scale-105 transition-transform duration-500 rounded-xl"
                                   />
-                                  {stage.images?.[idx]?.caption && (
+                                  {stage.images?.[idx]?.captionKey && (
                                     <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">
-                                      {stage.images[idx].caption}
+                                      {t(`Gallery.stages.${originalId}.captions.${stage.images[idx].captionKey}`)}
                                     </div>
                                   )}
                                 </div>
@@ -676,9 +676,9 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                                   priority
                                   unoptimized={imageSrc.toLowerCase().endsWith('.gif')}
                                 />
-                                {stage.images?.[idx]?.caption && (
+                                {stage.images?.[idx]?.captionKey && (
                                   <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">
-                                    {stage.images[idx].caption}
+                                    {t(`Gallery.stages.${originalId}.captions.${stage.images[idx].captionKey}`)}
                                   </div>
                                 )}
                               </div>
