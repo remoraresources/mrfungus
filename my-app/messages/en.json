@@ -12,7 +12,8 @@
     "AboutUs": {
         "title": "Welcome to MR FUNGUS",
         "intro": "Malaysia's leading specialist in Lion's Mane Mushroom.",
-        "description": "We focus on one mushroom and honed our craft to perfection. Grown indoors using Japanese cultivation techniques under tightly controlled conditions, every batch delivers consistent freshness, texture, and flavour. Loved by chefs and home cooks alike, our Lion’s Mane is also trusted by certified health supplement brands as a key ingredient. Due to our dedication, enjoying this premium mushroom no longer comes at a premium price."
+        "description1": "We focus on one mushroom and honed our craft to perfection. Grown indoors using Japanese cultivation techniques under tightly controlled conditions, every batch delivers consistent freshness, texture, and flavour.",
+        "description2": "Loved by chefs and home cooks alike, our Lion’s Mane is also trusted by certified health supplement brands as a key ingredient. Due to our dedication, enjoying this premium mushroom no longer comes at a premium price."
     },
     "ProductIntro": {
         "title": "Product Introduction",
