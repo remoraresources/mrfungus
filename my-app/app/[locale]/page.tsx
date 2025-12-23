@@ -857,7 +857,6 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
             </button>
             <div
               className="relative w-full h-full max-w-7xl max-h-[90vh]"
-              onClick={(e) => e.stopPropagation()}
             >
               <Image
                 src={selectedImage}
