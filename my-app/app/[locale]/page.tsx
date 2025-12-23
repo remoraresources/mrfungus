@@ -274,7 +274,12 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                 </ScrollAnimation>
                 <ScrollAnimation delay={0.2}>
                   <p className="text-base text-[var(--muted-foreground)] leading-relaxed">
-                    {t('AboutUs.description')}
+                    {t('AboutUs.description1')}
+                  </p>
+                </ScrollAnimation>
+                <ScrollAnimation delay={0.2}>
+                  <p className="text-base text-[var(--muted-foreground)] leading-relaxed">
+                    {t('AboutUs.description2')}
                   </p>
                 </ScrollAnimation>
               </div>
