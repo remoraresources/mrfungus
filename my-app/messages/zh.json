@@ -68,7 +68,7 @@
         "stages": {
             "preservation": {
                 "title": "菌种保存",
-                "description": "以多种形式精心保存蘑菇菌种。"
+                "description": "我们的研发团队致力以多种形式保存表现最优异的菌种，同时积极开展新的研发项目。"
             },
             "preparation": {
                 "title": "基质准备",
@@ -98,7 +98,7 @@
             },
             "culinary": {
                 "title": "美味佳肴",
-                "description": "由我们的客户制作的精美素食菜肴。"
+                "description": "由我们客户制作的精美猴头菇菜肴！"
             }
         }
     },
