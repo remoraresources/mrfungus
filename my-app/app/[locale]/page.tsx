@@ -298,7 +298,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                         {step}
                       </div>
                       <h4 className="text-xl font-bold mb-2">{t(`Insights.step${step}_title`)}</h4>
-                      <p className="text-[var(--muted-foreground)] text-sm">
+                      <p className="text-[var(--muted-foreground)] text-md">
                         {t(`Insights.step${step}_desc`)}
                       </p>
                     </div>
@@ -695,7 +695,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 
                     {/* Bottom Text for All Stages */}
                     <div className={`text-center pt-0 pb-1 flex-shrink-0 ${isCulinary ? 'w-full' : 'w-0 min-w-full mx-auto px-4'}`}>
-                      <p className="text-lg md:text-xl text-[var(--muted-foreground)] font-medium px-4 text-balance">
+                      <p className="text-lg md:text-md text-[var(--muted-foreground)] font-medium px-4 text-balance">
                         {t(`Gallery.stages.${originalId}.description`)}
                       </p>
                     </div>
@@ -748,32 +748,32 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 
       <section id="contact" className="snap-section bg-[#BC6C25] py-24 text-white">
         <div className="container mx-auto px-4">
-          <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl w-full max-w-6xl mx-auto hover:shadow-2xl transition-all duration-500">
+          <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl w-full max-w-4xl mx-auto hover:shadow-2xl transition-all duration-500">
             <ScrollAnimation>
-              <h2 className="text-3xl font-bold mb-12 text-center text-white">{t('Contact.title')}</h2>
+              <h2 className="text-4xl font-bold mb-12 text-center text-white">{t('Contact.title')}</h2>
             </ScrollAnimation>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {/* Contact Info */}
               <ScrollAnimation delay={0.2}>
                 <div className="space-y-8">
                   <div>
-                    <h3 className="text-xl font-bold mb-1 text-white">{t('Contact.company_name')}</h3>
+                    <h3 className="text-2xl font-bold mb-1 text-white">{t('Contact.company_name')}</h3>
                     <p className="text-sm text-white/70 mb-6">{t('Contact.registration')}</p>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold mb-2 text-white">{t('Contact.get_in_touch')}</h3>
-                    <p className="text-white/80">
-                      Email: {t('Contact.email')}<br />
-                      Phone: {t('Contact.phone')}<br />
+                    <h3 className="text-2xl font-bold mb-2 text-white">{t('Contact.get_in_touch')}</h3>
+                    <p className="text-lg text-white/80">
+                      {t('Contact.email_label')}{t('Contact.email')}<br />
+                      {t('Contact.phone_label')}{t('Contact.phone')}<br />
                       {t('Contact.whatsapp')}
                     </p>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold mb-2 text-white">{t('Contact.business_hours')}</h3>
-                    <p className="text-white/80">
-                      Mon - Fri: 9am - 5pm<br />
-                      Sat: 10am - 2pm<br />
-                      Sun: Closed
+                    <h3 className="text-2xl font-bold mb-2 text-white">{t('Contact.business_hours')}</h3>
+                    <p className="text-lg text-white/80">
+                      {t('Contact.hours_weekdays')}<br />
+                      {t('Contact.hours_saturday')}<br />
+                      {t('Contact.hours_sunday')}
                     </p>
                   </div>
                 </div>
@@ -816,16 +816,16 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="bg-white/60 backdrop-blur-sm p-8 rounded-2xl hover:shadow-2xl transition-all duration-500">
               <ScrollAnimation>
-                <h2 className="text-3xl font-bold mb-8 text-center">{t('Location.title')}</h2>
+                <h2 className="text-4xl font-bold mb-8 text-center">{t('Location.title')}</h2>
               </ScrollAnimation>
               <ScrollAnimation delay={0.2}>
                 <div className="space-y-4 mb-8 text-center">
-                  <h3 className="text-xl font-bold">{t('Location.address_title')}</h3>
-                  <p className="text-gray-700">
+                  <h3 className="text-2xl font-bold">{t('Location.address_title')}</h3>
+                  <p className="text-lg text-gray-700">
                     {t('Location.company_name')}
                   </p>
 
-                  <p className="text-gray-700">
+                  <p className="text-lg text-gray-700">
                     {t('Location.address')}
                   </p>
                 </div>
