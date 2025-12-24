@@ -496,7 +496,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 
       </div>
       <section id="gallery" className="snap-section bg-[#f2e8cf] py-24 md:h-screen md:py-0 md:flex md:flex-col md:justify-center overflow-hidden">
-        <div className="container max-w-6xl mx-auto px-4 flex-shrink-0 relative z-10 pt-16 md:pt-24 pb-4">
+        <div className="container max-w-6xl mx-auto px-4 flex-shrink-0 relative z-10 pt-16 md:pt-8 pb-4 md:order-1">
           <ScrollAnimation>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center text-gray-800">{t('Gallery.title')}</h2>
             <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto md:mb-0">{t('Gallery.intro')}</p>
@@ -541,7 +541,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
         </div>
 
         {/* Desktop Full-Screen Process Carousel */}
-        <div className="hidden md:block relative group flex-1 min-h-0 w-full md:-mt-16">
+        <div className="hidden md:block relative group w-full md:order-2 md:mt-4">
           {/* Navigation Buttons */}
           <button
             onClick={handlePrev}
@@ -561,7 +561,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
           <div
             id="gallery-scroll-container"
             ref={scrollContainerRef}
-            className="flex overflow-x-auto w-full snap-x snap-mandatory scrollbar-hide pb-12 md:pb-0 h-full md:items-center"
+            className="flex overflow-x-auto w-full snap-x snap-mandatory scrollbar-hide pb-12 md:pb-10 h-auto md:items-center"
             onScroll={handleScroll}
             onWheel={() => setAutoScrollEnabled(false)}
             onTouchStart={() => setAutoScrollEnabled(false)}
@@ -572,7 +572,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
               const isCulinary = originalId === 'culinary';
 
               return (
-                <div key={`${stage.id}-${index}`} className="min-w-full flex-shrink-0 snap-center px-2 md:px-0 flex items-center justify-center h-full md:px-12">
+                <div key={`${stage.id}-${index}`} className="min-w-full flex-shrink-0 snap-center px-2 md:px-0 flex items-center justify-center h-auto md:px-12">
                   <div className={`mx-auto bg-white/60 backdrop-blur-md rounded-3xl shadow-sm border border-[var(--border)] flex flex-col ${isCulinary ? 'w-full max-w-[90vw] h-auto gap-2 pt-4 px-4 pb-2 md:pt-8 md:px-8 md:pb-1' : 'w-fit max-w-[88vw] h-auto gap-2 p-3 pb-1'}`}>
 
                     {/* Image Area - Different Logic for Dynamic vs Fixed */}
@@ -580,7 +580,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 
                       {!isCulinary ? (
                         // Dynamic Flex Layout for Non-Culinary
-                        <div className={`flex gap-2 w-fit mx-auto ${['preservation', 'preparation', 'inoculation'].includes(originalId) ? 'h-[55vh] md:h-[min(69vh,37vw)]' : 'h-[50vh] md:h-[min(65vh,35vw)]'}`}>
+                        <div className={`flex gap-2 w-fit mx-auto ${['preservation', 'preparation', 'inoculation'].includes(originalId) ? 'h-[55vh] md:h-[min(55vh,37vw)]' : 'h-[50vh] md:h-[min(55vh,35vw)]'}`}>
                           {stage.count === 3 ? (
                             // Special layout for 3 images (Preparation) - 2 Stacked Left, 1 Full Right
                             <>
@@ -655,7 +655,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                         </div>
                       ) : (
                         // Existing Grid Layout for Culinary (unchanged logic)
-                        <div className={`grid w-full h-[55vh] md:h-[65vh] gap-3 ${stage.count <= 2 ? 'grid-cols-1 md:grid-cols-2 md:grid-rows-1' :
+                        <div className={`grid w-full h-[55vh] md:h-[55vh] gap-3 ${stage.count <= 2 ? 'grid-cols-1 md:grid-cols-2 md:grid-rows-1' :
                           stage.count === 3 ? 'grid-cols-1 md:grid-cols-2 md:grid-rows-2' :
                             stage.count <= 4 ? 'grid-cols-2 md:grid-cols-2 md:grid-rows-2' :
                               'grid-cols-2 md:grid-cols-4 md:grid-rows-2'
@@ -706,7 +706,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
           </div>
 
           {/* Indicators */}
-          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
+          <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-2 z-10">
             {stages.map((_, i) => (
               <button
                 key={i}
