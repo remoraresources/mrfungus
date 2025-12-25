@@ -78,29 +78,29 @@
             },
             "preparation": {
                 "title": "Preparation",
-                "description": "Our semi-automated mushroom substrates making process allow us to have the greatest control on quality at high efficiency.",
+                "description": "Our semi-automated substrate production process ensures maximum quality control and high efficiency. Each substrate undergoes over 16 hours of steam treatment, reaching up to 99.9% sterility.",
                 "captions": {
                     "pellets": "Our imported European wood pellets"
                 }
             },
             "inoculation": {
                 "title": "Inoculation",
-                "description": "Wood bags inoculation process."
+                "description": "The inoculation process is carefully carried out under sterile conditions, with precise measurements of inoculants for each wood bag to ensure consistent and healthy colonization."
             },
             "incubation": {
                 "title": "Incubation",
-                "description": "Incubation periods, takes around 10-12 days."
+                "description": "Inoculated wood bags are then kept in an optimal environment for incubation up to 12 days."
             },
             "fruiting": {
                 "title": "Fruiting",
-                "description": "Fruiting period, takes up to 10 days. ",
+                "description": "Wood bags with mature and well-colonized mycelium are then moved into grow tents for fruiting. In just 10 days, they are ready for harvest!",
                 "captions": {
                     "ready_harvest": "The mushrooms are now ready for harvest"
                 }
             },
             "harvest": {
                 "title": "Harvest",
-                "description": "Harvested mushrooms"
+                "description": "Here’s a peek at our beautiful, freshly harvested Lion’s Mane mushrooms. Each one is of top quality, uniformly shaped, and denser than the average."
             },
             "culinary": {
                 "title": "Culinary Creations",

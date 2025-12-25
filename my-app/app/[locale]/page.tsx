@@ -76,7 +76,7 @@ const stages: Stage[] = [
       { src: '/images/process/culinary_5.jpg' },
       { src: '/images/process/culinary_6.jpg' },
       { src: '/images/process/culinary_7.jpg' },
-      { src: '/images/process/culinary_8.jpg' }
+      { src: '/images/process/culinary_8.png' }
     ]
   }
 ];
@@ -84,15 +84,22 @@ const stages: Stage[] = [
 export default function Home({ params }: { params: Promise<{ locale: string }> }) {
 
   const t = useTranslations();
-  const [activeStage, setActiveStage] = useState(0);
+  const [activeStage, setActiveStage] = useState(1);
   const [isGalleryVisible, setIsGalleryVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isResetting, setIsResetting] = useState(false);
   const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const isProgrammaticScroll = useRef(false);
+  const programmaticScrollTimeout = useRef<NodeJS.Timeout>(null);
 
-  // create a clone of the first stage for infinite loop effect
-  const extendedStages = [...stages, { ...stages[0], id: stages[0].id + '-clone' }];
+  // Create clones for infinite loop effect
+  // buffer at start (last item) and buffer at end (first item)
+  const extendedStages = [
+    { ...stages[stages.length - 1], id: stages[stages.length - 1].id + '-clone-start' },
+    ...stages,
+    { ...stages[0], id: stages[0].id + '-clone-end' }
+  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -109,21 +116,59 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
     return () => observer.disconnect();
   }, []);
 
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (programmaticScrollTimeout.current) clearTimeout(programmaticScrollTimeout.current);
+    };
+  }, []);
+
   // Handle infinite scroll reset
   useEffect(() => {
-    if (activeStage === stages.length) {
+    if (activeStage === extendedStages.length - 1) {
+      // Reached the clone at the end (copy of first), jump to real first (index 1)
       setIsResetting(true);
       const timeout = setTimeout(() => {
         if (scrollContainerRef.current) {
-          scrollContainerRef.current.scrollTo({ left: 0, behavior: 'auto' });
-          setActiveStage(0);
+          const newIndex = 1;
+          const container = scrollContainerRef.current;
+          container.scrollTo({
+            left: newIndex * container.clientWidth,
+            behavior: 'auto'
+          });
+          setActiveStage(newIndex);
           setIsResetting(false);
         }
-      }, 500); // Wait for smooth scroll to finish before resetting
-
+      }, 500); // Wait for transition to finish
+      return () => clearTimeout(timeout);
+    } else if (activeStage === 0) {
+      // Reached the clone at the start (copy of last), jump to real last (index length-2)
+      setIsResetting(true);
+      const timeout = setTimeout(() => {
+        if (scrollContainerRef.current) {
+          const newIndex = extendedStages.length - 2;
+          const container = scrollContainerRef.current;
+          container.scrollTo({
+            left: newIndex * container.clientWidth,
+            behavior: 'auto'
+          });
+          setActiveStage(newIndex);
+          setIsResetting(false);
+        }
+      }, 500);
       return () => clearTimeout(timeout);
     }
-  }, [activeStage]);
+  }, [activeStage, extendedStages.length]);
+
+  // Initial scroll position to start at index 1
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({
+        left: 1 * scrollContainerRef.current.clientWidth,
+        behavior: 'auto'
+      });
+    }
+  }, []);
 
   useEffect(() => {
     if (!isGalleryVisible || !autoScrollEnabled) return;
@@ -132,13 +177,14 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
       // Just increment to next stage, logic above handles the reset
       const nextStage = activeStage + 1;
       scrollToStage(nextStage);
+      setActiveStage(nextStage);
     }, 5000);
 
     return () => clearInterval(interval);
   }, [isGalleryVisible, activeStage, autoScrollEnabled]);
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    if (isResetting) return; // Ignore scroll events during reset
+    if (isResetting || isProgrammaticScroll.current) return; // Ignore scroll events during reset or programmatic scroll
 
     const container = e.currentTarget;
     const scrollLeft = container.scrollLeft;
@@ -160,20 +206,40 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
   };
 
   const handleNext = () => {
+    if (isResetting) return;
+    // Prevent scrolling if we are already at the end clone and waiting for reset
+    if (activeStage >= extendedStages.length - 1) return;
+
     setAutoScrollEnabled(false);
+    isProgrammaticScroll.current = true;
+
+    // Clear existing timeout to extend the lock
+    if (programmaticScrollTimeout.current) clearTimeout(programmaticScrollTimeout.current);
+    programmaticScrollTimeout.current = setTimeout(() => {
+      isProgrammaticScroll.current = false;
+    }, 600);
+
     const nextStage = activeStage + 1;
     scrollToStage(nextStage);
     setActiveStage(nextStage);
   };
 
   const handlePrev = () => {
-    let prevStage = activeStage - 1;
-    if (prevStage < 0) {
-      prevStage = stages.length - 1;
-    }
+    if (isResetting) return;
+    // Prevent scrolling if we are already at the start clone and waiting for reset
+    if (activeStage <= 0) return;
+
+    setAutoScrollEnabled(false);
+    isProgrammaticScroll.current = true;
+
+    if (programmaticScrollTimeout.current) clearTimeout(programmaticScrollTimeout.current);
+    programmaticScrollTimeout.current = setTimeout(() => {
+      isProgrammaticScroll.current = false;
+    }, 600);
+
+    const prevStage = activeStage - 1;
     scrollToStage(prevStage);
     setActiveStage(prevStage);
-    setAutoScrollEnabled(false);
   };
 
   const handleDiscoverClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -567,8 +633,8 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
             onTouchStart={() => setAutoScrollEnabled(false)}
           >
             {extendedStages.map((stage, index) => {
-              // Handle clone ID for translations by stripping the suffix
-              const originalId = stage.id.replace('-clone', '');
+              // Handle clone ID for translations by stripping the suffixes
+              const originalId = stage.id.replace('-clone-start', '').replace('-clone-end', '').replace('-clone', '');
               const isCulinary = originalId === 'culinary';
 
               return (
@@ -580,78 +646,29 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
 
                       {!isCulinary ? (
                         // Dynamic Flex Layout for Non-Culinary
-                        <div className={`flex gap-2 w-fit mx-auto ${['preservation', 'preparation', 'inoculation'].includes(originalId) ? 'h-[55vh] md:h-[min(55vh,37vw)]' : 'h-[50vh] md:h-[min(55vh,35vw)]'}`}>
-                          {stage.count === 3 ? (
-                            // Special layout for 3 images (Preparation) - 2 Stacked Left, 1 Full Right
-                            <>
-                              {/* Column for First 2 Images (Stacked) */}
-                              <div className="flex flex-col gap-2 h-full items-stretch w-fit">
-                                {[0, 1].map(offset => {
-                                  const idx = offset;
-                                  const src = stage.images?.[idx]?.src || `/images/process/${originalId}_${idx + 1}.${stage.ext || 'svg'}`;
-                                  return (
-                                    <div
-                                      key={idx}
-                                      className="relative h-full w-full rounded-xl overflow-hidden shadow-sm cursor-pointer group hover:shadow-md transition-all"
-                                      style={{ height: idx === 0 ? '40%' : '60%' }}
-                                      onClick={() => setSelectedImage(src)}
-                                    >
-                                      <img
-                                        src={src}
-                                        alt={`${originalId} ${idx + 1}`}
-                                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 rounded-xl"
-                                      />
-                                      {stage.images?.[idx]?.captionKey && (
-                                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">
-                                          {t(`Gallery.stages.${originalId}.captions.${stage.images[idx].captionKey}`)}
-                                        </div>
-                                      )}
-                                    </div>
-                                  );
-                                })}
-                              </div>
-
-                              {/* Third Image - Full Height (Right) */}
+                        <div className="flex gap-2 w-fit mx-auto max-w-full h-auto items-center">
+                          {/* Standard Row for All Non-Culinary Stages */}
+                          {Array.from({ length: stage.count }).map((_, idx) => {
+                            const imageSrc = stage.images?.[idx]?.src || `/images/process/${originalId}_${idx + 1}.${stage.ext || 'svg'}`;
+                            return (
                               <div
-                                className="relative h-full w-fit rounded-xl overflow-hidden shadow-sm cursor-pointer group hover:shadow-md transition-all"
-                                onClick={() => setSelectedImage(stage.images?.[2]?.src || `/images/process/${originalId}_3.${stage.ext || 'svg'}`)}
+                                key={idx}
+                                className="relative h-auto w-fit rounded-xl overflow-hidden shadow-sm cursor-pointer group hover:shadow-md transition-all flex-shrink"
+                                onClick={() => setSelectedImage(imageSrc)}
                               >
                                 <img
-                                  src={stage.images?.[2]?.src || `/images/process/${originalId}_3.${stage.ext || 'svg'}`}
-                                  alt={`${originalId} 3`}
-                                  className="h-full w-auto object-contain hover:scale-105 transition-transform duration-500 rounded-xl"
+                                  src={imageSrc}
+                                  alt={`${originalId} ${idx + 1}`}
+                                  className={`w-auto h-auto object-contain hover:scale-105 transition-transform duration-500 rounded-xl ${['preservation', 'preparation', 'inoculation'].includes(originalId) ? 'max-h-[55vh] md:max-h-[min(55vh,37vw)]' : 'max-h-[50vh] md:max-h-[min(55vh,35vw)]'}`}
                                 />
-                                {stage.images?.[2]?.captionKey && (
+                                {stage.images?.[idx]?.captionKey && (
                                   <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">
-                                    {t(`Gallery.stages.${originalId}.captions.${stage.images[2].captionKey}`)}
+                                    {t(`Gallery.stages.${originalId}.captions.${stage.images[idx].captionKey}`)}
                                   </div>
                                 )}
                               </div>
-                            </>
-                          ) : (
-                            // Standard Row for 2 Images
-                            Array.from({ length: stage.count }).map((_, idx) => {
-                              const imageSrc = stage.images?.[idx]?.src || `/images/process/${originalId}_${idx + 1}.${stage.ext || 'svg'}`;
-                              return (
-                                <div
-                                  key={idx}
-                                  className="relative h-full w-fit rounded-xl overflow-hidden shadow-sm cursor-pointer group hover:shadow-md transition-all"
-                                  onClick={() => setSelectedImage(imageSrc)}
-                                >
-                                  <img
-                                    src={imageSrc}
-                                    alt={`${originalId} ${idx + 1}`}
-                                    className="h-full w-auto max-w-none object-contain hover:scale-105 transition-transform duration-500 rounded-xl"
-                                  />
-                                  {stage.images?.[idx]?.captionKey && (
-                                    <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">
-                                      {t(`Gallery.stages.${originalId}.captions.${stage.images[idx].captionKey}`)}
-                                    </div>
-                                  )}
-                                </div>
-                              );
-                            })
-                          )}
+                            );
+                          })}
                         </div>
                       ) : (
                         // Existing Grid Layout for Culinary (unchanged logic)
@@ -710,10 +727,17 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
             {stages.map((_, i) => (
               <button
                 key={i}
-                className={`stage-indicator h-2 rounded-full transition-all duration-300 ${activeStage % stages.length === i ? 'bg-[var(--primary)] w-8' : 'bg-gray-300 w-2'}`}
+                className={`stage-indicator h-2 rounded-full transition-all duration-300 ${
+                  // Calculate visual index: (activeStage - 1 + length) % length
+                  (activeStage - 1 + stages.length) % stages.length === i
+                    ? 'bg-[var(--primary)] w-8'
+                    : 'bg-gray-300 w-2'
+                  }`}
                 onClick={() => {
-                  setActiveStage(i);
-                  scrollToStage(i);
+                  // When clicking indicator, go to the corresponding real stage index (i + 1)
+                  const targetIndex = i + 1;
+                  setActiveStage(targetIndex);
+                  scrollToStage(targetIndex);
                 }}
                 aria-label={`Go to stage ${i + 1}`}
               />
