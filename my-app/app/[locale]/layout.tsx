@@ -42,6 +42,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
+import PageTransition from '@/components/page-transition';
 
 export default async function RootLayout({
   children,
@@ -65,11 +66,13 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={serif.className}>
         <NextIntlClientProvider messages={messages}>
-          <Header />
-          <main className="min-h-screen">
-            {children}
-          </main>
-          <Footer />
+          <PageTransition>
+            <Header />
+            <main className="min-h-screen">
+              {children}
+            </main>
+            <Footer />
+          </PageTransition>
         </NextIntlClientProvider>
       </body>
     </html>

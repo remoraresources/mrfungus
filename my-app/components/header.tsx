@@ -64,7 +64,12 @@ export function Header() {
 
 
     return (
-        <header className={`fixed top-0 w-full z-50 border-b transition-all duration-500 ease-in-out ${headerBgClass}`}>
+        <motion.header
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.8, duration: 1.0 }}
+            className={`fixed top-0 w-full z-50 border-b transition-all duration-500 ease-in-out ${headerBgClass}`}
+        >
             <div className="container mx-auto px-4">
                 <div className="relative flex h-16 items-center justify-between">
                     {/* Mobile Menu Button */}
@@ -183,6 +188,6 @@ export function Header() {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </header>
+        </motion.header>
     )
 }

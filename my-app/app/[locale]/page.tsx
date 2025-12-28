@@ -10,6 +10,8 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 
+const MotionLink = motion.create(Link);
+
 interface Stage {
   id: string;
   count: number;
@@ -22,13 +24,13 @@ interface Stage {
 }
 
 const stages: Stage[] = [
-  { id: 'preservation', count: 2, ext: 'jpg' },
+  { id: 'preservation', count: 2, ext: 'webp' },
   {
     id: 'preparation',
     count: 3,
     images: [
-      { src: '/images/process/preparation_1.jpg', captionKey: 'pellets' },
-      { src: '/images/process/preparation_2.png' },
+      { src: '/images/process/preparation_1.webp', captionKey: 'pellets' },
+      { src: '/images/process/preparation_2.webp' },
       { src: '/images/process/preparation_3.gif' }
     ]
   },
@@ -36,32 +38,32 @@ const stages: Stage[] = [
     id: 'inoculation',
     count: 2,
     images: [
-      { src: '/images/process/inocluation_1.gif' },
-      { src: '/images/process/inoculation_2.jpeg' }
+      { src: '/images/process/inoculation_1.gif' },
+      { src: '/images/process/inoculation_2.webp' }
     ]
   },
   {
     id: 'incubation',
     count: 2,
     images: [
-      { src: '/images/process/incubation_1.jpg' },
-      { src: '/images/process/incubation_2.jpg' }
+      { src: '/images/process/incubation_1.webp' },
+      { src: '/images/process/incubation_2.webp' }
     ]
   },
   {
     id: 'fruiting',
     count: 2,
     images: [
-      { src: '/images/process/fruiting_1.jpg' },
-      { src: '/images/process/fruiting_2.jpg', captionKey: 'ready_harvest' }
+      { src: '/images/process/fruiting_1.webp' },
+      { src: '/images/process/fruiting_2.webp', captionKey: 'ready_harvest' }
     ]
   },
   {
     id: 'harvest',
     count: 2,
     images: [
-      { src: '/images/process/harvest_1.jpg' },
-      { src: '/images/process/harvest_2.png' }
+      { src: '/images/process/harvest_1.webp' },
+      { src: '/images/process/harvest_2.webp' }
     ]
   },
   {
@@ -69,14 +71,14 @@ const stages: Stage[] = [
     count: 8,
     label: 'Bon Appétit',
     images: [
-      { src: '/images/process/culinary_1.png' },
-      { src: '/images/process/culinary_2.jpg' },
-      { src: '/images/process/culinary_3.jpg' },
-      { src: '/images/process/culinary_4.png' },
-      { src: '/images/process/culinary_5.jpg' },
-      { src: '/images/process/culinary_6.jpg' },
-      { src: '/images/process/culinary_7.jpg' },
-      { src: '/images/process/culinary_8.png' }
+      { src: '/images/process/culinary_1.webp' },
+      { src: '/images/process/culinary_2.webp' },
+      { src: '/images/process/culinary_3.webp' },
+      { src: '/images/process/culinary_4.webp' },
+      { src: '/images/process/culinary_5.webp' },
+      { src: '/images/process/culinary_6.webp' },
+      { src: '/images/process/culinary_7.webp' },
+      { src: '/images/process/culinary_8.webp' }
     ]
   }
 ];
@@ -291,22 +293,41 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
           />
         </div>
         <div className="container mx-auto px-4 relative z-10 text-center">
-          <ScrollAnimation>
+          <ScrollAnimation delay={0.6}>
             <h1 className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg">{t('Hero.title')}</h1>
           </ScrollAnimation>
-          <ScrollAnimation delay={0.2}>
+          <ScrollAnimation delay={1.2}>
             <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8 text-gray-200 drop-shadow-lg">
               {t('Hero.subtitle')}
             </p>
           </ScrollAnimation>
-          <ScrollAnimation delay={0.4}>
-            <Link
+          <ScrollAnimation delay={1.8}>
+            <MotionLink
               href="/#about"
               onClick={handleDiscoverClick}
-              className="inline-block bg-[var(--primary)] text-white px-8 py-3 rounded-lg font-bold hover:bg-[var(--primary-hover)] transition-colors"
+              className="inline-block bg-[var(--primary)] text-white px-8 py-3 rounded-lg font-bold"
+              animate={{
+                backgroundColor: ["#BC6C25", "#A65D20", "#BC6C25"],
+                scale: 1,
+              }}
+              transition={{
+                backgroundColor: {
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                },
+                scale: {
+                  duration: 0.2,
+                },
+              }}
+              whileHover={{
+                backgroundColor: "#A65D20",
+                scale: 1.05,
+                transition: { duration: 0.2 }
+              }}
             >
               {t('Hero.cta')}
-            </Link>
+            </MotionLink>
           </ScrollAnimation>
         </div>
       </section>
@@ -325,7 +346,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                 <ScrollAnimation>
                   <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
                     <Image
-                      src="/images/about_us_new.jpg"
+                      src="/images/about_us_facility_v3.webp"
                       alt="MR FUNGUS Cultivation Facility"
                       fill
                       className="object-cover"
