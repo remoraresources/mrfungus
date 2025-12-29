@@ -33,6 +33,7 @@ export function Location() {
                                 scrolling="no"
                                 src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Lot%2005-AC%2C%20Menara%20MPAJ%20Blok%20A%2C%20Persiaran%20MPAJ%2C%20Jalan%20Pandan%20Utama%2C%20Pandan%20Indah%2055100%2C%20Kuala%20Lumpur&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
                                 style={{ filter: "grayscale(0) contrast(1.2) opacity(0.9)" }}
+                                loading="lazy"
                             ></iframe>
                         </div>
                     </ScrollAnimation>

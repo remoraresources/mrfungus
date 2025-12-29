@@ -2,6 +2,7 @@ import { Merriweather } from "next/font/google";
 import "../globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { preconnect } from "react-dom";
 
 import { getTranslations } from 'next-intl/server';
 
@@ -90,6 +91,9 @@ export default async function RootLayout({
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages();
+
+  preconnect('https://maps.googleapis.com');
+  preconnect('https://maps.gstatic.com');
 
   return (
     <html lang={locale}>
