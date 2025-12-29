@@ -24,7 +24,9 @@ const nextConfig: NextConfig = {
   },
   compress: true,
   experimental: {
-    optimizeCss: true,
+    optimizeCss: {
+      inlineThreshold: 10240,
+    },
   },
 };
 
