@@ -103,10 +103,12 @@ body {
   }
 }
 
-.animate-fade-in-up {
-  opacity: 0;
-  /* Ensure hidden initially */
-  animation: fadeInUp 0.8s ease-out forwards;
+@media (min-width: 768px) {
+  .animate-fade-in-up {
+    opacity: 0;
+    /* Ensure hidden initially */
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
 }
 
 .delay-200 {
@@ -123,4 +125,10 @@ body {
 
 .animate-scroll:hover {
   animation-play-state: paused;
+}
+
+@media (max-width: 767px) {
+  .no-mobile-fade {
+    opacity: 1 !important;
+  }
 }

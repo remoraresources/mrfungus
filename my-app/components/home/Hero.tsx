@@ -1,5 +1,7 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+
 import Image from "next/image"
 
 import { motion } from "framer-motion"
@@ -10,6 +12,17 @@ const MotionLink = motion.create(Link);
 
 export function Hero() {
     const t = useTranslations('Hero');
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     const handleDiscoverClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
@@ -44,11 +57,11 @@ export function Hero() {
                         href="/#about"
                         onClick={handleDiscoverClick}
                         className="inline-block bg-[var(--primary)] text-white px-8 py-3 rounded-lg font-bold"
-                        animate={{
+                        animate={isMobile ? {} : {
                             backgroundColor: ["#BC6C25", "#A65D20", "#BC6C25"],
                             scale: 1,
                         }}
-                        transition={{
+                        transition={isMobile ? {} : {
                             backgroundColor: {
                                 duration: 3,
                                 repeat: Infinity,
@@ -58,7 +71,7 @@ export function Hero() {
                                 duration: 0.2,
                             },
                         }}
-                        whileHover={{
+                        whileHover={isMobile ? {} : {
                             backgroundColor: "#A65D20",
                             scale: 1.05,
                             transition: { duration: 0.2 }

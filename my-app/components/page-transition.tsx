@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 export default function PageTransition({
@@ -12,6 +13,7 @@ export default function PageTransition({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, ease: 'easeInOut' }}
+            className="no-mobile-fade"
         >
             {children}
         </motion.div>
