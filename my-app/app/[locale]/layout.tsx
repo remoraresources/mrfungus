@@ -66,8 +66,8 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={serif.className}>
         <NextIntlClientProvider messages={messages}>
+          <Header />
           <PageTransition>
-            <Header />
             <main className="min-h-screen">
               {children}
             </main>
