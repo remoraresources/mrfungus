@@ -240,8 +240,8 @@ export function Gallery() {
 
     return (
         <>
-            <section id="gallery" className="snap-section bg-[#f2e8cf] py-24 md:h-screen md:py-0 md:flex md:flex-col md:justify-center overflow-hidden">
-                <div className="container max-w-6xl mx-auto px-4 flex-shrink-0 relative z-10 pt-16 md:pt-4 pb-4 md:order-1">
+            <section id="gallery" className="snap-section bg-[#f2e8cf] py-24 md:h-screen md:py-0 md:flex md:flex-col md:justify-start overflow-hidden">
+                <div className="container max-w-6xl mx-auto px-4 flex-shrink-0 relative z-10 pt-16 md:pt-23 pb-4 md:order-1">
                     <ScrollAnimation>
                         <h2 className="text-3xl md:text-4xl font-bold mb-2 text-center text-gray-800">{t('Gallery.title')}</h2>
                         <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto md:mb-0 text-sm md:text-base">{t('Gallery.intro')}</p>
@@ -286,7 +286,7 @@ export function Gallery() {
                 </div>
 
                 {/* Desktop Full-Screen Process Carousel */}
-                <div className="hidden md:block relative group w-full md:order-2 md:mt-2">
+                <div className="hidden md:flex flex-col relative group w-full md:order-2 md:mt-2 flex-1 min-h-0 justify-center">
                     {/* Navigation Buttons */}
                     <button
                         onClick={handlePrev}
@@ -306,7 +306,7 @@ export function Gallery() {
                     <div
                         id="gallery-scroll-container"
                         ref={scrollContainerRef}
-                        className="flex overflow-x-auto w-full snap-x snap-mandatory scrollbar-hide pb-12 md:pb-10 h-auto md:items-center"
+                        className="flex overflow-x-auto w-full snap-x snap-mandatory scrollbar-hide pb-12 md:pb-16 h-full items-center"
                         onScroll={handleScroll}
                         onWheel={() => setAutoScrollEnabled(false)}
                         onTouchStart={() => setAutoScrollEnabled(false)}
@@ -317,11 +317,11 @@ export function Gallery() {
                             const isCulinary = originalId === 'culinary';
 
                             return (
-                                <div key={`${stage.id}-${index}`} className="min-w-full flex-shrink-0 snap-center px-2 md:px-0 flex items-center justify-center h-auto md:px-12">
-                                    <div className={`mx-auto bg-white/60 backdrop-blur-md rounded-3xl shadow-sm border border-[var(--border)] flex flex-col ${isCulinary ? 'w-full max-w-[90vw] h-auto gap-2 pt-4 px-4 pb-2 md:pt-8 md:px-8 md:pb-1' : 'w-fit max-w-[88vw] h-auto gap-2 p-3 pb-1'}`}>
+                                <div key={`${stage.id}-${index}`} className="min-w-full flex-shrink-0 snap-center px-2 md:px-0 flex items-center justify-center h-full md:px-12">
+                                    <div className={`mx-auto bg-white/60 backdrop-blur-md rounded-3xl shadow-sm border border-[var(--border)] flex flex-col justify-center ${isCulinary ? 'w-full max-w-[90vw] h-full max-h-full gap-2 pt-4 px-4 pb-2 md:pt-8 md:px-8 md:pb-1' : 'w-fit max-w-[88vw] h-fit max-h-full gap-2 p-3 pb-1'}`}>
 
                                         {/* Image Area - Different Logic for Dynamic vs Fixed */}
-                                        <div className={`overflow-hidden ${isCulinary ? 'w-full' : 'flex-1 flex items-center justify-center'}`}>
+                                        <div className={`overflow-hidden ${isCulinary ? 'w-full flex-1 min-h-0 flex flex-col' : 'flex-1 flex items-center justify-center'}`}>
 
                                             {!isCulinary ? (
                                                 // Dynamic Flex Layout for Non-Culinary
@@ -338,7 +338,7 @@ export function Gallery() {
                                                                 <img
                                                                     src={imageSrc}
                                                                     alt={`${originalId} ${idx + 1}`}
-                                                                    className={`w-auto h-auto object-contain hover:scale-105 transition-transform duration-500 rounded-xl ${['preservation', 'preparation', 'inoculation'].includes(originalId) ? 'max-h-[50vh] md:max-h-[min(45vh,30vw)] xl:max-h-[min(55vh,35vw)] 2xl:max-h-[min(60vh,40vw)]' : 'max-h-[45vh] md:max-h-[min(45vh,28vw)] xl:max-h-[min(55vh,33vw)] 2xl:max-h-[min(60vh,38vw)]'}`}
+                                                                    className={`w-auto h-auto object-contain hover:scale-105 transition-transform duration-500 rounded-xl ${['preservation', 'preparation', 'inoculation'].includes(originalId) ? 'max-h-[50vh] md:max-h-[min(40vh,30vw)] xl:max-h-[min(50vh,35vw)] 2xl:max-h-[min(55vh,40vw)]' : 'max-h-[45vh] md:max-h-[min(40vh,28vw)] xl:max-h-[min(50vh,33vw)] 2xl:max-h-[min(55vh,38vw)]'}`}
                                                                     loading="lazy"
                                                                     decoding="async"
                                                                 />
@@ -353,7 +353,7 @@ export function Gallery() {
                                                 </div>
                                             ) : (
                                                 // Existing Grid Layout for Culinary (unchanged logic)
-                                                <div className={`grid w-full h-[50vh] md:h-[45vh] xl:h-[55vh] 2xl:h-[60vh] gap-3 ${stage.count <= 2 ? 'grid-cols-1 md:grid-cols-2 md:grid-rows-1' :
+                                                <div className={`grid w-full h-full gap-3 ${stage.count <= 2 ? 'grid-cols-1 md:grid-cols-2 md:grid-rows-1' :
                                                     stage.count === 3 ? 'grid-cols-1 md:grid-cols-2 md:grid-rows-2' :
                                                         stage.count <= 4 ? 'grid-cols-2 md:grid-cols-2 md:grid-rows-2' :
                                                             'grid-cols-2 md:grid-cols-4 md:grid-rows-2'
@@ -405,7 +405,7 @@ export function Gallery() {
                     </div>
 
                     {/* Indicators */}
-                    <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-2 z-10">
+                    <div className="absolute bottom-5 left-0 right-0 flex justify-center gap-2 z-10">
                         {stages.map((_, i) => (
                             <button
                                 key={i}
