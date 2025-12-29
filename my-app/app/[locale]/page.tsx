@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from 'react';
 import Image from "next/image"
 import { ScrollAnimation } from "@/components/ScrollAnimation"
 import { VideoPlayer } from "@/components/video-player"
+import { MapEmbed } from "@/components/map-embed"
 import { motion, AnimatePresence } from "framer-motion"
 
 import { useTranslations } from 'next-intl';
@@ -875,16 +876,9 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                   </p>
                 </div>
                 {/* Placeholder for Map */}
-                <div className="w-full h-[400px] rounded-2xl overflow-hidden shadow-lg border border-gray-200">
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    title="map"
-                    scrolling="no"
-                    src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Lot%2005-AC%2C%20Menara%20MPAJ%20Blok%20A%2C%20Persiaran%20MPAJ%2C%20Jalan%20Pandan%20Utama%2C%20Pandan%20Indah%2055100%2C%20Kuala%20Lumpur&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-                    style={{ filter: "grayscale(0) contrast(1.2) opacity(0.9)" }}
-                  ></iframe>
-                </div>
+                <MapEmbed
+                  src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=Lot%2005-AC%2C%20Menara%20MPAJ%20Blok%20A%2C%20Persiaran%20MPAJ%2C%20Jalan%20Pandan%20Utama%2C%20Pandan%20Indah%2055100%2C%20Kuala%20Lumpur&t=&z=15&ie=UTF8&iwloc=B&output=embed"
+                />
               </ScrollAnimation>
             </div>
           </div>
