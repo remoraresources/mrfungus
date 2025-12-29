@@ -91,6 +91,32 @@ body {
   }
 }
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  opacity: 0;
+  /* Ensure hidden initially */
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-500 {
+  animation-delay: 0.5s;
+}
+
 .animate-scroll {
   animation: scroll 30s linear infinite;
 }

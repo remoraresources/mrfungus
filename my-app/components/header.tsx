@@ -64,11 +64,8 @@ export function Header() {
 
 
     return (
-        <motion.header
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.8, duration: 0.8 }}
-            className={`fixed top-0 w-full z-50 border-b transition-colors duration-500 ease-in-out ${headerBgClass}`}
+        <header
+            className={`fixed top-0 w-full z-50 border-b transition-colors duration-500 ease-in-out animate-fade-in-up delay-500 ${headerBgClass}`}
         >
             <div className="container mx-auto px-4">
                 <div className="relative flex h-16 items-center justify-between">
@@ -188,6 +185,6 @@ export function Header() {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </motion.header>
+        </header>
     )
 }
