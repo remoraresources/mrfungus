@@ -35,6 +35,9 @@ export async function generateMetadata({
         'zh': '/zh',
       },
     },
+    verification: {
+      google: 'BryA1lt2N6mFoqz_ABwKmG6s0buPrrX3X_F2G6sO77A',
+    },
   };
 }
 
