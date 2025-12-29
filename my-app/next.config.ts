@@ -23,6 +23,9 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === "production",
   },
   compress: true,
+  experimental: {
+    optimizeCss: true,
+  },
 };
 
 export default withNextIntl(nextConfig);
