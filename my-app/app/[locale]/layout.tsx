@@ -28,8 +28,9 @@ export async function generateMetadata({
       apple: '/apple-touch-icon.png',
     },
     manifest: '/site.webmanifest',
+    metadataBase: new URL('https://www.mrfungus.com.my'),
     alternates: {
-      canonical: '/',
+      canonical: `/${locale}`,
       languages: {
         'en': '/en',
         'zh': '/zh',
