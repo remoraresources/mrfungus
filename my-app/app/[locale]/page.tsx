@@ -350,6 +350,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                       alt="MR FUNGUS Cultivation Facility"
                       fill
                       className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
                     />
                   </div>
                 </ScrollAnimation>
@@ -609,6 +610,8 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                           src={imageSrc}
                           alt={`${stage.id} ${idx + 1}`}
                           className="max-h-[50vh] max-w-[85vw] w-auto h-auto object-contain block rounded-lg"
+                          loading="lazy"
+                          decoding="async"
                         />
                         {stage.images?.[idx]?.captionKey && (
                           <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-xs p-2 text-center backdrop-blur-sm z-10">
@@ -681,6 +684,8 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                                   src={imageSrc}
                                   alt={`${originalId} ${idx + 1}`}
                                   className={`w-auto h-auto object-contain hover:scale-105 transition-transform duration-500 rounded-xl ${['preservation', 'preparation', 'inoculation'].includes(originalId) ? 'max-h-[55vh] md:max-h-[min(55vh,37vw)]' : 'max-h-[50vh] md:max-h-[min(55vh,35vw)]'}`}
+                                  loading="lazy"
+                                  decoding="async"
                                 />
                                 {stage.images?.[idx]?.captionKey && (
                                   <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">
@@ -718,6 +723,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
                                   className={`object-cover hover:scale-105 transition-transform duration-500 rounded-xl`}
                                   priority
                                   unoptimized={imageSrc.toLowerCase().endsWith('.gif')}
+                                  sizes="(max-width: 768px) 50vw, 25vw"
                                 />
                                 {stage.images?.[idx]?.captionKey && (
                                   <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">

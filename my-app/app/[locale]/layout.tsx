@@ -39,6 +39,31 @@ export async function generateMetadata({
     verification: {
       google: 'BryA1lt2N6mFoqz_ABwKmG6s0buPrrX3X_F2G6sO77A',
     },
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+      url: `/${locale}`,
+      siteName: 'MR FUNGUS',
+      images: [
+        {
+          url: '/images/lions_mane_hero_minimal.webp',
+          width: 1200,
+          height: 630,
+          alt: t('title'),
+        },
+      ],
+      locale: locale,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('title'),
+      description: t('description'),
+      images: ['/images/lions_mane_hero_minimal.webp'],
+    },
+    other: {
+      'article:publisher': 'https://www.facebook.com/profile.php?id=61569450821560',
+    },
   };
 }
 

@@ -19,6 +19,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
+  },
+  compress: true,
 };
 
 export default withNextIntl(nextConfig);
