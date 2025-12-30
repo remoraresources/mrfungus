@@ -44,7 +44,7 @@ export async function generateMetadata({
       title: t('title'),
       description: t('description'),
       url: `/${locale}`,
-      siteName: 'MR FUNGUS',
+      siteName: 'Mr Fungus',
       images: [
         {
           url: '/images/lions_mane_hero_minimal.webp',

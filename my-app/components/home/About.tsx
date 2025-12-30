@@ -22,7 +22,7 @@ export function About() {
                                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
                                     <Image
                                         src="/images/about_us_facility_v3.webp"
-                                        alt="MR FUNGUS Cultivation Facility"
+                                        alt="Mr Fungus Cultivation Facility"
                                         fill
                                         className="object-cover"
                                         sizes="(max-width: 768px) 100vw, 50vw"

@@ -14,7 +14,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'MR FUNGUS',
+    name: 'Mr Fungus',
     alternateName: 'Remora Resources PLT',
     url: 'https://www.mrfungus.com.my',
     contactPoint: {
