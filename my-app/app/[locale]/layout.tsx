@@ -37,9 +37,9 @@ export async function generateMetadata({
     manifest: '/site.webmanifest',
     metadataBase: new URL('https://www.mrfungus.com.my'),
     alternates: {
-      canonical: `/${locale}`,
+      canonical: locale === 'en' ? '/' : `/${locale}`,
       languages: {
-        'en': '/en',
+        'en': '/',
         'zh': '/zh',
         'x-default': '/',
       },
@@ -50,7 +50,7 @@ export async function generateMetadata({
     openGraph: {
       title: t('title'),
       description: t('description'),
-      url: `/${locale}`,
+      url: locale === 'en' ? '/' : `/${locale}`,
       siteName: 'Mr Fungus',
       images: [
         {

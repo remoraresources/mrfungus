@@ -5,7 +5,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.mrfungus.com.my';
 
     return routing.locales.map((locale) => ({
-        url: `${baseUrl}/${locale}`,
+        url: locale === 'en' ? baseUrl : `${baseUrl}/${locale}`,
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: 1,
@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             languages: {
                 'x-default': baseUrl,
                 ...Object.fromEntries(
-                    routing.locales.map((l) => [l, `${baseUrl}/${l}`])
+                    routing.locales.map((l) => [l, l === 'en' ? baseUrl : `${baseUrl}/${l}`])
                 )
             },
         },
