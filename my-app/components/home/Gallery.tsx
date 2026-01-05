@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from 'react';
 import Image from "next/image"
 import { ScrollAnimation } from "@/components/ScrollAnimation"
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -80,6 +80,8 @@ const stages: Stage[] = [
 
 export function Gallery() {
     const t = useTranslations();
+    const locale = useLocale();
+    const isZh = locale === 'zh';
     const [activeStage, setActiveStage] = useState(1);
     const [isGalleryVisible, setIsGalleryVisible] = useState(false);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -338,7 +340,12 @@ export function Gallery() {
                                                                 <img
                                                                     src={imageSrc}
                                                                     alt={`${originalId} ${idx + 1}`}
-                                                                    className={`w-auto h-auto object-contain hover:scale-105 transition-transform duration-500 rounded-xl ${['preservation', 'preparation', 'inoculation'].includes(originalId) ? 'max-h-[50vh] md:max-h-[min(40vh,30vw)] xl:max-h-[min(50vh,35vw)] 2xl:max-h-[min(55vh,40vw)]' : 'max-h-[45vh] md:max-h-[min(40vh,28vw)] xl:max-h-[min(50vh,33vw)] 2xl:max-h-[min(55vh,38vw)]'}`}
+                                                                    className={`w-auto object-contain hover:scale-105 transition-transform duration-500 rounded-xl ${originalId === 'preparation'
+                                                                            ? 'h-[50vh] md:h-[min(40vh,30vw)] xl:h-[min(50vh,35vw)] 2xl:h-[min(55vh,40vw)]'
+                                                                            : ['preservation', 'inoculation'].includes(originalId)
+                                                                                ? 'max-h-[50vh] md:max-h-[min(40vh,30vw)] xl:max-h-[min(50vh,35vw)] 2xl:max-h-[min(55vh,40vw)] h-auto'
+                                                                                : 'max-h-[45vh] md:max-h-[min(40vh,28vw)] xl:max-h-[min(50vh,33vw)] 2xl:max-h-[min(55vh,38vw)] h-auto'
+                                                                        }`}
                                                                     loading="lazy"
                                                                     decoding="async"
                                                                 />
