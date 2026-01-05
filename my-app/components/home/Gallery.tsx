@@ -92,6 +92,9 @@ export function Gallery() {
     const programmaticScrollTimeout = useRef<NodeJS.Timeout>(null);
     const rafId = useRef<number | null>(null);
 
+    // Cache container width to avoid forced reflows
+    const containerWidthRef = useRef<number>(0);
+
     // Create clones for infinite loop effect
     // buffer at start (last item) and buffer at end (first item)
     const extendedStages = [
@@ -99,6 +102,27 @@ export function Gallery() {
         ...stages,
         { ...stages[0], id: stages[0].id + '-clone-end' }
     ];
+
+    // ResizeObserver to keep track of container width
+    useEffect(() => {
+        if (!scrollContainerRef.current) return;
+
+        const handleResize = (entries: ResizeObserverEntry[]) => {
+            for (const entry of entries) {
+                containerWidthRef.current = entry.contentRect.width;
+            }
+        };
+
+        const resizeObserver = new ResizeObserver(handleResize);
+        resizeObserver.observe(scrollContainerRef.current);
+
+        // Initial measurement
+        containerWidthRef.current = scrollContainerRef.current.clientWidth;
+
+        return () => {
+            resizeObserver.disconnect();
+        };
+    }, []);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -125,15 +149,17 @@ export function Gallery() {
 
     // Handle infinite scroll reset
     useEffect(() => {
+        const width = containerWidthRef.current || scrollContainerRef.current?.clientWidth || 0;
+        if (width === 0) return;
+
         if (activeStage === extendedStages.length - 1) {
             // Reached the clone at the end (copy of first), jump to real first (index 1)
             setIsResetting(true);
             const timeout = setTimeout(() => {
                 if (scrollContainerRef.current) {
                     const newIndex = 1;
-                    const container = scrollContainerRef.current;
-                    container.scrollTo({
-                        left: newIndex * container.clientWidth,
+                    scrollContainerRef.current.scrollTo({
+                        left: newIndex * width,
                         behavior: 'auto'
                     });
                     setActiveStage(newIndex);
@@ -147,9 +173,8 @@ export function Gallery() {
             const timeout = setTimeout(() => {
                 if (scrollContainerRef.current) {
                     const newIndex = extendedStages.length - 2;
-                    const container = scrollContainerRef.current;
-                    container.scrollTo({
-                        left: newIndex * container.clientWidth,
+                    scrollContainerRef.current.scrollTo({
+                        left: newIndex * width,
                         behavior: 'auto'
                     });
                     setActiveStage(newIndex);
@@ -162,9 +187,11 @@ export function Gallery() {
 
     // Initial scroll position to start at index 1
     useEffect(() => {
+        // We need to wait for the width to be available, usually on mount it is
         if (scrollContainerRef.current) {
+            const width = containerWidthRef.current || scrollContainerRef.current.clientWidth;
             scrollContainerRef.current.scrollTo({
-                left: 1 * scrollContainerRef.current.clientWidth,
+                left: 1 * width,
                 behavior: 'auto'
             });
         }
@@ -193,11 +220,14 @@ export function Gallery() {
 
         rafId.current = requestAnimationFrame(() => {
             const scrollLeft = container.scrollLeft;
-            const width = container.clientWidth;
-            const index = Math.round(scrollLeft / width);
+            // Use cached width if available, fallback to clientWidth but try to avoid it in tight loops if possible
+            const width = containerWidthRef.current || container.clientWidth;
 
-            if (index !== activeStage) {
-                setActiveStage(index);
+            if (width > 0) {
+                const index = Math.round(scrollLeft / width);
+                if (index !== activeStage) {
+                    setActiveStage(index);
+                }
             }
             rafId.current = null;
         });
@@ -205,8 +235,9 @@ export function Gallery() {
 
     const scrollToStage = (index: number) => {
         if (scrollContainerRef.current) {
+            const width = containerWidthRef.current || scrollContainerRef.current.clientWidth;
             scrollContainerRef.current.scrollTo({
-                left: index * scrollContainerRef.current.clientWidth,
+                left: index * width,
                 behavior: 'smooth'
             });
         }
