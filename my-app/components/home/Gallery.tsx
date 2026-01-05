@@ -26,14 +26,14 @@ const stages: Stage[] = [
         images: [
             { src: '/images/process/preparation_1.webp', captionKey: 'pellets' },
             { src: '/images/process/preparation_2.webp' },
-            { src: '/images/process/preparation_3.gif' }
+            { src: '/images/process/preparation_3.mp4' }
         ]
     },
     {
         id: 'inoculation',
         count: 2,
         images: [
-            { src: '/images/process/inoculation_1.gif' },
+            { src: '/images/process/inoculation_1.mp4' },
             { src: '/images/process/inoculation_2.webp' }
         ]
     },
@@ -90,6 +90,7 @@ export function Gallery() {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const isProgrammaticScroll = useRef(false);
     const programmaticScrollTimeout = useRef<NodeJS.Timeout>(null);
+    const rafId = useRef<number | null>(null);
 
     // Create clones for infinite loop effect
     // buffer at start (last item) and buffer at end (first item)
@@ -118,6 +119,7 @@ export function Gallery() {
     useEffect(() => {
         return () => {
             if (programmaticScrollTimeout.current) clearTimeout(programmaticScrollTimeout.current);
+            if (rafId.current) cancelAnimationFrame(rafId.current);
         };
     }, []);
 
@@ -182,16 +184,23 @@ export function Gallery() {
     }, [isGalleryVisible, activeStage, autoScrollEnabled]);
 
     const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-        if (isResetting || isProgrammaticScroll.current) return; // Ignore scroll events during reset or programmatic scroll
+        if (isResetting || isProgrammaticScroll.current) return;
 
         const container = e.currentTarget;
-        const scrollLeft = container.scrollLeft;
-        const width = container.clientWidth;
-        const index = Math.round(scrollLeft / width);
 
-        if (index !== activeStage) {
-            setActiveStage(index);
-        }
+        // Use requestAnimationFrame to avoid forced reflows during scroll events
+        if (rafId.current) return;
+
+        rafId.current = requestAnimationFrame(() => {
+            const scrollLeft = container.scrollLeft;
+            const width = container.clientWidth;
+            const index = Math.round(scrollLeft / width);
+
+            if (index !== activeStage) {
+                setActiveStage(index);
+            }
+            rafId.current = null;
+        });
     };
 
     const scrollToStage = (index: number) => {
@@ -240,6 +249,8 @@ export function Gallery() {
         setActiveStage(prevStage);
     };
 
+    const isVideo = (src: string) => src.endsWith('.mp4') || src.endsWith('.webm');
+
     return (
         <>
             <section id="gallery" className="snap-section bg-[#f2e8cf] py-24 md:h-screen md:py-0 md:flex md:flex-col md:justify-start overflow-hidden">
@@ -258,16 +269,29 @@ export function Gallery() {
                             <div className="flex overflow-x-auto gap-4 pb-2 -mx-4 px-4 scrollbar-hide snap-x items-center">
                                 {Array.from({ length: stage.count }).map((_, idx) => {
                                     const imageSrc = stage.images?.[idx]?.src || `/images/process/${stage.id}_${idx + 1}.${stage.ext || 'svg'}`;
+                                    const isVid = isVideo(imageSrc);
+
                                     return (
                                         <div key={idx} className="flex-shrink-0 snap-center">
                                             <div className="relative rounded-xl overflow-hidden shadow-md cursor-pointer group-hover:brightness-90 transition-all border-4 border-white bg-white"
                                                 onClick={() => setSelectedImage(imageSrc)}
                                             >
-                                                <img
-                                                    src={imageSrc}
-                                                    alt={`${stage.id} ${idx + 1}`}
-                                                    className="max-h-[50vh] max-w-[85vw] w-auto h-auto object-contain block rounded-lg"
-                                                />
+                                                {isVid ? (
+                                                    <video
+                                                        src={imageSrc}
+                                                        autoPlay
+                                                        loop
+                                                        muted
+                                                        playsInline
+                                                        className="max-h-[50vh] max-w-[85vw] w-auto h-auto object-contain block rounded-lg"
+                                                    />
+                                                ) : (
+                                                    <img
+                                                        src={imageSrc}
+                                                        alt={`${stage.id} ${idx + 1}`}
+                                                        className="max-h-[50vh] max-w-[85vw] w-auto h-auto object-contain block rounded-lg"
+                                                    />
+                                                )}
                                                 {stage.images?.[idx]?.captionKey && (
                                                     <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-xs p-2 text-center backdrop-blur-sm z-10">
                                                         {t(`Gallery.stages.${stage.id}.captions.${stage.images[idx].captionKey}`)}
@@ -329,22 +353,40 @@ export function Gallery() {
                                                     {/* Standard Row for All Non-Culinary Stages */}
                                                     {Array.from({ length: stage.count }).map((_, idx) => {
                                                         const imageSrc = stage.images?.[idx]?.src || `/images/process/${originalId}_${idx + 1}.${stage.ext || 'svg'}`;
+                                                        const isVid = isVideo(imageSrc);
+
                                                         return (
                                                             <div
                                                                 key={idx}
                                                                 className="relative h-auto w-fit rounded-xl overflow-hidden shadow-sm cursor-pointer group hover:shadow-md transition-all flex-shrink"
                                                                 onClick={() => setSelectedImage(imageSrc)}
                                                             >
-                                                                <img
-                                                                    src={imageSrc}
-                                                                    alt={`${originalId} ${idx + 1}`}
-                                                                    className={`w-auto object-contain hover:scale-105 transition-transform duration-500 rounded-xl ${originalId === 'preparation'
-                                                                        ? 'h-[50vh] md:h-[min(40vh,30vw)] xl:h-[min(50vh,35vw)] 2xl:h-[min(55vh,40vw)]'
-                                                                        : ['preservation', 'inoculation'].includes(originalId)
-                                                                            ? 'max-h-[50vh] md:max-h-[min(40vh,30vw)] xl:max-h-[min(50vh,35vw)] 2xl:max-h-[min(55vh,40vw)] h-auto'
-                                                                            : 'max-h-[45vh] md:max-h-[min(40vh,28vw)] xl:max-h-[min(50vh,33vw)] 2xl:max-h-[min(55vh,38vw)] h-auto'
-                                                                        }`}
-                                                                />
+                                                                {isVid ? (
+                                                                    <video
+                                                                        src={imageSrc}
+                                                                        autoPlay
+                                                                        loop
+                                                                        muted
+                                                                        playsInline
+                                                                        className={`w-auto object-contain hover:scale-105 transition-transform duration-500 rounded-xl ${originalId === 'preparation'
+                                                                            ? 'h-[50vh] md:h-[min(40vh,30vw)] xl:h-[min(50vh,35vw)] 2xl:h-[min(55vh,40vw)]'
+                                                                            : ['preservation', 'inoculation'].includes(originalId)
+                                                                                ? 'max-h-[50vh] md:max-h-[min(40vh,30vw)] xl:max-h-[min(50vh,35vw)] 2xl:max-h-[min(55vh,40vw)] h-auto'
+                                                                                : 'max-h-[45vh] md:max-h-[min(40vh,28vw)] xl:max-h-[min(50vh,33vw)] 2xl:max-h-[min(55vh,38vw)] h-auto'
+                                                                            }`}
+                                                                    />
+                                                                ) : (
+                                                                    <img
+                                                                        src={imageSrc}
+                                                                        alt={`${originalId} ${idx + 1}`}
+                                                                        className={`w-auto object-contain hover:scale-105 transition-transform duration-500 rounded-xl ${originalId === 'preparation'
+                                                                            ? 'h-[50vh] md:h-[min(40vh,30vw)] xl:h-[min(50vh,35vw)] 2xl:h-[min(55vh,40vw)]'
+                                                                            : ['preservation', 'inoculation'].includes(originalId)
+                                                                                ? 'max-h-[50vh] md:max-h-[min(40vh,30vw)] xl:max-h-[min(50vh,35vw)] 2xl:max-h-[min(55vh,40vw)] h-auto'
+                                                                                : 'max-h-[45vh] md:max-h-[min(40vh,28vw)] xl:max-h-[min(50vh,33vw)] 2xl:max-h-[min(55vh,38vw)] h-auto'
+                                                                            }`}
+                                                                    />
+                                                                )}
                                                                 {stage.images?.[idx]?.captionKey && (
                                                                     <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">
                                                                         {t(`Gallery.stages.${originalId}.captions.${stage.images[idx].captionKey}`)}
@@ -448,14 +490,25 @@ export function Gallery() {
                         <div
                             className="relative w-full h-full max-w-7xl max-h-[90vh]"
                         >
-                            <Image
-                                src={selectedImage}
-                                alt="Full size preview"
-                                fill
-                                className="object-contain"
-                                priority
-                                unoptimized={selectedImage.toLowerCase().endsWith('.gif')}
-                            />
+                            {isVideo(selectedImage) ? (
+                                <video
+                                    src={selectedImage}
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    className="w-full h-full object-contain"
+                                />
+                            ) : (
+                                <Image
+                                    src={selectedImage}
+                                    alt="Full size preview"
+                                    fill
+                                    className="object-contain"
+                                    priority
+                                    unoptimized={selectedImage.toLowerCase().endsWith('.gif')}
+                                />
+                            )}
                         </div>
                     </motion.div>
                 )}
