@@ -220,7 +220,6 @@ export function Gallery() {
 
         rafId.current = requestAnimationFrame(() => {
             const scrollLeft = container.scrollLeft;
-            // Use cached width if available, fallback to clientWidth but try to avoid it in tight loops if possible
             const width = containerWidthRef.current || container.clientWidth;
 
             if (width > 0) {
