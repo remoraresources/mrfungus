@@ -81,7 +81,7 @@ const stages: Stage[] = [
 export function Gallery() {
     const t = useTranslations();
     const locale = useLocale();
-    const isZh = locale === 'zh';
+
     const [activeStage, setActiveStage] = useState(1);
     const [isGalleryVisible, setIsGalleryVisible] = useState(false);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -267,8 +267,6 @@ export function Gallery() {
                                                     src={imageSrc}
                                                     alt={`${stage.id} ${idx + 1}`}
                                                     className="max-h-[50vh] max-w-[85vw] w-auto h-auto object-contain block rounded-lg"
-                                                    loading="lazy"
-                                                    decoding="async"
                                                 />
                                                 {stage.images?.[idx]?.captionKey && (
                                                     <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-xs p-2 text-center backdrop-blur-sm z-10">
@@ -341,13 +339,11 @@ export function Gallery() {
                                                                     src={imageSrc}
                                                                     alt={`${originalId} ${idx + 1}`}
                                                                     className={`w-auto object-contain hover:scale-105 transition-transform duration-500 rounded-xl ${originalId === 'preparation'
-                                                                            ? 'h-[50vh] md:h-[min(40vh,30vw)] xl:h-[min(50vh,35vw)] 2xl:h-[min(55vh,40vw)]'
-                                                                            : ['preservation', 'inoculation'].includes(originalId)
-                                                                                ? 'max-h-[50vh] md:max-h-[min(40vh,30vw)] xl:max-h-[min(50vh,35vw)] 2xl:max-h-[min(55vh,40vw)] h-auto'
-                                                                                : 'max-h-[45vh] md:max-h-[min(40vh,28vw)] xl:max-h-[min(50vh,33vw)] 2xl:max-h-[min(55vh,38vw)] h-auto'
+                                                                        ? 'h-[50vh] md:h-[min(40vh,30vw)] xl:h-[min(50vh,35vw)] 2xl:h-[min(55vh,40vw)]'
+                                                                        : ['preservation', 'inoculation'].includes(originalId)
+                                                                            ? 'max-h-[50vh] md:max-h-[min(40vh,30vw)] xl:max-h-[min(50vh,35vw)] 2xl:max-h-[min(55vh,40vw)] h-auto'
+                                                                            : 'max-h-[45vh] md:max-h-[min(40vh,28vw)] xl:max-h-[min(50vh,33vw)] 2xl:max-h-[min(55vh,38vw)] h-auto'
                                                                         }`}
-                                                                    loading="lazy"
-                                                                    decoding="async"
                                                                 />
                                                                 {stage.images?.[idx]?.captionKey && (
                                                                     <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">
