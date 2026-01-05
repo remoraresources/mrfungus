@@ -1,7 +1,11 @@
 import { Hero } from "@/components/home/Hero";
 import { About } from "@/components/home/About";
 import { Story } from "@/components/home/Story";
-import { Gallery } from "@/components/home/Gallery";
+import dynamic from 'next/dynamic';
+
+const Gallery = dynamic(() => import('@/components/home/Gallery').then(mod => mod.Gallery), {
+  loading: () => <div className="snap-section bg-[#f2e8cf] py-24 md:h-screen md:py-0" />
+});
 import { VideoSection } from "@/components/home/VideoSection";
 import { Contact } from "@/components/home/Contact";
 import { Location } from "@/components/home/Location";
