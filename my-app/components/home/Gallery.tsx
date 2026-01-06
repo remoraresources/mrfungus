@@ -1,31 +1,59 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
-import Image from "next/image"
+import Image, { StaticImageData } from "next/image"
 import { ScrollAnimation } from "@/components/ScrollAnimation"
 import { useTranslations, useLocale } from 'next-intl';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion"
+
+// Imports for process images
+import preservation1 from "@/public/images/process/preservation_1.webp"
+import preservation2 from "@/public/images/process/preservation_2.webp"
+import preparation1 from "@/public/images/process/preparation_1.webp"
+import preparation2 from "@/public/images/process/preparation_2.webp"
+import inoculation2 from "@/public/images/process/inoculation_2.webp"
+import incubation1 from "@/public/images/process/incubation_1.webp"
+import incubation2 from "@/public/images/process/incubation_2.webp"
+import fruiting1 from "@/public/images/process/fruiting_1.webp"
+import fruiting2 from "@/public/images/process/fruiting_2.webp"
+import harvest1 from "@/public/images/process/harvest_1.webp"
+import harvest2 from "@/public/images/process/harvest_2.webp"
+import culinary1 from "@/public/images/process/culinary_1.webp"
+import culinary2 from "@/public/images/process/culinary_2.webp"
+import culinary3 from "@/public/images/process/culinary_3.webp"
+import culinary4 from "@/public/images/process/culinary_4.webp"
+import culinary5 from "@/public/images/process/culinary_5.webp"
+import culinary6 from "@/public/images/process/culinary_6.webp"
+import culinary7 from "@/public/images/process/culinary_7.webp"
+import culinary8 from "@/public/images/process/culinary_8.webp"
 
 interface Stage {
     id: string;
     count: number;
     ext?: string;
     label?: string;
-    images?: {
-        src: string;
+    images: {
+        src: string | StaticImageData;
         captionKey?: string;
     }[];
 }
 
 const stages: Stage[] = [
-    { id: 'preservation', count: 2, ext: 'webp' },
+    {
+        id: 'preservation',
+        count: 2,
+        images: [
+            { src: preservation1 },
+            { src: preservation2 }
+        ]
+    },
     {
         id: 'preparation',
         count: 3,
         images: [
-            { src: '/images/process/preparation_1.webp', captionKey: 'pellets' },
-            { src: '/images/process/preparation_2.webp' },
+            { src: preparation1, captionKey: 'pellets' },
+            { src: preparation2 },
             { src: '/images/process/preparation_3.mp4' }
         ]
     },
@@ -34,31 +62,31 @@ const stages: Stage[] = [
         count: 2,
         images: [
             { src: '/images/process/inoculation_1.mp4' },
-            { src: '/images/process/inoculation_2.webp' }
+            { src: inoculation2 }
         ]
     },
     {
         id: 'incubation',
         count: 2,
         images: [
-            { src: '/images/process/incubation_1.webp' },
-            { src: '/images/process/incubation_2.webp' }
+            { src: incubation1 },
+            { src: incubation2 }
         ]
     },
     {
         id: 'fruiting',
         count: 2,
         images: [
-            { src: '/images/process/fruiting_1.webp' },
-            { src: '/images/process/fruiting_2.webp', captionKey: 'ready_harvest' }
+            { src: fruiting1 },
+            { src: fruiting2, captionKey: 'ready_harvest' }
         ]
     },
     {
         id: 'harvest',
         count: 2,
         images: [
-            { src: '/images/process/harvest_1.webp' },
-            { src: '/images/process/harvest_2.webp' }
+            { src: harvest1 },
+            { src: harvest2 }
         ]
     },
     {
@@ -66,14 +94,14 @@ const stages: Stage[] = [
         count: 8,
         label: 'Bon Appétit',
         images: [
-            { src: '/images/process/culinary_1.webp' },
-            { src: '/images/process/culinary_2.webp' },
-            { src: '/images/process/culinary_3.webp' },
-            { src: '/images/process/culinary_4.webp' },
-            { src: '/images/process/culinary_5.webp' },
-            { src: '/images/process/culinary_6.webp' },
-            { src: '/images/process/culinary_7.webp' },
-            { src: '/images/process/culinary_8.webp' }
+            { src: culinary1 },
+            { src: culinary2 },
+            { src: culinary3 },
+            { src: culinary4 },
+            { src: culinary5 },
+            { src: culinary6 },
+            { src: culinary7 },
+            { src: culinary8 }
         ]
     }
 ];
@@ -84,7 +112,7 @@ export function Gallery() {
 
     const [activeStage, setActiveStage] = useState(1);
     const [isGalleryVisible, setIsGalleryVisible] = useState(false);
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const [selectedImage, setSelectedImage] = useState<string | StaticImageData | null>(null);
     const [isResetting, setIsResetting] = useState(false);
     const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -149,6 +177,7 @@ export function Gallery() {
 
     // Handle infinite scroll reset
     useEffect(() => {
+        // Use cached width if available to reduce reflows
         const width = containerWidthRef.current || scrollContainerRef.current?.clientWidth || 0;
         if (width === 0) return;
 
@@ -213,11 +242,10 @@ export function Gallery() {
     const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
         if (isResetting || isProgrammaticScroll.current) return;
 
-        const container = e.currentTarget;
-
         // Use requestAnimationFrame to avoid forced reflows during scroll events
         if (rafId.current) return;
 
+        const container = e.currentTarget;
         rafId.current = requestAnimationFrame(() => {
             const scrollLeft = container.scrollLeft;
             const width = containerWidthRef.current || container.clientWidth;
@@ -279,7 +307,12 @@ export function Gallery() {
         setActiveStage(prevStage);
     };
 
-    const isVideo = (src: string) => src.endsWith('.mp4') || src.endsWith('.webm');
+    const isVideo = (src: string | StaticImageData) => {
+        if (typeof src === 'string') {
+            return src.endsWith('.mp4') || src.endsWith('.webm');
+        }
+        return false;
+    };
 
     return (
         <>
@@ -293,12 +326,12 @@ export function Gallery() {
 
                 {/* Mobile Vertical Stack Gallery */}
                 <div className="md:hidden space-y-16 px-4 mt-12">
-                    {stages.map((stage, index) => (
+                    {stages.map((stage) => (
                         <div key={stage.id} className="space-y-3">
                             {/* Horizontal Image Scroll */}
                             <div className="flex overflow-x-auto gap-4 pb-2 -mx-4 px-4 scrollbar-hide snap-x items-center">
-                                {Array.from({ length: stage.count }).map((_, idx) => {
-                                    const imageSrc = stage.images?.[idx]?.src || `/images/process/${stage.id}_${idx + 1}.${stage.ext || 'svg'}`;
+                                {stage.images.map((imageObj, idx) => {
+                                    const imageSrc = imageObj.src;
                                     const isVid = isVideo(imageSrc);
 
                                     return (
@@ -308,7 +341,7 @@ export function Gallery() {
                                             >
                                                 {isVid ? (
                                                     <video
-                                                        src={imageSrc}
+                                                        src={imageSrc as string}
                                                         autoPlay
                                                         loop
                                                         muted
@@ -316,15 +349,18 @@ export function Gallery() {
                                                         className="max-h-[50vh] max-w-[85vw] w-auto h-auto object-contain block rounded-lg"
                                                     />
                                                 ) : (
-                                                    <img
+                                                    <Image
                                                         src={imageSrc}
                                                         alt={`${stage.id} ${idx + 1}`}
                                                         className="max-h-[50vh] max-w-[85vw] w-auto h-auto object-contain block rounded-lg"
+                                                        priority={stage.id === 'preservation'}
+                                                        placeholder="blur"
+                                                        sizes="(max-width: 768px) 85vw, 50vw"
                                                     />
                                                 )}
-                                                {stage.images?.[idx]?.captionKey && (
+                                                {imageObj.captionKey && (
                                                     <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-xs p-2 text-center backdrop-blur-sm z-10">
-                                                        {t(`Gallery.stages.${stage.id}.captions.${stage.images[idx].captionKey}`)}
+                                                        {t(`Gallery.stages.${stage.id}.captions.${imageObj.captionKey}`)}
                                                     </div>
                                                 )}
                                             </div>
@@ -381,8 +417,8 @@ export function Gallery() {
                                                 // Dynamic Flex Layout for Non-Culinary
                                                 <div className="flex gap-2 w-fit mx-auto max-w-full h-auto items-center">
                                                     {/* Standard Row for All Non-Culinary Stages */}
-                                                    {Array.from({ length: stage.count }).map((_, idx) => {
-                                                        const imageSrc = stage.images?.[idx]?.src || `/images/process/${originalId}_${idx + 1}.${stage.ext || 'svg'}`;
+                                                    {stage.images.map((imageObj, idx) => {
+                                                        const imageSrc = imageObj.src;
                                                         const isVid = isVideo(imageSrc);
 
                                                         return (
@@ -393,33 +429,36 @@ export function Gallery() {
                                                             >
                                                                 {isVid ? (
                                                                     <video
-                                                                        src={imageSrc}
+                                                                        src={imageSrc as string}
                                                                         autoPlay
                                                                         loop
                                                                         muted
                                                                         playsInline
                                                                         className={`w-auto object-contain hover:scale-105 transition-transform duration-500 rounded-xl ${originalId === 'preparation'
                                                                             ? 'h-[50vh] md:h-[min(40vh,30vw)] xl:h-[min(50vh,35vw)] 2xl:h-[min(55vh,40vw)]'
-                                                                            : ['preservation', 'inoculation'].includes(originalId)
-                                                                                ? 'max-h-[50vh] md:max-h-[min(40vh,30vw)] xl:max-h-[min(50vh,35vw)] 2xl:max-h-[min(55vh,40vw)] h-auto'
+                                                                            : ['preservation', 'inoculation', 'incubation', 'fruiting', 'harvest'].includes(originalId)
+                                                                                ? 'max-h-[50vh] md:h-[55vh] xl:h-[65vh] 2xl:h-[70vh] h-auto'
                                                                                 : 'max-h-[45vh] md:max-h-[min(40vh,28vw)] xl:max-h-[min(50vh,33vw)] 2xl:max-h-[min(55vh,38vw)] h-auto'
                                                                             }`}
                                                                     />
                                                                 ) : (
-                                                                    <img
+                                                                    <Image
                                                                         src={imageSrc}
                                                                         alt={`${originalId} ${idx + 1}`}
                                                                         className={`w-auto object-contain hover:scale-105 transition-transform duration-500 rounded-xl ${originalId === 'preparation'
                                                                             ? 'h-[50vh] md:h-[min(40vh,30vw)] xl:h-[min(50vh,35vw)] 2xl:h-[min(55vh,40vw)]'
-                                                                            : ['preservation', 'inoculation'].includes(originalId)
-                                                                                ? 'max-h-[50vh] md:max-h-[min(40vh,30vw)] xl:max-h-[min(50vh,35vw)] 2xl:max-h-[min(55vh,40vw)] h-auto'
+                                                                            : ['preservation', 'inoculation', 'incubation', 'fruiting', 'harvest'].includes(originalId)
+                                                                                ? 'max-h-[50vh] md:h-[55vh] xl:h-[65vh] 2xl:h-[70vh] h-auto'
                                                                                 : 'max-h-[45vh] md:max-h-[min(40vh,28vw)] xl:max-h-[min(50vh,33vw)] 2xl:max-h-[min(55vh,38vw)] h-auto'
                                                                             }`}
+                                                                        priority={originalId === 'preservation'}
+                                                                        placeholder="blur"
+                                                                        sizes="(max-width: 768px) 85vw, 40vw"
                                                                     />
                                                                 )}
-                                                                {stage.images?.[idx]?.captionKey && (
+                                                                {imageObj.captionKey && (
                                                                     <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">
-                                                                        {t(`Gallery.stages.${originalId}.captions.${stage.images[idx].captionKey}`)}
+                                                                        {t(`Gallery.stages.${originalId}.captions.${imageObj.captionKey}`)}
                                                                     </div>
                                                                 )}
                                                             </div>
@@ -433,8 +472,8 @@ export function Gallery() {
                                                         stage.count <= 4 ? 'grid-cols-2 md:grid-cols-2 md:grid-rows-2' :
                                                             'grid-cols-2 md:grid-cols-4 md:grid-rows-2'
                                                     }`}>
-                                                    {Array.from({ length: stage.count }).map((_, idx) => {
-                                                        const imageSrc = stage.images?.[idx]?.src || `/images/process/${originalId}_${idx + 1}.${stage.ext || 'svg'}`;
+                                                    {stage.images.map((imageObj, idx) => {
+                                                        const imageSrc = imageObj.src;
                                                         return (
                                                             <div
                                                                 key={idx}
@@ -452,12 +491,12 @@ export function Gallery() {
                                                                     fill
                                                                     className={`object-cover hover:scale-105 transition-transform duration-500 rounded-xl`}
                                                                     priority
-                                                                    unoptimized={imageSrc.toLowerCase().endsWith('.gif')}
+                                                                    placeholder="blur"
                                                                     sizes="(max-width: 768px) 50vw, 25vw"
                                                                 />
-                                                                {stage.images?.[idx]?.captionKey && (
+                                                                {imageObj.captionKey && (
                                                                     <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm p-3 text-center backdrop-blur-sm z-10">
-                                                                        {t(`Gallery.stages.${originalId}.captions.${stage.images[idx].captionKey}`)}
+                                                                        {t(`Gallery.stages.${originalId}.captions.${imageObj.captionKey}`)}
                                                                     </div>
                                                                 )}
                                                             </div>
@@ -522,7 +561,7 @@ export function Gallery() {
                         >
                             {isVideo(selectedImage) ? (
                                 <video
-                                    src={selectedImage}
+                                    src={selectedImage as string}
                                     autoPlay
                                     loop
                                     muted
@@ -536,7 +575,6 @@ export function Gallery() {
                                     fill
                                     className="object-contain"
                                     priority
-                                    unoptimized={selectedImage.toLowerCase().endsWith('.gif')}
                                 />
                             )}
                         </div>

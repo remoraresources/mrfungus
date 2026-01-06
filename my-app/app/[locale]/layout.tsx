@@ -100,7 +100,7 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   preconnect('https://maps.googleapis.com');
-  preconnect('https://maps.gstatic.com');
+
 
   return (
     <html lang={locale}>
