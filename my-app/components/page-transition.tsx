@@ -10,7 +10,7 @@ export default function PageTransition({
 }) {
     return (
         <motion.div
-            initial={{ opacity: 0 }}
+            initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, ease: 'easeInOut' }}
             className="no-mobile-fade"
