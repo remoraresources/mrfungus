@@ -46,13 +46,12 @@ export function Hero() {
             </div>
             <div className="container mx-auto px-4 relative z-10 text-center">
                 {/* LCP Optimization: Removed ScrollAnimation delay for title */}
-                <h1 className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg animate-fade-in-up">{t('title')}</h1>
-
-                <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8 text-gray-200 drop-shadow-lg animate-fade-in-up delay-200">
+                <h1 className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg">{t('title')}</h1>
+                <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8 text-gray-200 drop-shadow-lg">
                     {t('subtitle')}
                 </p>
 
-                <div className="animate-fade-in-up delay-500">
+                <div>
                     <MotionLink
                         href="/#about"
                         onClick={handleDiscoverClick}
