@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useMemo } from 'react';
 import Image, { StaticImageData } from "next/image"
 import { ScrollAnimation } from "@/components/ScrollAnimation"
 import { useTranslations, useLocale } from 'next-intl';
@@ -125,11 +125,12 @@ export function Gallery() {
 
     // Create clones for infinite loop effect
     // buffer at start (last item) and buffer at end (first item)
-    const extendedStages = [
+    // Memoize to prevent re-creation on every render, which might block main thread during scroll
+    const extendedStages = useMemo(() => [
         { ...stages[stages.length - 1], id: stages[stages.length - 1].id + '-clone-start' },
         ...stages,
         { ...stages[0], id: stages[0].id + '-clone-end' }
-    ];
+    ], []);
 
     // ResizeObserver to keep track of container width
     useEffect(() => {
